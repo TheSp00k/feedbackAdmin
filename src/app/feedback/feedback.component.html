@@ -1,0 +1,210 @@
+<div id="content">
+
+	<div class="row">
+		<sa-big-breadcrumbs [items]="['Feedback']" icon="comment-o"
+							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	</div>
+	<!-- NEW WIDGET START -->
+	<article class="col-sm-12 col-md-12 col-lg-12">
+
+		<!-- Widget ID (each widget will need unique ID)-->
+		<sa-widget class="well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+				   [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+			<!-- widget options:
+			usage: <sa-widget [editbutton]="false">
+
+			[colorbutton]="false"
+			[editbutton]="false"
+			[togglebutton]="false"
+			[deletebutton]="false"
+			[fullscreenbutton]="false"
+			[custombutton]="false"
+			[collapsed]="true"
+			[sortable]="false"
+
+			-->
+			<!-- widget div-->
+			<div>
+				<!-- widget content -->
+				<div class="widget-body">
+					<ul id="myTab1" class="nav nav-tabs bordered">
+						<li [class.active]="state.tabs.demo1 == 0">
+							<a (click)="state.tabs.demo1 = 0">Moderation</a>
+						</li>
+						<li [class.active]="state.tabs.demo1 == 1">
+							<a (click)="state.tabs.demo1 = 1">Accepted</a>
+						</li>
+						<li [class.active]="state.tabs.demo1 == 2">
+							<a (click)="state.tabs.demo1 = 2">Rejected</a>
+						</li>
+					</ul>
+
+					<tabset>
+						<tab [active]="state.tabs.demo1 == 0">
+
+							<div class="table-responsive">
+								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
+									<thead>
+									<tr>
+										<th data-hide="mobile-p">Posted</th>
+										<th data-hide="mobile-p">Product</th>
+										<th>Rating</th>
+										<th data-class="expand">Reviewer</th>
+										<th>Menu</th>
+									</tr>
+									</thead>
+									<tbody>
+									<!--ngFor let-asset [ngForOf]="assets" [ngForTrackBy]="assetTrackBy"-->
+									<template ngFor let-feedback [ngForOf]="moderationFeedbacks">
+										<tr>
+											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+											<td>
+												<div class="feedback-product-img">
+													<img src="assets/img/superbox/superbox-full-15.jpg" class="img-responsive" alt="assets/img">
+												</div>
+												<div>
+													{{feedback.product.name}}
+												</div>
+											</td>
+
+											<td>{{feedback.totalratingscore}}</td>
+											<td>{{feedback.customer.name}}</td>
+											<td>menu</td>
+										</tr>
+										<tr>
+											<td colspan="5">
+												<div><strong>{{feedback.commentheader}}</strong></div>
+												<div>{{feedback.commentcontent}}</div>
+											</td>
+										</tr>
+									</template>
+
+									</tbody>
+									<tfoot>
+									<tr>
+										<th>Posted</th>
+										<th>Product</th>
+										<th>Rating</th>
+										<th>Reviewer</th>
+										<th>Menu</th>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+						</tab>
+						<tab [active]="state.tabs.demo1 == 1">
+							<div class="table-responsive">
+								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
+									<thead>
+									<tr>
+										<th data-hide="mobile-p">Posted</th>
+										<th data-hide="mobile-p">Product</th>
+										<th>Rating</th>
+										<th data-class="expand">Reviewer</th>
+										<th>Menu</th>
+									</tr>
+									</thead>
+									<tbody>
+									<!--ngFor let-asset [ngForOf]="assets" [ngForTrackBy]="assetTrackBy"-->
+									<template ngFor let-feedback [ngForOf]="acceptedFeedbacks">
+										<tr>
+											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+											<td>
+												<div class="feedback-product-img">
+													<img src="assets/img/superbox/superbox-full-15.jpg" class="img-responsive" alt="assets/img">
+												</div>
+												<div>
+													{{feedback.product.name}}
+												</div>
+											</td>
+
+											<td>{{feedback.totalratingscore}}</td>
+											<td>{{feedback.customer.name}}</td>
+											<td>menu</td>
+										</tr>
+										<tr>
+											<td colspan="5">
+												<div><strong>{{feedback.commentheader}}</strong></div>
+												<div>{{feedback.commentcontent}}</div>
+											</td>
+										</tr>
+									</template>
+
+									</tbody>
+									<tfoot>
+									<tr>
+										<th>Posted</th>
+										<th>Product</th>
+										<th>Rating</th>
+										<th>Reviewer</th>
+										<th>Menu</th>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+						</tab>
+						<tab [active]="state.tabs.demo1 == 2">
+							<div class="table-responsive">
+								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
+									<thead>
+									<tr>
+										<th data-hide="mobile-p">Posted</th>
+										<th data-hide="mobile-p">Product</th>
+										<th>Rating</th>
+										<th data-class="expand">Reviewer</th>
+										<th>Menu</th>
+									</tr>
+									</thead>
+									<tbody>
+									<!--ngFor let-asset [ngForOf]="assets" [ngForTrackBy]="assetTrackBy"-->
+									<template ngFor let-feedback [ngForOf]="rejectedFeedbacks">
+										<tr>
+											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+											<td>
+												<div class="feedback-product-img">
+													<img src="assets/img/superbox/superbox-full-15.jpg" class="img-responsive" alt="assets/img">
+												</div>
+												<div>
+													{{feedback.product.name}}
+												</div>
+											</td>
+
+											<td>{{feedback.totalratingscore}}</td>
+											<td>{{feedback.customer.name}}</td>
+											<td>menu</td>
+										</tr>
+										<tr>
+											<td colspan="5">
+												<div><strong>{{feedback.commentheader}}</strong></div>
+												<div>{{feedback.commentcontent}}</div>
+											</td>
+										</tr>
+									</template>
+
+									</tbody>
+									<tfoot>
+									<tr>
+										<th>Posted</th>
+										<th>Product</th>
+										<th>Rating</th>
+										<th>Reviewer</th>
+										<th>Menu</th>
+									</tr>
+									</tfoot>
+								</table>
+							</div>
+						</tab>
+					</tabset>
+
+				</div>
+				<!-- end widget content -->
+
+			</div>
+			<!-- end widget div -->
+
+		</sa-widget>
+		<!-- end widget -->
+
+	</article>
+	<!-- WIDGET END -->
+</div>
