@@ -23,10 +23,15 @@ export const routes: Routes = [
 
 
       },
-      {path: 'dashboard', loadChildren: 'app/+home/home.module#HomeModule',data:{pageTitle: 'Dashboard'}},      
+      {path: 'dashboard', loadChildren: 'app/+home/home.module#HomeModule',data:{pageTitle: 'Dashboard'}},
       {path: 'feedback', component: FeedbackComponent, loadChildren: 'app/feedback/feedback.module#FeedbackModule',data:{pageTitle: 'Feedback'}},
+<<<<<<< HEAD
     //   {path: 'settings', component: SettingsComponent, data:{pageTitle: 'Settings'}},
+      // {path: 'settings', component: SettingsComponent, loadChildren: 'app/settings/settings.module#SettingsModule',data:{pageTitle: 'Settings'}},
+=======
+      // {path: 'settings', component: SettingsComponent, data:{pageTitle: 'Settings'}},
       {path: 'settings', component: SettingsComponent, loadChildren: 'app/settings/settings.module#SettingsModule',data:{pageTitle: 'Settings'}},
+>>>>>>> f399a029217643b8330001c8bc866e7b6d1c7698
       // {path: 'smartadmin', loadChildren: 'app/+smartadmin-intel/smartadmin-intel.module#SmartadminIntelModule',data:{pageTitle: 'Smartadmin'}},
       // {path: 'app-views', loadChildren: 'app/+app-views/app-views.module#AppViewsModule',data:{pageTitle: 'App Views'}},
       // {path: 'calendar', loadChildren: 'app/+calendar/calendar.module#CalendarModule',data:{pageTitle: 'Calendar'}},

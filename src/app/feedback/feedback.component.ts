@@ -17,7 +17,6 @@ import 'rxjs/add/operator/catch';
     providers: [FeedbackService]
 })
 export class FeedbackComponent implements OnInit {
-
     public dateFrom;
     public dateTo;
     public moderationFeedbacks;
@@ -30,6 +29,42 @@ export class FeedbackComponent implements OnInit {
         }
     };
 
+    public acceptFeedback = (feedback, from) => {
+        feedback.approved = true;
+        feedback.rejected = null;
+        let feedbackId = feedback.id;
+        this.feedbackService.changeFeedbackStatus(feedbackId, feedback)
+            .subscribe(result => {
+                this[from] = this[from].filter((obj) => {
+                    return obj.id !== result.id;
+                });
+                this.acceptedFeedbacks.push(feedback);
+            });
+    };
+    public rejectFeedback = (feedback, from) => {
+        feedback.approved = null;
+        feedback.rejected = true;
+        let feedbackId = feedback.id;
+        this.feedbackService.changeFeedbackStatus(feedbackId, feedback)
+            .subscribe(result => {
+                this[from] = this[from].filter((obj) => {
+                    return obj.id !== result.id;
+                });
+                this.rejectedFeedbacks.push(feedback);
+            });
+    };
+    public moderateFeedback = (feedback, from) => {
+        feedback.approved = null;
+        feedback.rejected = null;
+        let feedbackId = feedback.id;
+        this.feedbackService.changeFeedbackStatus(feedbackId, feedback)
+            .subscribe(result => {
+                this[from] = this[from].filter((obj) => {
+                    return obj.id !== result.id;
+                });
+                this.moderationFeedbacks.push(feedback);
+            });
+    };
 
     constructor(private feedbackService:FeedbackService) {
         this.init();

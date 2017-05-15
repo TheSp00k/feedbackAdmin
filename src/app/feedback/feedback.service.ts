@@ -13,19 +13,28 @@ export class FeedbackService {
 
     }
 
-    getModerationFeedbacks(clientid: string, dateFrom: string, dateTo: string): Observable<any> {
+    changeFeedbackStatus(feedbackId, feedback):Observable<any> {
+        return this.http.put(`//localhost:3000/api/feedbacks/${feedbackId}`, feedback)
+            .map((response:Response) => {
+                return response.json();
+            });
+    }
+
+    getModerationFeedbacks(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
         return this.http.get(`//localhost:3000/api/feedbacks?filter={"include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"rejected": null}, {"approved": null}]}}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
-    getAcceptedFeedbacks(clientid: string, dateFrom: string, dateTo: string): Observable<any> {
+
+    getAcceptedFeedbacks(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
         return this.http.get(`//localhost:3000/api/feedbacks?filter={"include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"rejected": null}, {"approved": "1"}]}}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
-    getRejectedFeedbacks(clientid: string, dateFrom: string, dateTo: string): Observable<any> {
+
+    getRejectedFeedbacks(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
         return this.http.get(`//localhost:3000/api/feedbacks?filter={"include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"rejected": "1"}, {"approved": null}]}}`)
             .map((response:Response) => {
                 return response.json();
