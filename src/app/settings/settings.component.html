@@ -1,11 +1,157 @@
 <div id="content">
 	<div class="row">
-		<sa-big-breadcrumbs [items]="['Settings']" icon="comment-o"
+		<sa-big-breadcrumbs [items]="['Settings']" icon="cog"
 							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
 	</div>
 	<article class="col-sm-12 col-md-12 col-lg-12">
 		<sa-widget class="well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
 				   [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+			<sa-widget [colorbutton]="false" [editbutton]="false" [custombutton]="false">
+
+				<header>
+					<span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+					<h2>x-ediable </h2>
+
+				</header>
+
+				<!-- widget div-->
+				<div>
+
+
+					<!-- widget content -->
+					<div class="widget-body">
+						<table id="client" class="table table-bordered table-striped"
+							   style="clear:both">
+							<tbody>
+							<tr>
+								<td style="width:30%">Request delay</td>
+								<td style="width:35%">
+									<x-editable
+											type="text"
+											originalTitle="Enter username"
+											[mode]="inline"
+											[(model)]="client.requestdelay"
+											className="editable editable-click">
+									</x-editable>
+
+								</td>
+							</tr>
+							<tr>
+								<td>Request time</td>
+								<td>
+									<x-editable
+											type="text"
+											placement="right"
+											[mode]="inline"
+											placeholder="Required"
+											originalTitle="Enter your firstname"
+											className="editable editable-click editable-empty"
+											[(model)]="client.requesttime"
+									>{{client.requesttime}}
+									</x-editable>
+								</td>
+							</tr>
+							<tr>
+								<td>Send requests</td>
+								<td>
+									<x-editable
+											type="select"
+											value="model.sex"
+											originalTitle="Select sex"
+											[mode]="options.mode"
+											[disabled]="options.disabled"
+											[(model)]="model.sex"
+											className="editable editable-click"
+											style="color:rgb(128, 128, 128)">
+									</x-editable>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Combodate (date)</td>
+								<td>
+									<x-editable
+											[mode]="options.mode"
+											[disabled]="options.disabled"
+											type="combodate"
+											[(model)]="model.dob"
+											value="1984-05-15"
+											originalTitle="Select Date of birth"
+											viewformat="DD/MM/YYYY"
+											format="YYYY-MM-DD"
+											[template]="'D / MMM / YYYY'"
+											placement="right"
+											pk="1"
+											className="editable editable-click"></x-editable>
+								</td>
+								<td>{{model.dob }}</td>
+							</tr>
+
+							<tr>
+								<td>Combodate (datetime)</td>
+								<td>
+									<x-editable
+											[mode]="options.mode"
+											[disabled]="options.disabled"
+											type="combodate"
+											[(model)]="model.event"
+											value="1984-05-15"
+											originalTitle="Setup event date and time"
+											viewformat="MMM D, YYYY, HH:mm"
+											format="YYYY-MM-DD HH:mm"
+											[template]="'D MMM YYYY  HH:mm'"
+											placement="right"
+											pk="1"
+											className="editable editable-empty editable-click"></x-editable>
+								</td>
+								<td>{{model.event}}</td>
+							</tr>
+
+
+							<tr>
+								<td>Textarea, buttons below. Submit by <i>ctrl+enter</i></td>
+								<td>
+									<x-editable
+											[mode]="options.mode"
+											[disabled]="options.disabled"
+											type="textarea"
+											[(model)]="model.comments"
+											originalTitle="Enter comments"
+											placeholder="Your comments here..."
+											className="editable editable-pre-wrapped editable-click"></x-editable>
+								</td>
+								<td>{{model.comments}}</td>
+							</tr>
+
+
+							<tr>
+								<td>Checklist</td>
+								<td>
+									<x-editable
+											[mode]="options.mode"
+											[disabled]="options.disabled"
+											type="checklist"
+											[(model)]="model.fruits"
+											[source]="fruits"
+											value="{{model.fruits}}"
+											originalTitle="Select fruits"
+											className="editable editable-click"></x-editable>
+								</td>
+
+								<td>{{model.fruits}}</td>
+							</tr>
+
+							</tbody>
+						</table>
+
+
+					</div>
+					<!-- end widget content -->
+
+				</div>
+				<!-- end widget div -->
+
+			</sa-widget>
 
 		</sa-widget>
 	</article>

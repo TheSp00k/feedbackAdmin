@@ -9,10 +9,30 @@ import {SettingsService} from "./settings.service";
 })
 export class SettingsComponent implements OnInit {
 
-    constructor() {
+    public client;
+
+    public saveClientSettings = () => {
+        this.settingsService.saveClient(this.client)
+            .subscribe(result => {
+                console.log(result);
+            });
+    };
+
+    constructor(private settingsService:SettingsService) {
+        this.init();
+    }
+
+    init() {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.settingsService.getClient(currentUser.clientid)
+            .subscribe(result => {
+                console.log(result);
+                this.client = result;
+            });
     }
 
     ngOnInit() {
 
     }
+
 }
