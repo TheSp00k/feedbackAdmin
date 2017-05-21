@@ -18,7 +18,7 @@ import {AppState, InternalStateType} from './app.service';
 import {CoreModule} from "./core/core.module";
 import {SmartadminLayoutModule} from "./shared/layout/layout.module";
 import {FeedbackModule} from "./feedback/feedback.module";
-// import {SettingsModule} from "./settings/settings.module";
+import {SettingsModule} from "./settings/settings.module";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -49,7 +49,7 @@ type StoreType = {
         CoreModule,
         SmartadminLayoutModule,
         FeedbackModule,
-        // SettingsModule,
+        SettingsModule,
 
 
         routing
