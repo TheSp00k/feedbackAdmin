@@ -15,8 +15,6 @@
 
 				<!-- widget div-->
 				<div>
-
-
 					<!-- widget content -->
 					<div class="widget-body">
 						<form *ngIf="client">
@@ -26,30 +24,30 @@
 										<label>Company name</label>
 										<input class="form-control" [(ngModel)]="client.name" name="name" placeholder="Company name" type="text">
 									</div>
-									<div class="form-group smart-form">
-										<label class="toggle">
-											<input type="checkbox" [(ngModel)]="client.sendrequests" name="sendrequests" checked="checked">
-											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Cassandra</label>
+									<div class="form-group">
+										<label>Request delay</label>
+										<input class="form-control spinner-both" [(ngModel)]="client.requestdelay" (onSpin)="onSpin($event)" name="requestdelay" value="1" saUiSpinner>
 									</div>
 								</div>
 								<div class="col col-xs-12 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label>Requset time</label>
 										<div class="input-group">
-											<input class="form-control" [(ngModel)]="client.requesttime" name="requesttime" smartClockpicker="{placement: 'bottom'}" type="text" placeholder="Select time" data-autoclose="true">
+											<input class="form-control" id="clockpicker" (onPicked)="onPicked($event)" [ngModel]="client.requesttime | date:'HH:mm'" name="requesttime" smartClockpicker type="text" placeholder="Select time" data-autoclose="true">
 											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
 										</div>
 									</div>
-									<div class="form-group">
-										<label>Request delay</label>
-										<input class="form-control spinner-both" [(ngModel)]="client.requestdelay" name="requestdelay" value="1" saUiSpinner>
+									<div class="form-group smart-form">
+										<label style="font-size: 13px; display: inline-block; float: right;" class="toggle">
+											<input type="checkbox" [(ngModel)]="client.sendrequests" name="sendrequests">
+											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Send feedback requests</label>
 									</div>
 								</div>
 							</fieldset>
 							<div class="form-actions">
 								<div class="row">
 									<div class="col-md-12">
-										<button type="submit" class="btn btn-primary">
+										<button type="submit" (click)="saveClientSettings(this)" class="btn btn-primary">
 											Submit
 										</button>
 										<button type="button" class="btn btn-default" onclick="window.history.back();">

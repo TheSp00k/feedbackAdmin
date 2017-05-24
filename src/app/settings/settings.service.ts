@@ -21,7 +21,7 @@ export class SettingsService {
     }
 
     saveClient(client):Observable<any> {
-        return this.http.put(`//localhost:3000/api/clients`, client)
+        return this.http.put(`//localhost:3000/api/clients/${client.id}`, client)
             .map((response:Response) => {
                 return response.json();
             })

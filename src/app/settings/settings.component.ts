@@ -1,7 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit} from '@angular/core';
 import {SettingsService} from "./settings.service";
-// import {DateFormatPipe} from 'angular2-moment';
-// declare var moment: any;
 
 @Component({
     selector: 'app-settings',
@@ -10,9 +8,15 @@ import {SettingsService} from "./settings.service";
     providers: [SettingsService]
 })
 export class SettingsComponent implements OnInit {
-
+    elementRef: ElementRef;
     public client;
-
+    
+    onPicked(time: Date) {
+        this.client.requesttime = time;
+    };
+    onSpin(days: number) {
+        this.client.requestdelay = days;
+    };
     public saveClientSettings = () => {
         this.settingsService.saveClient(this.client)
             .subscribe(result => {
@@ -20,7 +24,8 @@ export class SettingsComponent implements OnInit {
             });
     };
 
-    constructor(private settingsService:SettingsService) {
+    constructor(private settingsService:SettingsService, @Inject(ElementRef) elementRef: ElementRef) {
+        this.elementRef = elementRef;
         this.init();
     }
 
@@ -29,7 +34,6 @@ export class SettingsComponent implements OnInit {
         this.settingsService.getClient(currentUser.clientid)
             .subscribe(result => {
                 console.log(result);
-                // result.requesttime = moment(result.requesttime).format('h:mm');
                 this.client = result;
             });
     }
