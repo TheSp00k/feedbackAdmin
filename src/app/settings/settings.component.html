@@ -4,8 +4,8 @@
 	</div>
 	<article class="col-sm-12 col-md-12 col-lg-12">
 		<sa-widget class="well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
-		 [custombutton]="false" [sortable]="false">
-			<sa-widget [colorbutton]="false" [editbutton]="false" [custombutton]="false">
+				   [custombutton]="false" [sortable]="false">
+			<!--<sa-widget [colorbutton]="false" [editbutton]="false" [custombutton]="false">-->
 
 				<header>
 					<span class="widget-icon"> <i class="fa fa-edit"></i> </span>
@@ -19,32 +19,46 @@
 
 					<!-- widget content -->
 					<div class="widget-body">
-						<form class="form-horizontal">
-
+						<form *ngIf="client">
 							<fieldset>
-								<div class="col-xs-12 col-md-6 col-lg-6">
-									<div class="form-group col-xs-12">
+								<div class="col col-xs-12 col-md-6 col-lg-6">
+									<div class="form-group">
 										<label>Company name</label>
-										<input class="form-control" placeholder="Company name" type="text">
+										<input class="form-control" [(ngModel)]="client.name" name="name" placeholder="Company name" type="text">
+									</div>
+									<div class="form-group smart-form">
+										<label class="toggle">
+											<input type="checkbox" [(ngModel)]="client.sendrequests" name="sendrequests" checked="checked">
+											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Cassandra</label>
 									</div>
 								</div>
-								<div class="col-xs-12 col-md-6 col-lg-6">
+								<div class="col col-xs-12 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label>Requset time</label>
 										<div class="input-group">
-											<input class="form-control" smartClockpicker="{placement: 'bottom'}" type="text" placeholder="Select time" data-autoclose="true">
+											<!--<input class="form-control" [(ngModel)]="client.requesttime" name="requesttime" smartClockpicker="{placement: 'bottom'}" type="text" placeholder="Select time" data-autoclose="true">-->
 											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
 										</div>
 									</div>
 									<div class="form-group">
 										<label>Request delay</label>
-										<input class="form-control spinner-both" name="spinner-currency" value="1" saUiSpinner>
+										<input class="form-control spinner-both" [(ngModel)]="client.requestdelay" name="requestdelay" value="1" saUiSpinner>
 									</div>
 								</div>
 							</fieldset>
+							<div class="form-actions">
+								<div class="row">
+									<div class="col-md-12">
+										<button type="submit" class="btn btn-primary">
+											Submit
+										</button>
+										<button type="button" class="btn btn-default" onclick="window.history.back();">
+											Back
+										</button>
+									</div>
+								</div>
+							</div>
 						</form>
-
-
 
 
 					</div>
@@ -53,7 +67,7 @@
 				</div>
 				<!-- end widget div -->
 
-			</sa-widget>
+			<!--</sa-widget>-->
 
 		</sa-widget>
 	</article>

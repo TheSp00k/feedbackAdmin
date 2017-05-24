@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SettingsService} from "./settings.service";
+// import {DateFormatPipe} from 'angular2-moment';
+// declare var moment: any;
 
 @Component({
     selector: 'app-settings',
@@ -27,6 +29,7 @@ export class SettingsComponent implements OnInit {
         this.settingsService.getClient(currentUser.clientid)
             .subscribe(result => {
                 console.log(result);
+                // result.requesttime = moment(result.requesttime).format('h:mm');
                 this.client = result;
             });
     }
