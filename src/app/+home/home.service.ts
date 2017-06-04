@@ -15,19 +15,19 @@ export class HomeService {
     }
 
     getTotalInvitations(clientid: string, dateFrom: string, dateTo: string): Observable<any> {
-        return this.http.get(`//localhost:3000/api/requests/count?where={"clientid": "${clientid}"}`)
+        return this.http.get(`//localhost:3000/api/requests/count?where={"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}]}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
     getTotalVerifiedReviews(clientid:string, dateFrom: string, dateTo: string): Observable<any> {
-        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"clientid": "${clientid}"}`)
+        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}]}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
     getTotalRating(clientid:string, dateFrom: string, dateTo: string): Observable<any> {
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"where":{"and":[{"clientid": "${clientid}"}, {"approved": 1}]}}`)
+        return this.http.get(`//localhost:3000/api/feedbacks?filter={"where":{"and":[{"clientid": "${clientid}"}, {"approved": 1}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}]}}`)
             .map((response:Response) => {
                 let feedbacks = response.json();
                 let totalScoreSum = 0;

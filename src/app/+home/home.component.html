@@ -11,7 +11,7 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<div class="input-group">
-									<input class="form-control" id="from" (onSelect)="setDateFilter()" [(ngModel)]="dateFrom" #send_date="ngModel" [saUiDatepicker]="{
+									<input class="form-control" id="from" name="startdate" (onMinPicked)="onMinPicked($event)" [(ngModel)]="dateFrom" #send_date="ngModel" [saUiDatepicker]="{
                                     dateFormat: 'yy-mm-dd',
                                     defaultDate: '+1w',
                                     changesMonth: true,
@@ -26,7 +26,7 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<div class="input-group">
-									<input class="form-control" id="to" [(ngModel)]="dateTo" [saUiDatepicker]="{
+									<input class="form-control" id="to" name="enddate" (onMaxPicked)="onMaxPicked($event)" [(ngModel)]="dateTo" [saUiDatepicker]="{
                                     dateFormat: 'yy-mm-dd',
                                     defaultDate: '+3w',
                                     changesMonth: true,

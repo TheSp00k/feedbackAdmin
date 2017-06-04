@@ -1,62 +1,72 @@
-import {Directive, ElementRef, OnInit, Input} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, EventEmitter, Output} from '@angular/core';
 
 declare var $:any;
 
 @Directive({
-  selector: '[saUiDatepicker]'
+    selector: '[saUiDatepicker]'
 })
 export class UiDatepickerDirective implements OnInit {
 
-  @Input() saUiDatepicker:any;
+    @Input() saUiDatepicker:any;
+    @Output() onMinPicked = new EventEmitter<Date>();
+    @Output() onMaxPicked = new EventEmitter<Date>();
 
-  constructor(private el:ElementRef) {
-  }
-
-  ngOnInit() {
-    let onSelectCallbacks = [];
-    let saUiDatepicker = this.saUiDatepicker || {};
-    let element = $(this.el.nativeElement);
-
-    if (saUiDatepicker.minRestrict) {
-      onSelectCallbacks.push((selectedDate)=> {
-        $(saUiDatepicker.minRestrict).datepicker('option', 'minDate', selectedDate);
-      });
-    }
-    if (saUiDatepicker.maxRestrict) {
-      onSelectCallbacks.push((selectedDate)=> {
-        $(saUiDatepicker.maxRestrict).datepicker('option', 'maxDate', selectedDate);
-      });
+    constructor(private el:ElementRef) {
     }
 
-    //Let others know about changes to the data field
-    onSelectCallbacks.push((selectedDate) => {
-      element.triggerHandler("change");
+    ngOnInit() {
+        let onSelectCallbacks = [];
+        let saUiDatepicker = this.saUiDatepicker || {};
+        let element = $(this.el.nativeElement);
 
-      let form = element.closest('form');
+        if (saUiDatepicker.minRestrict) {
+            onSelectCallbacks.push((selectedDate)=> {
+                $(saUiDatepicker.minRestrict).datepicker('option', 'minDate', selectedDate);
+            });
+            onSelectCallbacks.push((selectedDate)=> {
+                this.onMinPicked.emit(selectedDate);
+            });
 
-      if (typeof form.bootstrapValidator == 'function') {
-        try {
-          form.bootstrapValidator('revalidateField', element);
-        } catch (e) {
-          console.log(e.message)
         }
-      }
-    });
+        if (saUiDatepicker.maxRestrict) {
+            onSelectCallbacks.push((selectedDate)=> {
+                $(saUiDatepicker.maxRestrict).datepicker('option', 'maxDate', selectedDate);
+            });
+            onSelectCallbacks.push((selectedDate)=> {
+                this.onMaxPicked.emit(selectedDate);
+            });
+        }
 
-    let options = $.extend(saUiDatepicker, {
-      prevText: '<i class="fa fa-chevron-left"></i>',
-      nextText: '<i class="fa fa-chevron-right"></i>',
-      onSelect: (selectedDate) =>{
-        onSelectCallbacks.forEach((callback) =>{
-          callback.call(callback, selectedDate)
-        })
-      }
-    });
+        //Let others know about changes to the data field
+        onSelectCallbacks.push((selectedDate) => {
+            element.triggerHandler("change");
 
-    element.datepicker(options);
+            let form = element.closest('form');
+
+            if (typeof form.bootstrapValidator == 'function') {
+                try {
+                    form.bootstrapValidator('revalidateField', element);
+                } catch (e) {
+                    console.log(e.message)
+                }
+            }
+            console.log('asd');
+        });
+
+        let options = $.extend(saUiDatepicker, {
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onSelect: (selectedDate) => {
+                onSelectCallbacks.forEach((callback) => {
+                    callback.call(callback, selectedDate)
+                })
+            }
+        });
+
+        element.datepicker(options);
 
 
-  }
+    }
 
 
 }

@@ -29,6 +29,29 @@ export class FeedbackComponent implements OnInit {
         }
     };
 
+    onMinPicked(date: Date) {
+        console.log(date);
+        this.dateFrom = date;
+        let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
+        if (!dateFilter) {
+            dateFilter = {};
+        }
+        dateFilter.dateFrom = this.dateFrom;
+        localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
+        this.init();
+    }
+    onMaxPicked(date: Date) {
+        this.dateTo = date;
+        let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
+        if (!dateFilter) {
+            dateFilter = {};
+        }
+        dateFilter.dateTo = this.dateTo;
+        localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
+        this.init();
+    }
+
+
     public acceptFeedback = (feedback, from) => {
         feedback.approved = true;
         feedback.rejected = null;
@@ -67,6 +90,13 @@ export class FeedbackComponent implements OnInit {
     };
 
     constructor(private feedbackService:FeedbackService) {
+        let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
+        if (dateFilter && dateFilter.dateFrom) {
+            this.dateFrom = dateFilter.dateFrom;
+        }
+        if (dateFilter && dateFilter.dateTo) {
+            this.dateTo = dateFilter.dateTo;
+        }
         this.init();
     }
 
