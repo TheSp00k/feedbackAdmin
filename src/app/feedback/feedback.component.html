@@ -6,7 +6,7 @@
 							class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
 		<sa-widgets-grid>
 			<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<sa-widget [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
+				<sa-widget color="orange" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
 					<header>
 						<h2>Date range</h2>
 					</header>
@@ -71,19 +71,19 @@
 				<!-- widget content -->
 				<div class="widget-body">
 					<ul id="myTab1" class="nav nav-tabs bordered">
-						<li [class.active]="state.tabs.demo1 == 0">
-							<a (click)="state.tabs.demo1 = 0">Moderation</a>
+						<li [class.active]="state.tabs.current == 0">
+							<a (click)="changeTab(0)">Moderation</a>
 						</li>
-						<li [class.active]="state.tabs.demo1 == 1">
-							<a (click)="state.tabs.demo1 = 1">Accepted</a>
+						<li [class.active]="state.tabs.current == 1">
+							<a (click)="changeTab(1)">Accepted</a>
 						</li>
-						<li [class.active]="state.tabs.demo1 == 2">
-							<a (click)="state.tabs.demo1 = 2">Rejected</a>
+						<li [class.active]="state.tabs.current == 2">
+							<a (click)="changeTab(2)">Rejected</a>
 						</li>
 					</ul>
 
 					<tabset>
-						<tab [active]="state.tabs.demo1 == 0">
+						<tab [active]="state.tabs.current == 0">
 
 							<div class="table-responsive">
 								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
@@ -132,17 +132,34 @@
 									</tbody>
 									<tfoot>
 									<tr>
-										<th>Posted</th>
-										<th>Product</th>
-										<th>Rating</th>
-										<th>Reviewer</th>
-										<th>Menu</th>
+										<td colspan="5">
+											<div style="border: none;" class="widget-toolbar">
+												<ul *ngIf="totalModeratedPages > 1" class="pagination pagination-xs">
+													<li [ngClass]="{'disabled':currentPage == 1}">
+														<a (click)="goToPage('moderated', (currentPage - 1))">Prev</a>
+													</li>
+													<template ngFor let-moderateNr [ngForOf]="totalModeratedPagesArray">
+														<li [ngClass]="{'active':(currentPage == moderateNr)}">
+															<a (click)="goToPage('moderated', moderateNr)">{{moderateNr}}</a>
+														</li>
+													</template>
+													<li [ngClass]="{'disabled':currentPage >= totalModeratedPages}">
+														<a (click)="goToPage('moderated', (currentPage + 1))">Next</a>
+													</li>
+												</ul>
+											</div>
+										</td>
+										<!--<th>Posted</th>-->
+										<!--<th>Product</th>-->
+										<!--<th>Rating</th>-->
+										<!--<th>Reviewer</th>-->
+										<!--<th>Menu</th>-->
 									</tr>
 									</tfoot>
 								</table>
 							</div>
 						</tab>
-						<tab [active]="state.tabs.demo1 == 1">
+						<tab [active]="state.tabs.current == 1">
 							<div class="table-responsive">
 								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
 									<thead>
@@ -190,17 +207,34 @@
 									</tbody>
 									<tfoot>
 									<tr>
-										<th>Posted</th>
-										<th>Product</th>
-										<th>Rating</th>
-										<th>Reviewer</th>
-										<th>Menu</th>
+										<td colspan="5">
+											<div style="border: none;" class="widget-toolbar">
+												<ul *ngIf="totalAcceptedPages > 1" class="pagination pagination-xs">
+													<li [ngClass]="{'disabled':currentPage == 1}">
+														<a (click)="goToPage('accepted', (currentPage - 1))">Prev</a>
+													</li>
+													<template ngFor let-acceptNr [ngForOf]="totalAcceptedPagesArray">
+														<li [ngClass]="{'active':(currentPage == acceptNr)}">
+															<a (click)="goToPage('accepted', acceptNr)">{{acceptNr}}</a>
+														</li>
+													</template>
+													<li [ngClass]="{'disabled':currentPage >= totalAcceptedPages}">
+														<a (click)="goToPage('accepted', (currentPage + 1))">Next</a>
+													</li>
+												</ul>
+											</div>
+										</td>
+										<!--<th>Posted</th>-->
+										<!--<th>Product</th>-->
+										<!--<th>Rating</th>-->
+										<!--<th>Reviewer</th>-->
+										<!--<th>Menu</th>-->
 									</tr>
 									</tfoot>
 								</table>
 							</div>
 						</tab>
-						<tab [active]="state.tabs.demo1 == 2">
+						<tab [active]="state.tabs.current == 2">
 							<div class="table-responsive">
 								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
 									<thead>
@@ -246,11 +280,28 @@
 									</tbody>
 									<tfoot>
 									<tr>
-										<th>Posted</th>
-										<th>Product</th>
-										<th>Rating</th>
-										<th>Reviewer</th>
-										<th>Menu</th>
+										<td colspan="5">
+											<div style="border: none;" class="widget-toolbar">
+												<ul *ngIf="totalRejectedPages > 1" class="pagination pagination-xs">
+													<li [ngClass]="{'disabled':currentPage == 1}">
+														<a (click)="goToPage('rejected', (currentPage - 1))">Prev</a>
+													</li>
+													<template ngFor let-rejectNr [ngForOf]="totalRejectedPagesArray">
+														<li [ngClass]="{'active':(currentPage == rejectNr)}">
+															<a (click)="goToPage('rejected', rejectNr)">{{rejectNr}}</a>
+														</li>
+													</template>
+													<li [ngClass]="{'disabled':currentPage >= totalRejectedPages}">
+														<a (click)="goToPage('rejected', (currentPage + 1))">Next</a>
+													</li>
+												</ul>
+											</div>
+										</td>
+										<!--<th>Posted</th>-->
+										<!--<th>Product</th>-->
+										<!--<th>Rating</th>-->
+										<!--<th>Reviewer</th>-->
+										<!--<th>Menu</th>-->
 									</tr>
 									</tfoot>
 								</table>

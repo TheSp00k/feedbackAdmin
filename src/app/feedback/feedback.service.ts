@@ -20,22 +20,40 @@ export class FeedbackService {
             });
     }
 
-    getModerationFeedbacks(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": null}, {"approved": null}]}}`)
+    getModerationFeedbacks(clientid:string, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
+        return this.http.get(`//localhost:3000/api/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"], "where": {"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": null}, {"approved": null}]}}`)
+            .map((response:Response) => {
+                return response.json();
+            });
+    };
+    getModerationFeedbacksCount(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
+        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": null}, {"approved": null}]}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
 
-    getAcceptedFeedbacks(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": null}, {"approved": "1"}]}}`)
+    getAcceptedFeedbacks(clientid:string, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
+        return this.http.get(`//localhost:3000/api/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": null}, {"approved": "1"}]}}`)
+            .map((response:Response) => {
+                return response.json();
+            });
+    };
+    getAcceptedFeedbacksCount(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
+        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": null}, {"approved": "1"}]}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
 
-    getRejectedFeedbacks(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": "1"}, {"approved": null}]}}`)
+    getRejectedFeedbacks(clientid:string, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
+        return this.http.get(`//localhost:3000/api/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": "1"}, {"approved": null}]}}`)
+            .map((response:Response) => {
+                return response.json();
+            });
+    };
+    getRejectedFeedbacksCount(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
+        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}, {"rejected": "1"}, {"approved": null}]}`)
             .map((response:Response) => {
                 return response.json();
             });

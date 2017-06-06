@@ -25,13 +25,13 @@
 										<input class="form-control" [(ngModel)]="client.name" name="name" placeholder="Company name" type="text">
 									</div>
 									<div class="form-group">
-										<label>Request delay</label>
+										<label>Request delay (days)</label>
 										<input class="form-control spinner-both" [(ngModel)]="client.requestdelay" (onSpin)="onSpin($event)" name="requestdelay" value="1" saUiSpinner>
 									</div>
 								</div>
 								<div class="col col-xs-12 col-md-6 col-lg-6">
 									<div class="form-group">
-										<label>Requset time</label>
+										<label>Feedback time to send</label>
 										<div class="input-group">
 											<input class="form-control" id="clockpicker" (onPicked)="onPicked($event)" [ngModel]="client.requesttime | date:'HH:mm'" name="requesttime" smartClockpicker type="text" placeholder="Select time" data-autoclose="true">
 											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
@@ -43,15 +43,19 @@
 											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Send feedback requests</label>
 									</div>
 								</div>
+								<div class="col col-xs-12 col-md-6 col-lg-6">
+									<div class="form-group smart-form">
+										<label style="font-size: 13px; display: inline-block; float: right;" class="toggle">
+											<input type="checkbox" [(ngModel)]="client.displaywidget" name="displaywidget">
+											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Display widget</label>
+									</div>
+								</div>
 							</fieldset>
 							<div class="form-actions">
 								<div class="row">
 									<div class="col-md-12">
 										<button type="submit" (click)="saveClientSettings(this)" class="btn btn-primary">
 											Submit
-										</button>
-										<button type="button" class="btn btn-default" onclick="window.history.back();">
-											Back
 										</button>
 									</div>
 								</div>

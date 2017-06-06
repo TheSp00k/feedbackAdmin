@@ -20,16 +20,35 @@ export class FeedbackComponent implements OnInit {
     public dateFrom;
     public dateTo;
     public moderationFeedbacks;
+    public moderationFeedbacksCount;
     public acceptedFeedbacks;
+    public acceptedFeedbacksCount;
     public rejectedFeedbacks;
+    public rejectedFeedbacksCount;
+    public pageLimit = 10;
+    public pageOffset = 0;
+    public totalModeratedPages;
+    public totalModeratedPagesArray;
+    public totalAcceptedPages;
+    public totalAcceptedPagesArray;
+    public totalRejectedPages;
+    public totalRejectedPagesArray;
+    public currentPage = 1;
+    public currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     public state:any = {
         tabs: {
-            demo1: 0
+            current: 0
         }
     };
 
-    onMinPicked(date: Date) {
+    public changeTab = (nr) => {
+        this.state.tabs.current = nr;
+        this.pageOffset = 0;
+        this.currentPage = 1;
+    }
+    
+    onMinPicked(date:Date) {
         console.log(date);
         this.dateFrom = date;
         let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
@@ -40,7 +59,8 @@ export class FeedbackComponent implements OnInit {
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
     }
-    onMaxPicked(date: Date) {
+
+    onMaxPicked(date:Date) {
         this.dateTo = date;
         let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
         if (!dateFilter) {
@@ -50,6 +70,64 @@ export class FeedbackComponent implements OnInit {
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
     }
+
+    public calculatePage = () => {
+        this.pageOffset = this.pageLimit * this.currentPage;
+
+        this.totalAcceptedPages = this.acceptedFeedbacksCount / this.pageLimit;
+        this.totalRejectedPages = this.rejectedFeedbacksCount / this.pageLimit;
+        this.totalModeratedPages = this.moderationFeedbacksCount / this.pageLimit;
+
+        console.log(this.acceptedFeedbacksCount);
+        console.log(this.totalAcceptedPages);
+        console.log(this.totalModeratedPages);
+        console.log(this.totalRejectedPages);
+        if (this.totalAcceptedPages % 1 > 0) {
+            this.totalAcceptedPages = parseInt(this.totalAcceptedPages) + 1;
+        }
+        if (this.totalRejectedPages % 1 > 0) {
+            this.totalRejectedPages = parseInt(this.totalRejectedPages) + 1;
+        }
+        if (this.totalModeratedPages % 1 > 0) {
+            this.totalModeratedPages = parseInt(this.totalModeratedPages) + 1;
+        }
+        console.log(this.totalAcceptedPages);
+        console.log(this.totalModeratedPages);
+        console.log(this.totalRejectedPages);
+        // this.totalAcceptedPages = Array(this.totalAcceptedPages).fill().map((x,i)=>i);
+        // this.totalRejectedPages = Array(this.totalRejectedPages).fill().map((x,i)=>i);
+        // this.totalModeratedPages = Array(this.totalModeratedPages).fill().map((x,i)=>i);
+
+    };
+
+    public goToPage = (type, page) => {
+        if (type == 'moderated') {
+            if (page <= this.totalModeratedPages && page != 0) {
+                this.pageOffset = (page * this.pageLimit) - this.pageLimit;
+                this.currentPage = page;
+                this.getModerationFeedbacks();
+                this.getModerationFeedbacksCount();
+            }
+        }
+        if (type == 'accepted') {
+            if (page <= this.totalAcceptedPages && page != 0) {
+                this.pageOffset = (page * this.pageLimit) - this.pageLimit;
+                this.currentPage = page;
+                this.getAcceptedFeedbacks();
+                this.getAcceptedFeedbacksCount();
+            }
+        }
+        if (type == 'rejected') {
+            if (page <= this.totalRejectedPages && page != 0) {
+                this.pageOffset = (page * this.pageLimit) - this.pageLimit;
+                this.currentPage = page;
+                this.getRejectedFeedbacks();
+                this.getRejectedFeedbacksCount();
+            }
+        }
+
+
+    };
 
 
     public acceptFeedback = (feedback, from) => {
@@ -61,7 +139,14 @@ export class FeedbackComponent implements OnInit {
                 this[from] = this[from].filter((obj) => {
                     return obj.id !== result.id;
                 });
-                this.acceptedFeedbacks.push(feedback);
+                // this.acceptedFeedbacks.push(feedback);
+                this.getRejectedFeedbacksCount();
+                this.getModerationFeedbacksCount();
+                this.getAcceptedFeedbacksCount();
+                this.getModerationFeedbacks();
+                this.getAcceptedFeedbacks();
+                this.getRejectedFeedbacks();
+
             });
     };
     public rejectFeedback = (feedback, from) => {
@@ -73,7 +158,12 @@ export class FeedbackComponent implements OnInit {
                 this[from] = this[from].filter((obj) => {
                     return obj.id !== result.id;
                 });
-                this.rejectedFeedbacks.push(feedback);
+                this.getRejectedFeedbacksCount();
+                this.getModerationFeedbacksCount();
+                this.getAcceptedFeedbacksCount();
+                this.getModerationFeedbacks();
+                this.getAcceptedFeedbacks();
+                this.getRejectedFeedbacks();
             });
     };
     public moderateFeedback = (feedback, from) => {
@@ -85,8 +175,75 @@ export class FeedbackComponent implements OnInit {
                 this[from] = this[from].filter((obj) => {
                     return obj.id !== result.id;
                 });
-                this.moderationFeedbacks.push(feedback);
+                this.getRejectedFeedbacksCount();
+                this.getModerationFeedbacksCount();
+                this.getAcceptedFeedbacksCount();
+                this.getModerationFeedbacks();
+                this.getAcceptedFeedbacks();
+                this.getRejectedFeedbacks();
             });
+    };
+
+    private getModerationFeedbacks = () => {
+        this.feedbackService.getModerationFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
+            .subscribe(result => {
+                console.log(result);
+                this.moderationFeedbacks = result;
+            });
+    };
+    private getModerationFeedbacksCount = () => {
+        this.feedbackService.getModerationFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
+            .subscribe(result => {
+                console.log(result);
+                this.moderationFeedbacksCount = result.count;
+                this.totalModeratedPages = this.moderationFeedbacksCount / this.pageLimit;
+                if (this.totalModeratedPages % 1 > 0) {
+                    this.totalModeratedPages = parseInt(this.totalModeratedPages) + 1;
+                }
+                this.totalModeratedPagesArray = Array.from({length: this.totalModeratedPages}, (v, i) => i + 1);
+                console.log(this.totalModeratedPagesArray);
+                // this.totalModeratedPagesArray = Array(this.totalModeratedPages).fill().map((x,i)=>i);
+            });
+    };
+    private getAcceptedFeedbacks = () => {
+        this.feedbackService.getAcceptedFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
+            .subscribe(result => {
+                console.log(result);
+                this.acceptedFeedbacks = result;
+            });
+    };
+    private getAcceptedFeedbacksCount = () => {
+        this.feedbackService.getAcceptedFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
+            .subscribe(result => {
+                this.acceptedFeedbacksCount = result.count;
+                this.totalAcceptedPages = this.acceptedFeedbacksCount / this.pageLimit;
+                if (this.totalAcceptedPages % 1 > 0) {
+                    this.totalAcceptedPages = parseInt(this.totalAcceptedPages) + 1;
+                }
+                console.log(this.acceptedFeedbacksCount);
+                this.totalAcceptedPagesArray = Array.from({length: this.totalAcceptedPages}, (v, i) => i + 1);
+
+                // this.totalAcceptedPages = Array(this.totalAcceptedPages).fill().map((x,i)=>i);
+            });
+    };
+    private getRejectedFeedbacks = () => {
+        this.feedbackService.getRejectedFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
+            .subscribe(result => {
+                console.log(result);
+                this.rejectedFeedbacks = result;
+            });
+    };
+    private getRejectedFeedbacksCount = () => {
+        this.feedbackService.getRejectedFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
+            .subscribe(result => {
+                console.log(result);
+                this.rejectedFeedbacksCount = result.count;
+                this.totalRejectedPages = this.rejectedFeedbacksCount / this.pageLimit;
+                if (this.totalRejectedPages % 1 > 0) {
+                    this.totalRejectedPages = parseInt(this.totalRejectedPages) + 1;
+                }
+                this.totalRejectedPagesArray = Array.from({length: this.totalRejectedPages}, (v, i) => i + 1);
+            })
     };
 
     constructor(private feedbackService:FeedbackService) {
@@ -101,22 +258,17 @@ export class FeedbackComponent implements OnInit {
     }
 
     init() {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.feedbackService.getModerationFeedbacks(currentUser.clientid, this.dateFrom, this.dateTo)
-            .subscribe(result => {
-                console.log(result);
-                this.moderationFeedbacks = result;
-            });
-        this.feedbackService.getAcceptedFeedbacks(currentUser.clientid, this.dateFrom, this.dateTo)
-            .subscribe(result => {
-                console.log(result);
-                this.acceptedFeedbacks = result;
-            });
-        this.feedbackService.getRejectedFeedbacks(currentUser.clientid, this.dateFrom, this.dateTo)
-            .subscribe(result => {
-                console.log(result);
-                this.rejectedFeedbacks = result;
-            })
+        this.pageOffset = (this.pageLimit * this.currentPage) - this.pageLimit;
+        this.getRejectedFeedbacksCount();
+        this.getModerationFeedbacksCount();
+        this.getAcceptedFeedbacksCount();
+
+        // this.calculatePage();
+
+        this.getModerationFeedbacks();
+        this.getAcceptedFeedbacks();
+        this.getRejectedFeedbacks();
+
     }
 
     ngOnInit() {
