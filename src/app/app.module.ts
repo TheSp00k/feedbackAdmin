@@ -19,6 +19,8 @@ import {CoreModule} from "./core/core.module";
 import {SmartadminLayoutModule} from "./shared/layout/layout.module";
 import {FeedbackModule} from "./feedback/feedback.module";
 import {SettingsModule} from "./settings/settings.module";
+import { ProductComponent } from './product/product.component';
+import {ProductModule} from "./product/product.module";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -50,6 +52,7 @@ type StoreType = {
         SmartadminLayoutModule,
         FeedbackModule,
         SettingsModule,
+        ProductModule,
 
 
         routing

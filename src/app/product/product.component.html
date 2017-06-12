@@ -1,0 +1,114 @@
+<div id="content">
+
+
+	<div>
+		<sa-big-breadcrumbs [items]="['Product']" icon="comment-o"
+							class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
+	</div>
+
+
+	<!-- NEW WIDGET START -->
+	<article class="col-sm-12 col-md-12 col-lg-12">
+
+		<!-- Widget ID (each widget will need unique ID)-->
+		<sa-widget class="well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false"
+				   [fullscreenbutton]="false" [custombutton]="false" [sortable]="false">
+			<!-- widget options:
+			usage: <sa-widget [editbutton]="false">
+
+			[colorbutton]="false"
+			[editbutton]="false"
+			[togglebutton]="false"
+			[deletebutton]="false"
+			[fullscreenbutton]="false"
+			[custombutton]="false"
+			[collapsed]="true"
+			[sortable]="false"
+
+			-->
+			<!-- widget div-->
+			<div>
+				<!-- widget content -->
+				<div class="widget-body">
+
+
+					<div class="table-responsive">
+						<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
+							<thead>
+							<tr>
+								<th data-hide="mobile-p">Posted</th>
+								<th data-hide="mobile-p">Product</th>
+								<th>Rating</th>
+								<th data-class="expand">Reviewer</th>
+								<th>Menu</th>
+							</tr>
+							</thead>
+							<tbody>
+							<!--ngFor let-asset [ngForOf]="assets" [ngForTrackBy]="assetTrackBy"-->
+							<template ngFor let-product [ngForOf]="products">
+								<tr>
+									<td>{{product.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+									<td>
+										<div class="feedback-product-img">
+											<img src="{{product.photourl}}" class="img-responsive" alt="assets/img">
+										</div>
+										<div>
+											{{product.name}}
+										</div>
+									</td>
+
+									<td></td>
+									<td></td>
+									<td>
+										<button (click)="acceptFeedback(feedback, 'moderationFeedbacks')" class="btn btn-success btn-sm">
+											Accept
+										</button>
+										<button (click)="rejectFeedback(feedback, 'moderationFeedbacks')" class="btn btn-danger btn-sm">
+											Reject
+										</button>
+									</td>
+								</tr>
+							</template>
+
+							</tbody>
+							<tfoot>
+							<tr>
+								<td colspan="5">
+									<div style="border: none;" class="widget-toolbar">
+										<ul *ngIf="totalProductPages > 1" class="pagination pagination-xs">
+											<li [ngClass]="{'disabled':currentPage == 1}">
+												<a (click)="goToPage((currentPage - 1))">Prev</a>
+											</li>
+											<template ngFor let-productNr [ngForOf]="totalProductPagesArray">
+												<li [ngClass]="{'active':(currentPage == productNr)}">
+													<a (click)="goToPage(productNr)">{{productNr}}</a>
+												</li>
+											</template>
+											<li [ngClass]="{'disabled':currentPage >= totalProductPages}">
+												<a (click)="goToPage((currentPage + 1))">Next</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+								<!--<th>Posted</th>-->
+								<!--<th>Product</th>-->
+								<!--<th>Rating</th>-->
+								<!--<th>Reviewer</th>-->
+								<!--<th>Menu</th>-->
+							</tr>
+							</tfoot>
+						</table>
+					</div>
+
+				</div>
+				<!-- end widget content -->
+
+			</div>
+			<!-- end widget div -->
+
+		</sa-widget>
+		<!-- end widget -->
+
+	</article>
+	<!-- WIDGET END -->
+</div>

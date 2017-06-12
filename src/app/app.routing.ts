@@ -10,6 +10,7 @@ import {ModuleWithProviders} from "@angular/core";
 import {AuthGuard} from "./+auth/auth.guard.service";
 import {FeedbackComponent} from "./feedback/feedback.component";
 import {SettingsComponent} from "./settings/settings.component";
+import {ProductComponent} from "./product/product.component";
 
 export const routes: Routes = [
   {
@@ -27,6 +28,7 @@ export const routes: Routes = [
       {path: 'feedback', component: FeedbackComponent, loadChildren: 'app/feedback/feedback.module#FeedbackModule',data:{pageTitle: 'Feedback'}},
     //   {path: 'settings', component: SettingsComponent, data:{pageTitle: 'Settings'}},
       {path: 'settings', component: SettingsComponent, loadChildren: 'app/settings/settings.module#SettingsModule',data:{pageTitle: 'Settings'}},
+      {path: 'products', component: ProductComponent, loadChildren: 'app/product/product.module#ProductModule',data:{pageTitle: 'Products'}},
       // {path: 'smartadmin', loadChildren: 'app/+smartadmin-intel/smartadmin-intel.module#SmartadminIntelModule',data:{pageTitle: 'Smartadmin'}},
       // {path: 'app-views', loadChildren: 'app/+app-views/app-views.module#AppViewsModule',data:{pageTitle: 'App Views'}},
       // {path: 'calendar', loadChildren: 'app/+calendar/calendar.module#CalendarModule',data:{pageTitle: 'Calendar'}},
