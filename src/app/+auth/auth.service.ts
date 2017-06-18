@@ -27,6 +27,7 @@ export class AuthService {
     login(email:string, password:string):Observable<any> {
         return this.http.post('//localhost:3000/api/appusers/login', {email: email, password: password})
             .map((response:Response) => {
+                console.log('cia');
                 // login successful if there is a jwt token in response
                 let token = response.json() && response.json().id;
                 let userid = response.json() && response.json().userId;

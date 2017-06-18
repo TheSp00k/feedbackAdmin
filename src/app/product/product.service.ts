@@ -13,8 +13,13 @@ export class ProductService {
     constructor(private router:Router, private http:Http) {
     }
 
-    getProducts(clientId):Observable<any> {
-        return this.http.get(`//localhost:3000/api/clients/${clientId}/products`)
+    getProducts(clientId, pageOffset:number, pageLimit:number, filter:string):Observable<any> {
+
+        let filterStr = '';
+        if (filter.length > 0) {
+            filterStr = `, "where": {"and":[${filter}]}`;
+        }
+        return this.http.get(`//localhost:3000/api/clients/${clientId}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}`)
             .map((response:Response) => {
                 return response.json();
             });

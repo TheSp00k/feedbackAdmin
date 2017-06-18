@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../auth.service";
+import {NotificationService} from "../../shared/utils/notification.service";
 
 @Component({
     selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
     public password;
     public error;
     // constructor(private router:Router) {
-    constructor(private authService:AuthService) {
+    constructor(private authService:AuthService, private notificationService:NotificationService) {
     }
 
     ngOnInit() {
@@ -23,18 +24,28 @@ export class LoginComponent implements OnInit {
 
         this.authService.login(this.email, this.password)
             .subscribe(result => {
-                if (result === true) {
-
-                    // login successful
-
-                } else {
-                    // login failed
-                    this.error = 'Username or password is incorrect';
-                }
-
-            });
-
-        // this.router.navigate(['/+home'])
+                    if (result) {
+                        // login successful
+                        this.notificationService.smallBox({
+                            title: "You have successfully logged in",
+                            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                            color: "#739e73",
+                            iconSmall: "fa fa-warning shake animated",
+                            timeout: 4000
+                        });
+                    }
+                },
+                error => {
+                    let errorJson = error.json();
+                    console.log(errorJson.error.message);
+                    this.notificationService.smallBox({
+                        title: "Login failed",
+                        content: errorJson.error.statusCode == 401 ? 'Email or password is incorrect' : errorJson.error.message,
+                        color: "#c46a69",
+                        iconSmall: "fa fa-warning shake animated",
+                        timeout: 4000
+                    });
+                });
     }
 
 }

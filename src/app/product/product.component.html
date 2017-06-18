@@ -2,7 +2,7 @@
 
 
 	<div>
-		<sa-big-breadcrumbs [items]="['Product']" icon="comment-o"
+		<sa-big-breadcrumbs [items]="['Product']" icon="cubes"
 							class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
 	</div>
 
@@ -36,36 +36,51 @@
 						<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
 							<thead>
 							<tr>
-								<th data-hide="mobile-p">Posted</th>
+								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.productnumber"></th>
+								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.name"></th>
+								<th data-hide="mobile-p">
+									<label style="display: inline-block; vertical-align: top;" class="toggle">
+										<input type="checkbox" (change)="generateFilter()" [(ngModel)]="filters.sendrequests" name="sendrequestsFlter">
+										<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
+									</label>
+								</th>
+								<th data-hide="mobile-p">
+									<label style="display: inline-block; vertical-align: top;" class="toggle">
+										<input type="checkbox" (change)="generateFilter()" [(ngModel)]="filters.showfeedbacks" name="showfeedbacksFlter">
+										<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
+									</label>
+								</th>
+							</tr>
+							<tr>
+								<th data-hide="mobile-p">Product number</th>
 								<th data-hide="mobile-p">Product</th>
-								<th>Rating</th>
-								<th data-class="expand">Reviewer</th>
-								<th>Menu</th>
+								<th data-hide="mobile-p">Send requests</th>
+								<th data-hide="mobile-p">Show feedbacks</th>
 							</tr>
 							</thead>
 							<tbody>
 							<!--ngFor let-asset [ngForOf]="assets" [ngForTrackBy]="assetTrackBy"-->
 							<template ngFor let-product [ngForOf]="products">
 								<tr>
-									<td>{{product.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+									<td>{{product.productnumber}}</td>
 									<td>
 										<div class="feedback-product-img">
-											<img src="{{product.photourl}}" class="img-responsive" alt="assets/img">
+											<img [src]="product.photourl" class="img-responsive" alt="assets/img">
 										</div>
 										<div>
 											{{product.name}}
 										</div>
 									</td>
 
-									<td></td>
-									<td></td>
 									<td>
-										<button (click)="acceptFeedback(feedback, 'moderationFeedbacks')" class="btn btn-success btn-sm">
-											Accept
-										</button>
-										<button (click)="rejectFeedback(feedback, 'moderationFeedbacks')" class="btn btn-danger btn-sm">
-											Reject
-										</button>
+										<label style="display: inline-block; vertical-align: top;" class="toggle">
+											<input type="checkbox" (change)="toggleSetting(product)" [(ngModel)]="product.sendrequests" name="sendrequests">
+											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i></label>
+									</td>
+									<td>
+										<label style="display: inline-block; vertical-align: top;" class="toggle">
+											<input type="checkbox" (change)="toggleSetting(product)" [(ngModel)]="product.showfeedbacks" name="showfeedbacks">
+											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i></label>
 									</td>
 								</tr>
 							</template>
@@ -74,7 +89,7 @@
 							</tbody>
 							<tfoot>
 							<tr>
-								<td colspan="5">
+								<td colspan="4">
 									<div style="border: none;" class="widget-toolbar">
 										<ul *ngIf="totalProductPages > 1" class="pagination pagination-xs">
 											<li [ngClass]="{'disabled':currentPage == 1}">

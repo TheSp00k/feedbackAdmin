@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeService} from "./home.service";
+import {NotificationService} from "../shared/utils/notification.service";
 // import { SimpleChanges } from '@angular/core';
 
 @Component({
@@ -32,6 +33,13 @@ export class HomeComponent implements OnInit {
         dateFilter.dateFrom = this.dateFrom;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
+        this.notificationService.smallBox({
+            title: "Dashboard has been filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "#659265",
+            iconSmall: "fa fa-check bounce animated",
+            timeout: 4000
+        });
     }
     onMaxPicked(date: Date) {
         this.dateTo = date;
@@ -42,6 +50,13 @@ export class HomeComponent implements OnInit {
         dateFilter.dateTo = this.dateTo;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
+        this.notificationService.smallBox({
+            title: "Dashboard has been filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "#659265",
+            iconSmall: "fa fa-check bounce animated",
+            timeout: 4000
+        });
     }
 
 
@@ -55,7 +70,7 @@ export class HomeComponent implements OnInit {
     //     console.log(changes);
     // }
 
-    constructor(private homeService:HomeService) {
+    constructor(private homeService:HomeService, private notificationService: NotificationService) {
 
         // this.setDateFilter = () => {
         //     console.log(this.dateFrom);

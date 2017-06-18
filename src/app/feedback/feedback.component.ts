@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NotificationService} from "../../shared/utils/notification.service";
 import {FadeInTop} from "../../shared/animations/fade-in-top.decorator";
 import {FeedbackService} from "./feedback.service";
 import {Http, Response} from '@angular/http';
@@ -9,6 +8,7 @@ import * as moment from 'moment';
 import {Observable} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {NotificationService} from "../shared/utils/notification.service";
 
 @Component({
     selector: 'app-feedback',
@@ -46,10 +46,10 @@ export class FeedbackComponent implements OnInit {
         this.state.tabs.current = nr;
         this.pageOffset = 0;
         this.currentPage = 1;
-    }
+    };
     
     onMinPicked(date:Date) {
-        console.log(date);
+
         this.dateFrom = date;
         let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
         if (!dateFilter) {
@@ -58,7 +58,14 @@ export class FeedbackComponent implements OnInit {
         dateFilter.dateFrom = this.dateFrom;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
-    }
+        this.notificationService.smallBox({
+            title: "Feedback list filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "#659265",
+            iconSmall: "fa fa-check bounce animated",
+            timeout: 4000
+        });
+    };
 
     onMaxPicked(date:Date) {
         this.dateTo = date;
@@ -69,7 +76,14 @@ export class FeedbackComponent implements OnInit {
         dateFilter.dateTo = this.dateTo;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
-    }
+        this.notificationService.smallBox({
+            title: "Feedback list filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "#659265",
+            iconSmall: "fa fa-check bounce animated",
+            timeout: 4000
+        });
+    };
 
     public calculatePage = () => {
         this.pageOffset = this.pageLimit * this.currentPage;
@@ -78,10 +92,6 @@ export class FeedbackComponent implements OnInit {
         this.totalRejectedPages = this.rejectedFeedbacksCount / this.pageLimit;
         this.totalModeratedPages = this.moderationFeedbacksCount / this.pageLimit;
 
-        console.log(this.acceptedFeedbacksCount);
-        console.log(this.totalAcceptedPages);
-        console.log(this.totalModeratedPages);
-        console.log(this.totalRejectedPages);
         if (this.totalAcceptedPages % 1 > 0) {
             this.totalAcceptedPages = parseInt(this.totalAcceptedPages) + 1;
         }
@@ -91,13 +101,6 @@ export class FeedbackComponent implements OnInit {
         if (this.totalModeratedPages % 1 > 0) {
             this.totalModeratedPages = parseInt(this.totalModeratedPages) + 1;
         }
-        console.log(this.totalAcceptedPages);
-        console.log(this.totalModeratedPages);
-        console.log(this.totalRejectedPages);
-        // this.totalAcceptedPages = Array(this.totalAcceptedPages).fill().map((x,i)=>i);
-        // this.totalRejectedPages = Array(this.totalRejectedPages).fill().map((x,i)=>i);
-        // this.totalModeratedPages = Array(this.totalModeratedPages).fill().map((x,i)=>i);
-
     };
 
     public goToPage = (type, page) => {
@@ -125,8 +128,6 @@ export class FeedbackComponent implements OnInit {
                 this.getRejectedFeedbacksCount();
             }
         }
-
-
     };
 
 
@@ -146,7 +147,13 @@ export class FeedbackComponent implements OnInit {
                 this.getModerationFeedbacks();
                 this.getAcceptedFeedbacks();
                 this.getRejectedFeedbacks();
-
+                this.notificationService.smallBox({
+                    title: "This feedback was sent to accepted tab",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#659265",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
     public rejectFeedback = (feedback, from) => {
@@ -164,6 +171,13 @@ export class FeedbackComponent implements OnInit {
                 this.getModerationFeedbacks();
                 this.getAcceptedFeedbacks();
                 this.getRejectedFeedbacks();
+                this.notificationService.smallBox({
+                    title: "This feedback was sent to rejected tab",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#c26565",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
     public moderateFeedback = (feedback, from) => {
@@ -181,34 +195,36 @@ export class FeedbackComponent implements OnInit {
                 this.getModerationFeedbacks();
                 this.getAcceptedFeedbacks();
                 this.getRejectedFeedbacks();
+                this.notificationService.smallBox({
+                    title: "This feedback was sent to moderated tab",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#dfb56c",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
 
     private getModerationFeedbacks = () => {
         this.feedbackService.getModerationFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
             .subscribe(result => {
-                console.log(result);
                 this.moderationFeedbacks = result;
             });
     };
     private getModerationFeedbacksCount = () => {
         this.feedbackService.getModerationFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
             .subscribe(result => {
-                console.log(result);
                 this.moderationFeedbacksCount = result.count;
                 this.totalModeratedPages = this.moderationFeedbacksCount / this.pageLimit;
                 if (this.totalModeratedPages % 1 > 0) {
                     this.totalModeratedPages = parseInt(this.totalModeratedPages) + 1;
                 }
                 this.totalModeratedPagesArray = Array.from({length: this.totalModeratedPages}, (v, i) => i + 1);
-                console.log(this.totalModeratedPagesArray);
-                // this.totalModeratedPagesArray = Array(this.totalModeratedPages).fill().map((x,i)=>i);
             });
     };
     private getAcceptedFeedbacks = () => {
         this.feedbackService.getAcceptedFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
             .subscribe(result => {
-                console.log(result);
                 this.acceptedFeedbacks = result;
             });
     };
@@ -220,10 +236,7 @@ export class FeedbackComponent implements OnInit {
                 if (this.totalAcceptedPages % 1 > 0) {
                     this.totalAcceptedPages = parseInt(this.totalAcceptedPages) + 1;
                 }
-                console.log(this.acceptedFeedbacksCount);
                 this.totalAcceptedPagesArray = Array.from({length: this.totalAcceptedPages}, (v, i) => i + 1);
-
-                // this.totalAcceptedPages = Array(this.totalAcceptedPages).fill().map((x,i)=>i);
             });
     };
     private getRejectedFeedbacks = () => {
@@ -236,7 +249,6 @@ export class FeedbackComponent implements OnInit {
     private getRejectedFeedbacksCount = () => {
         this.feedbackService.getRejectedFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
             .subscribe(result => {
-                console.log(result);
                 this.rejectedFeedbacksCount = result.count;
                 this.totalRejectedPages = this.rejectedFeedbacksCount / this.pageLimit;
                 if (this.totalRejectedPages % 1 > 0) {
@@ -246,7 +258,7 @@ export class FeedbackComponent implements OnInit {
             })
     };
 
-    constructor(private feedbackService:FeedbackService) {
+    constructor(private feedbackService:FeedbackService, private notificationService: NotificationService) {
         let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
         if (dateFilter && dateFilter.dateFrom) {
             this.dateFrom = dateFilter.dateFrom;

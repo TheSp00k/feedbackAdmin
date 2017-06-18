@@ -1,5 +1,6 @@
 import {Component, ElementRef, Inject, OnInit} from '@angular/core';
 import {SettingsService} from "./settings.service";
+import {NotificationService} from "../shared/utils/notification.service";
 
 @Component({
     selector: 'app-settings',
@@ -8,23 +9,31 @@ import {SettingsService} from "./settings.service";
     providers: [SettingsService]
 })
 export class SettingsComponent implements OnInit {
-    elementRef: ElementRef;
+    elementRef:ElementRef;
     public client;
-    
-    onPicked(time: Date) {
+
+    onPicked(time:Date) {
         this.client.requesttime = time;
     };
-    onSpin(days: number) {
+
+    onSpin(days:number) {
         this.client.requestdelay = days;
     };
+
     public saveClientSettings = () => {
         this.settingsService.saveClient(this.client)
             .subscribe(result => {
-                console.log(result);
+                this.notificationService.smallBox({
+                    title: "Settings have been updated",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#659265",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
 
-    constructor(private settingsService:SettingsService, @Inject(ElementRef) elementRef: ElementRef) {
+    constructor(private settingsService:SettingsService, @Inject(ElementRef) elementRef:ElementRef, private notificationService:NotificationService) {
         this.elementRef = elementRef;
         this.init();
     }
@@ -33,7 +42,6 @@ export class SettingsComponent implements OnInit {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.settingsService.getClient(currentUser.clientid)
             .subscribe(result => {
-                console.log(result);
                 this.client = result;
             });
     }
@@ -41,5 +49,4 @@ export class SettingsComponent implements OnInit {
     ngOnInit() {
 
     }
-
 }

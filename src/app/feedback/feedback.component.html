@@ -103,7 +103,7 @@
 											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
 											<td>
 												<div class="feedback-product-img">
-													<img src="assets/img/superbox/superbox-full-15.jpg" class="img-responsive" alt="assets/img">
+													<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
 												</div>
 												<div>
 													{{feedback.product.name}}
@@ -178,7 +178,7 @@
 											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
 											<td>
 												<div class="feedback-product-img">
-													<img src="assets/img/superbox/superbox-full-15.jpg" class="img-responsive" alt="assets/img">
+													<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
 												</div>
 												<div>
 													{{feedback.product.name}}
@@ -253,7 +253,7 @@
 											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
 											<td>
 												<div class="feedback-product-img">
-													<img src="assets/img/superbox/superbox-full-15.jpg" class="img-responsive" alt="assets/img">
+													<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
 												</div>
 												<div>{{feedback.product.name}}</div>
 											</td>

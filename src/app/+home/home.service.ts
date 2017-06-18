@@ -15,19 +15,40 @@ export class HomeService {
     }
 
     getTotalInvitations(clientid: string, dateFrom: string, dateTo: string): Observable<any> {
-        return this.http.get(`//localhost:3000/api/requests/count?where={"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}]}`)
+        let dateFilterStr = '';
+        if (dateFrom) {
+            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+        }
+        if (dateTo) {
+            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+        }
+        return this.http.get(`//localhost:3000/api/requests/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
     getTotalVerifiedReviews(clientid:string, dateFrom: string, dateTo: string): Observable<any> {
-        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}]}`)
+        let dateFilterStr = '';
+        if (dateFrom) {
+            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+        }
+        if (dateTo) {
+            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+        }
+        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
     getTotalRating(clientid:string, dateFrom: string, dateTo: string): Observable<any> {
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"where":{"and":[{"clientid": "${clientid}"}, {"approved": 1}, {"created": {"gte":"${dateFrom}"}}, {"created": {"lte":"${dateTo}"}}]}}`)
+        let dateFilterStr = '';
+        if (dateFrom) {
+            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+        }
+        if (dateTo) {
+            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+        }
+        return this.http.get(`//localhost:3000/api/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${clientid}"}, {"approved": 1}]}}`)
             .map((response:Response) => {
                 let feedbacks = response.json();
                 let totalScoreSum = 0;

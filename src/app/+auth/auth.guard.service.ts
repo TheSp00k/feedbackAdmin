@@ -5,10 +5,11 @@ import {
     RouterStateSnapshot
 }                           from '@angular/router';
 import {AuthService}      from './auth.service';
+import {NotificationService} from "../shared/utils/notification.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private authService:AuthService, private router:Router) {
+    constructor(private authService:AuthService, private router:Router, private notificationService:NotificationService) {
     }
 
     canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):boolean {
