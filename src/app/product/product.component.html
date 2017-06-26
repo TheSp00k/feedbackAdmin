@@ -37,6 +37,7 @@
 							<thead>
 							<tr>
 								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.productnumber"></th>
+								<th></th>
 								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.name"></th>
 								<th data-hide="mobile-p">
 									<label style="display: inline-block; vertical-align: top;" class="toggle">
@@ -53,6 +54,7 @@
 							</tr>
 							<tr>
 								<th data-hide="mobile-p">Product number</th>
+								<th data-hide="mobile-p">Photo</th>
 								<th data-hide="mobile-p">Product</th>
 								<th data-hide="mobile-p">Send requests</th>
 								<th data-hide="mobile-p">Show feedbacks</th>
@@ -67,11 +69,8 @@
 										<div class="feedback-product-img">
 											<img [src]="product.photourl" class="img-responsive" alt="assets/img">
 										</div>
-										<div>
-											{{product.name}}
-										</div>
 									</td>
-
+									<td>{{product.name}}</td>
 									<td>
 										<label style="display: inline-block; vertical-align: top;" class="toggle">
 											<input type="checkbox" (change)="toggleSetting(product)" [(ngModel)]="product.sendrequests" name="sendrequests">
@@ -89,7 +88,7 @@
 							</tbody>
 							<tfoot>
 							<tr>
-								<td colspan="4">
+								<td colspan="5">
 									<div style="border: none;" class="widget-toolbar">
 										<ul *ngIf="totalProductPages > 1" class="pagination pagination-xs">
 											<li [ngClass]="{'disabled':currentPage == 1}">

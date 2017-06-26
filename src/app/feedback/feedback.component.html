@@ -90,7 +90,9 @@
 									<thead>
 									<tr>
 										<th data-hide="mobile-p">Posted</th>
-										<th data-hide="mobile-p">Product</th>
+										<th data-hide="mobile-p">Product name</th>
+										<th data-hide="mobile-p">Photo</th>
+										<th>Comment</th>
 										<th>Rating</th>
 										<th data-class="expand">Reviewer</th>
 										<th>Menu</th>
@@ -101,15 +103,16 @@
 									<template ngFor let-feedback [ngForOf]="moderationFeedbacks">
 										<tr>
 											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+											<td>{{feedback.product.name}}</td>
 											<td>
 												<div class="feedback-product-img">
 													<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
 												</div>
-												<div>
-													{{feedback.product.name}}
-												</div>
 											</td>
-
+											<td>
+												<div><strong>{{feedback.commentheader}}</strong></div>
+												<div>{{feedback.commentcontent}}</div>
+											</td>
 											<td>{{feedback.totalratingscore}}</td>
 											<td>{{feedback.customer.name}}</td>
 											<td>
@@ -121,18 +124,11 @@
 												</button>
 											</td>
 										</tr>
-										<tr>
-											<td colspan="5">
-												<div><strong>{{feedback.commentheader}}</strong></div>
-												<div>{{feedback.commentcontent}}</div>
-											</td>
-										</tr>
 									</template>
-
 									</tbody>
 									<tfoot>
 									<tr>
-										<td colspan="5">
+										<td colspan="7">
 											<div style="border: none;" class="widget-toolbar">
 												<ul *ngIf="totalModeratedPages > 1" class="pagination pagination-xs">
 													<li [ngClass]="{'disabled':currentPage == 1}">
@@ -165,7 +161,9 @@
 									<thead>
 									<tr>
 										<th data-hide="mobile-p">Posted</th>
-										<th data-hide="mobile-p">Product</th>
+										<th data-hide="mobile-p">Product name</th>
+										<th data-hide="mobile-p">Photo</th>
+										<th>Comment</th>
 										<th>Rating</th>
 										<th data-class="expand">Reviewer</th>
 										<th>Menu</th>
@@ -176,15 +174,16 @@
 									<template ngFor let-feedback [ngForOf]="acceptedFeedbacks">
 										<tr>
 											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+											<td>{{feedback.product.name}}</td>
 											<td>
 												<div class="feedback-product-img">
 													<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
 												</div>
-												<div>
-													{{feedback.product.name}}
-												</div>
 											</td>
-
+											<td>
+												<div><strong>{{feedback.commentheader}}</strong></div>
+												<div>{{feedback.commentcontent}}</div>
+											</td>
 											<td>{{feedback.totalratingscore}}</td>
 											<td>{{feedback.customer.name}}</td>
 											<td>
@@ -196,18 +195,12 @@
 												</button>
 											</td>
 										</tr>
-										<tr>
-											<td colspan="5">
-												<div><strong>{{feedback.commentheader}}</strong></div>
-												<div>{{feedback.commentcontent}}</div>
-											</td>
-										</tr>
 									</template>
 
 									</tbody>
 									<tfoot>
 									<tr>
-										<td colspan="5">
+										<td colspan="7">
 											<div style="border: none;" class="widget-toolbar">
 												<ul *ngIf="totalAcceptedPages > 1" class="pagination pagination-xs">
 													<li [ngClass]="{'disabled':currentPage == 1}">
@@ -251,13 +244,16 @@
 									<template ngFor let-feedback [ngForOf]="rejectedFeedbacks">
 										<tr>
 											<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
+											<td>{{feedback.product.name}}</td>
 											<td>
 												<div class="feedback-product-img">
 													<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
 												</div>
-												<div>{{feedback.product.name}}</div>
 											</td>
-
+											<td>
+												<div><strong>{{feedback.commentheader}}</strong></div>
+												<div>{{feedback.commentcontent}}</div>
+											</td>
 											<td>{{feedback.totalratingscore}}</td>
 											<td>{{feedback.customer.name}}</td>
 											<td>
@@ -269,18 +265,12 @@
 												</button>
 											</td>
 										</tr>
-										<tr>
-											<td colspan="5">
-												<div><strong>{{feedback.commentheader}}</strong></div>
-												<div>{{feedback.commentcontent}}</div>
-											</td>
-										</tr>
 									</template>
 
 									</tbody>
 									<tfoot>
 									<tr>
-										<td colspan="5">
+										<td colspan="7">
 											<div style="border: none;" class="widget-toolbar">
 												<ul *ngIf="totalRejectedPages > 1" class="pagination pagination-xs">
 													<li [ngClass]="{'disabled':currentPage == 1}">
