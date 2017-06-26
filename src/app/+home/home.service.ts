@@ -59,6 +59,9 @@ export class HomeService {
                         totalRatingScores += 1;
                     }
                 }
+				if (totalScoreSum == 0 || totalRatingScores == 0) {
+					return 0;
+				}
                 return totalScoreSum / totalRatingScores;
             });
     };

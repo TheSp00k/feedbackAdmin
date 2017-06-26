@@ -19,12 +19,8 @@ export class HomeComponent implements OnInit {
     public dateTo;
     public currentUser;
 
-    public setDateFilter() {
-        console.log('asdasd');
-    }
 
     onMinPicked(date: Date) {
-        console.log(date);
         this.dateFrom = date;
         let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
         if (!dateFilter) {
@@ -59,23 +55,7 @@ export class HomeComponent implements OnInit {
         });
     }
 
-
-    
-    test() {
-        console.log(this.dateFrom);
-        this.dateFrom = 'asdasd';
-    }
-
-    // public ngOnChanges(changes: {[ propName: string]: SimpleChanges}) {
-    //     console.log(changes);
-    // }
-
     constructor(private homeService:HomeService, private notificationService: NotificationService) {
-
-        // this.setDateFilter = () => {
-        //     console.log(this.dateFrom);
-        //     console.log(this.dateTo);
-        // };
         let dateFilter = JSON.parse(localStorage.getItem('dateFilter'));
         if (dateFilter && dateFilter.dateFrom) {
             this.dateFrom = dateFilter.dateFrom;
@@ -94,12 +74,10 @@ export class HomeComponent implements OnInit {
     init() {
         this.homeService.getTotalInvitations( this.currentUser.clientid, this.dateFrom, this.dateTo)
             .subscribe(result => {
-                console.log(result);
                 this.invitationCount = result.count;
             });
         this.homeService.getTotalVerifiedReviews( this.currentUser.clientid, this.dateFrom, this.dateTo)
             .subscribe(result => {
-                console.log(result);
                 this.verifiedReviewsCount = result.count;
                 this.verifiedReviewsPercent = (this.verifiedReviewsCount / this.invitationCount) * 100;
             });
