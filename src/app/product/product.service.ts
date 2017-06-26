@@ -19,19 +19,19 @@ export class ProductService {
         if (filter.length > 0) {
             filterStr = `, "where": {"and":[${filter}]}`;
         }
-        return this.http.get(`//localhost:3000/api/clients/${clientId}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}`)
+        return this.http.get(`//localhost:3000/clients/${clientId}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}`)
             .map((response:Response) => {
                 return response.json();
             });
     }
     saveProduct(product):Observable<any> {
-        return this.http.put(`//localhost:3000/api/products/${product.id}`, product)
+        return this.http.put(`//localhost:3000/products/${product.id}`, product)
             .map((response:Response) => {
                 return response.json();
             })
     }
     getProductsCount(clientid:string):Observable<any> {
-        return this.http.get(`//localhost:3000/api/clients/${clientid}/products/count`)
+        return this.http.get(`//localhost:3000/clients/${clientid}/products/count`)
             .map((response:Response) => {
                 return response.json();
             });

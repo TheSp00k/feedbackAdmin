@@ -22,7 +22,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/requests/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
+        return this.http.get(`//localhost:3000/requests/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -35,7 +35,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
+        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -48,7 +48,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${clientid}"}, {"approved": 1}]}}`)
+        return this.http.get(`//localhost:3000/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${clientid}"}, {"approved": 1}]}}`)
             .map((response:Response) => {
                 let feedbacks = response.json();
                 let totalScoreSum = 0;
@@ -64,7 +64,7 @@ export class HomeService {
     };
 
     // login(email:string, password:string): Observable<boolean> {
-    //     return this.http.post('//localhost:3000/api/appusers/login', {email: email, password: password})
+    //     return this.http.post('//localhost:3000/appusers/login', {email: email, password: password})
     //         .map((response: Response) => {
     //             // login successful if there is a jwt token in response
     //             let token = response.json() && response.json().id;

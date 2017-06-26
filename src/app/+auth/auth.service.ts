@@ -25,7 +25,7 @@ export class AuthService {
     }
 
     login(email:string, password:string):Observable<any> {
-        return this.http.post('//localhost:3000/api/appusers/login', {email: email, password: password})
+        return this.http.post('//localhost:3000/appusers/login', {email: email, password: password})
             .map((response:Response) => {
                 console.log('cia');
                 // login successful if there is a jwt token in response
@@ -40,7 +40,7 @@ export class AuthService {
                     return false;
                 }
             })
-            .flatMap((currentUser) => this.http.get(`//localhost:3000/api/appusers/${this.userid}?access_token=${this.token}`)).map((res:Response) => {
+            .flatMap((currentUser) => this.http.get(`//localhost:3000/appusers/${this.userid}?access_token=${this.token}`)).map((res:Response) => {
                 let currentUser = res.json();
                 currentUser.token = this.token;
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));

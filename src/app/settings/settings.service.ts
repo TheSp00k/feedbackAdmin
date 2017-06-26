@@ -14,14 +14,14 @@ export class SettingsService {
     }
 
     getClient(clientId):Observable<any> {
-        return this.http.get(`//localhost:3000/api/clients/${clientId}`)
+        return this.http.get(`//localhost:3000/clients/${clientId}`)
             .map((response:Response) => {
                 return response.json();
             });
     }
 
     saveClient(client):Observable<any> {
-        return this.http.put(`//localhost:3000/api/clients/${client.id}`, client)
+        return this.http.put(`//localhost:3000/clients/${client.id}`, client)
             .map((response:Response) => {
                 return response.json();
             })

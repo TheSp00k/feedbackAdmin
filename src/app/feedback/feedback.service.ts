@@ -14,7 +14,7 @@ export class FeedbackService {
     }
 
     changeFeedbackStatus(feedbackId, feedback):Observable<any> {
-        return this.http.put(`//localhost:3000/api/feedbacks/${feedbackId}`, feedback)
+        return this.http.put(`//localhost:3000/feedbacks/${feedbackId}`, feedback)
             .map((response:Response) => {
                 return response.json();
             });
@@ -28,7 +28,7 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"], "where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}}`)
+        return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"], "where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -41,7 +41,7 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}`)
+        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -55,7 +55,7 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}}`)
+        return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -68,7 +68,7 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}`)
+        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -82,7 +82,7 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}}`)
+        return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -95,7 +95,7 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/api/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}`)
+        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}`)
             .map((response:Response) => {
                 return response.json();
             });
