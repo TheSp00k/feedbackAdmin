@@ -11,6 +11,7 @@ import {NotificationService} from "../shared/utils/notification.service";
 export class SettingsComponent implements OnInit {
     elementRef:ElementRef;
     public client;
+	public currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     onPicked(time:Date) {
         this.client.requesttime = time;
@@ -21,7 +22,7 @@ export class SettingsComponent implements OnInit {
     };
 
     public saveClientSettings = () => {
-        this.settingsService.saveClient(this.client)
+		this.settingsService.saveClient(this.currentUser, this.client)
             .subscribe(result => {
                 this.notificationService.smallBox({
                     title: "Settings have been updated",
@@ -39,8 +40,7 @@ export class SettingsComponent implements OnInit {
     }
 
     init() {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.settingsService.getClient(currentUser.clientid)
+        this.settingsService.getClient(this.currentUser)
             .subscribe(result => {
                 this.client = result;
             });

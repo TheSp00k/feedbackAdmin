@@ -14,7 +14,7 @@ export class HomeService {
 
     }
 
-    getTotalInvitations(clientid: string, dateFrom: string, dateTo: string): Observable<any> {
+    getTotalInvitations(currentUser: any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
             dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
@@ -22,12 +22,12 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/requests/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
+		return this.http.get(`//localhost:3000/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
-    getTotalVerifiedReviews(clientid:string, dateFrom: string, dateTo: string): Observable<any> {
+    getTotalVerifiedReviews(currentUser:any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
             dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
@@ -35,12 +35,12 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${clientid}"}]}`)
+		return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
-    getTotalRating(clientid:string, dateFrom: string, dateTo: string): Observable<any> {
+    getTotalRating(currentUser: any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
             dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
@@ -48,7 +48,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${clientid}"}, {"approved": 1}]}}`)
+		return this.http.get(`//localhost:3000/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"approved": 1}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 let feedbacks = response.json();
                 let totalScoreSum = 0;

@@ -20,7 +20,12 @@ export class ProductComponent implements OnInit {
     public totalProductPagesArray;
     public currentPage = 1;
     public currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+	public boolFilterSelect = [
+		{title: 'Both', value: undefined},
+		{title: 'On', value: true},
+		{title: 'Off', value: false}
+	];
+	
     constructor(private productService:ProductService, private notificationService: NotificationService) {
     }
 
@@ -34,7 +39,7 @@ export class ProductComponent implements OnInit {
     };
 
     public toggleSetting = (product) => {
-        this.productService.saveProduct(product)
+		this.productService.saveProduct(this.currentUser, product)
             .subscribe(result => {
                 this.notificationService.smallBox({
                     title: "Product has been updated",
@@ -46,13 +51,22 @@ export class ProductComponent implements OnInit {
             });
     };
 
+	public filterBool = (value, model) => {
+		if (value === undefined) {
+			delete this.filters[model];
+		} else {
+			this.filters[model] = value;
+		}
+		this.generateFilter();
+	}
+
     public generateFilter = () => {
         console.log(this.filters);
         let filterIndex = 1;
         this.filterStr = '';
 
         for (let n in this.filters) {
-            if (this.filters[n].length == 0 || this.filters[n] == false) {
+            if (this.filters[n].length == 0 || this.filters[n] == undefined) {
                 delete this.filters[n];
             }
         }
@@ -75,14 +89,14 @@ export class ProductComponent implements OnInit {
     };
 
     private getproducts = () => {
-        this.productService.getProducts(this.currentUser.clientid, this.pageOffset, this.pageLimit, this.filterStr)
+        this.productService.getProducts(this.currentUser, this.pageOffset, this.pageLimit, this.filterStr)
             .subscribe(result => {
                 console.log(result);
                 this.products = result;
             });
     };
     private getproductsCount = () => {
-        this.productService.getProductsCount(this.currentUser.clientid)
+        this.productService.getProductsCount(this.currentUser)
             .subscribe(result => {
                 console.log(result);
                 this.productsCount = result.count;

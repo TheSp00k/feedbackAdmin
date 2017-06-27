@@ -40,16 +40,40 @@
 								<th></th>
 								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.name"></th>
 								<th data-hide="mobile-p">
-									<label style="display: inline-block; vertical-align: top;" class="toggle">
+									<div class="btn-group">
+										<button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											<i class="fa fa-filter"></i>
+										</button>
+										<ul class="dropdown-menu">
+											<template ngFor let-selection [ngForOf]="boolFilterSelect">
+												<li>
+													<a (click)="filterBool(selection.value, 'sendrequests')">{{selection.title}}</a>
+												</li>
+											</template>
+										</ul>
+									</div>
+									<!--<label style="display: inline-block; vertical-align: top;" class="toggle">
 										<input type="checkbox" (change)="generateFilter()" [(ngModel)]="filters.sendrequests" name="sendrequestsFlter">
 										<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
-									</label>
+									</label>-->
 								</th>
 								<th data-hide="mobile-p">
-									<label style="display: inline-block; vertical-align: top;" class="toggle">
+									<div class="btn-group">
+										<button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											<i class="fa fa-filter"></i>
+										</button>
+										<ul class="dropdown-menu">
+											<template ngFor let-selection [ngForOf]="boolFilterSelect">
+												<li>
+													<a (click)="filterBool(selection.value, 'showfeedbacks')">{{selection.title}}</a>
+												</li>
+											</template>
+										</ul>
+									</div>
+									<!--<label style="display: inline-block; vertical-align: top;" class="toggle">
 										<input type="checkbox" (change)="generateFilter()" [(ngModel)]="filters.showfeedbacks" name="showfeedbacksFlter">
 										<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
-									</label>
+									</label>-->
 								</th>
 							</tr>
 							<tr>

@@ -72,16 +72,16 @@ export class HomeComponent implements OnInit {
     }
 
     init() {
-        this.homeService.getTotalInvitations( this.currentUser.clientid, this.dateFrom, this.dateTo)
+        this.homeService.getTotalInvitations( this.currentUser, this.dateFrom, this.dateTo)
             .subscribe(result => {
                 this.invitationCount = result.count;
             });
-        this.homeService.getTotalVerifiedReviews( this.currentUser.clientid, this.dateFrom, this.dateTo)
+        this.homeService.getTotalVerifiedReviews( this.currentUser, this.dateFrom, this.dateTo)
             .subscribe(result => {
                 this.verifiedReviewsCount = result.count;
                 this.verifiedReviewsPercent = (this.verifiedReviewsCount / this.invitationCount) * 100;
             });
-        this.homeService.getTotalRating( this.currentUser.clientid, this.dateFrom, this.dateTo)
+        this.homeService.getTotalRating( this.currentUser, this.dateFrom, this.dateTo)
             .subscribe(result => {
                 this.totalRating = result;
             });

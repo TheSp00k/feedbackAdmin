@@ -13,14 +13,14 @@ export class FeedbackService {
 
     }
 
-    changeFeedbackStatus(feedbackId, feedback):Observable<any> {
-        return this.http.put(`//localhost:3000/feedbacks/${feedbackId}`, feedback)
+	changeFeedbackStatus(currentUser, feedback):Observable<any> {
+		return this.http.put(`//localhost:3000/feedbacks/${feedback.id}?access_token=${currentUser.token}`, feedback)
             .map((response:Response) => {
                 return response.json();
             });
     }
 
-    getModerationFeedbacks(clientid:string, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
+    getModerationFeedbacks(currentUser:any, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
             dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
@@ -28,12 +28,12 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"], "where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}}`)
+		return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"], "where": {"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
-    getModerationFeedbacksCount(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
+	getModerationFeedbacksCount(currentUser:any, dateFrom:string, dateTo:string):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
             dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
@@ -41,40 +41,13 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}`)
-            .map((response:Response) => {
-                return response.json();
-            });
-    };
-
-    getAcceptedFeedbacks(clientid:string, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
-        let dateFilterStr = '';
-        if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
-        }
-        if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
-        }
-        return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}}`)
-            .map((response:Response) => {
-                return response.json();
-            });
-    };
-    getAcceptedFeedbacksCount(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
-        let dateFilterStr = '';
-        if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
-        }
-        if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
-        }
-        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}`)
+		return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
 
-    getRejectedFeedbacks(clientid:string, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
+	getAcceptedFeedbacks(currentUser:any, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
             dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
@@ -82,12 +55,12 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}}`)
+		return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     };
-    getRejectedFeedbacksCount(clientid:string, dateFrom:string, dateTo:string):Observable<any> {
+	getAcceptedFeedbacksCount(currentUser:any, dateFrom:string, dateTo:string):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
             dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
@@ -95,7 +68,34 @@ export class FeedbackService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-        return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}`)
+		return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}&access_token=${currentUser.token}`)
+            .map((response:Response) => {
+                return response.json();
+            });
+    };
+
+	getRejectedFeedbacks(currentUser:any, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
+        let dateFilterStr = '';
+        if (dateFrom) {
+            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+        }
+        if (dateTo) {
+            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+        }
+		return this.http.get(`//localhost:3000/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}}&access_token=${currentUser.token}`)
+            .map((response:Response) => {
+                return response.json();
+            });
+    };
+	getRejectedFeedbacksCount(currentUser:any, dateFrom:string, dateTo:string):Observable<any> {
+        let dateFilterStr = '';
+        if (dateFrom) {
+            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+        }
+        if (dateTo) {
+            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+        }
+		return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });

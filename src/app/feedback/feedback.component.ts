@@ -134,8 +134,7 @@ export class FeedbackComponent implements OnInit {
     public acceptFeedback = (feedback, from) => {
         feedback.approved = true;
         feedback.rejected = null;
-        let feedbackId = feedback.id;
-        this.feedbackService.changeFeedbackStatus(feedbackId, feedback)
+		this.feedbackService.changeFeedbackStatus(this.currentUser, feedback)
             .subscribe(result => {
                 this[from] = this[from].filter((obj) => {
                     return obj.id !== result.id;
@@ -159,8 +158,7 @@ export class FeedbackComponent implements OnInit {
     public rejectFeedback = (feedback, from) => {
         feedback.approved = null;
         feedback.rejected = true;
-        let feedbackId = feedback.id;
-        this.feedbackService.changeFeedbackStatus(feedbackId, feedback)
+		this.feedbackService.changeFeedbackStatus(this.currentUser, feedback)
             .subscribe(result => {
                 this[from] = this[from].filter((obj) => {
                     return obj.id !== result.id;
@@ -183,8 +181,7 @@ export class FeedbackComponent implements OnInit {
     public moderateFeedback = (feedback, from) => {
         feedback.approved = null;
         feedback.rejected = null;
-        let feedbackId = feedback.id;
-        this.feedbackService.changeFeedbackStatus(feedbackId, feedback)
+		this.feedbackService.changeFeedbackStatus(this.currentUser, feedback)
             .subscribe(result => {
                 this[from] = this[from].filter((obj) => {
                     return obj.id !== result.id;
@@ -206,13 +203,13 @@ export class FeedbackComponent implements OnInit {
     };
 
     private getModerationFeedbacks = () => {
-        this.feedbackService.getModerationFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
+        this.feedbackService.getModerationFeedbacks(this.currentUser, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
             .subscribe(result => {
                 this.moderationFeedbacks = result;
             });
     };
     private getModerationFeedbacksCount = () => {
-        this.feedbackService.getModerationFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
+        this.feedbackService.getModerationFeedbacksCount(this.currentUser, this.dateFrom, this.dateTo)
             .subscribe(result => {
                 this.moderationFeedbacksCount = result.count;
                 this.totalModeratedPages = this.moderationFeedbacksCount / this.pageLimit;
@@ -223,13 +220,13 @@ export class FeedbackComponent implements OnInit {
             });
     };
     private getAcceptedFeedbacks = () => {
-        this.feedbackService.getAcceptedFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
+        this.feedbackService.getAcceptedFeedbacks(this.currentUser, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
             .subscribe(result => {
                 this.acceptedFeedbacks = result;
             });
     };
     private getAcceptedFeedbacksCount = () => {
-        this.feedbackService.getAcceptedFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
+        this.feedbackService.getAcceptedFeedbacksCount(this.currentUser, this.dateFrom, this.dateTo)
             .subscribe(result => {
                 this.acceptedFeedbacksCount = result.count;
                 this.totalAcceptedPages = this.acceptedFeedbacksCount / this.pageLimit;
@@ -240,14 +237,14 @@ export class FeedbackComponent implements OnInit {
             });
     };
     private getRejectedFeedbacks = () => {
-        this.feedbackService.getRejectedFeedbacks(this.currentUser.clientid, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
+        this.feedbackService.getRejectedFeedbacks(this.currentUser, this.dateFrom, this.dateTo, this.pageOffset, this.pageLimit)
             .subscribe(result => {
                 console.log(result);
                 this.rejectedFeedbacks = result;
             });
     };
     private getRejectedFeedbacksCount = () => {
-        this.feedbackService.getRejectedFeedbacksCount(this.currentUser.clientid, this.dateFrom, this.dateTo)
+        this.feedbackService.getRejectedFeedbacksCount(this.currentUser, this.dateFrom, this.dateTo)
             .subscribe(result => {
                 this.rejectedFeedbacksCount = result.count;
                 this.totalRejectedPages = this.rejectedFeedbacksCount / this.pageLimit;

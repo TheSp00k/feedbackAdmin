@@ -13,15 +13,15 @@ export class SettingsService {
     constructor(private router:Router, private http:Http) {
     }
 
-    getClient(clientId):Observable<any> {
-        return this.http.get(`//localhost:3000/clients/${clientId}`)
+    getClient(currentUser):Observable<any> {
+		return this.http.get(`//localhost:3000/clients/${currentUser.clientid}?access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     }
 
-    saveClient(client):Observable<any> {
-        return this.http.put(`//localhost:3000/clients/${client.id}`, client)
+    saveClient(currentUser, client):Observable<any> {
+		return this.http.put(`//localhost:3000/clients/${client.id}?access_token=${currentUser.token}`, client)
             .map((response:Response) => {
                 return response.json();
             })

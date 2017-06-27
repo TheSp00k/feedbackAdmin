@@ -13,25 +13,25 @@ export class ProductService {
     constructor(private router:Router, private http:Http) {
     }
 
-    getProducts(clientId, pageOffset:number, pageLimit:number, filter:string):Observable<any> {
+	getProducts(currentUser, pageOffset:number, pageLimit:number, filter:string):Observable<any> {
 
         let filterStr = '';
         if (filter.length > 0) {
             filterStr = `, "where": {"and":[${filter}]}`;
         }
-        return this.http.get(`//localhost:3000/clients/${clientId}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}`)
+		return this.http.get(`//localhost:3000/clients/${currentUser.clientid}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     }
-    saveProduct(product):Observable<any> {
-        return this.http.put(`//localhost:3000/products/${product.id}`, product)
+	saveProduct(currentUser, product):Observable<any> {
+		return this.http.put(`//localhost:3000/products/${product.id}?access_token=${currentUser.token}`, product)
             .map((response:Response) => {
                 return response.json();
             })
     }
-    getProductsCount(clientid:string):Observable<any> {
-        return this.http.get(`//localhost:3000/clients/${clientid}/products/count`)
+    getProductsCount(currentUser):Observable<any> {
+		return this.http.get(`//localhost:3000/clients/${currentUser.clientid}/products/count?access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
