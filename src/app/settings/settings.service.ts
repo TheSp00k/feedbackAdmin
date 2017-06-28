@@ -4,7 +4,8 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/delay";
 import {Router} from "@angular/router";
 import {Http, Response} from '@angular/http';
-import {Observable} from "rxjs/Observable";
+import { Observable } from "rxjs/Observable";
+import { environment } from "environments/environment";
 
 
 @Injectable()
@@ -14,14 +15,14 @@ export class SettingsService {
     }
 
     getClient(currentUser):Observable<any> {
-		return this.http.get(`//localhost:3000/clients/${currentUser.clientid}?access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}?access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
     }
 
     saveClient(currentUser, client):Observable<any> {
-		return this.http.put(`//localhost:3000/clients/${client.id}?access_token=${currentUser.token}`, client)
+		return this.http.put(`${environment.apiUrl}/clients/${client.id}?access_token=${currentUser.token}`, client)
             .map((response:Response) => {
                 return response.json();
             })

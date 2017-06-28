@@ -5,7 +5,8 @@ import "rxjs/add/operator/delay";
 import 'rxjs/add/operator/mergeMap';
 import {Router} from "@angular/router";
 import {Http, Response} from '@angular/http';
-import {Observable} from "rxjs/Observable";
+import { Observable } from "rxjs/Observable";
+import { environment } from "environments/environment";
 
 
 @Injectable()
@@ -25,7 +26,7 @@ export class AuthService {
     }
 
     login(email:string, password:string):Observable<any> {
-        return this.http.post('//localhost:3000/appusers/login', {email: email, password: password})
+		return this.http.post(`${environment.apiUrl}/appusers/login`, {email: email, password: password})
             .map((response:Response) => {
                 // login successful if there is a jwt token in response
                 let token = response.json() && response.json().id;
@@ -39,7 +40,7 @@ export class AuthService {
                     return false;
                 }
             })
-            .flatMap((currentUser) => this.http.get(`//localhost:3000/appusers/${this.userid}?access_token=${this.token}`)).map((res:Response) => {
+			.flatMap((currentUser) => this.http.get(`${environment.apiUrl}/appusers/${this.userid}?access_token=${this.token}`)).map((res:Response) => {
                 let currentUser = res.json();
                 currentUser.token = this.token;
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));

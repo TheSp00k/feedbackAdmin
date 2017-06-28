@@ -4,7 +4,8 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/delay";
 import {Router} from "@angular/router";
 import {Http, Response} from '@angular/http';
-import {Observable} from "rxjs/Observable";
+import { Observable } from "rxjs/Observable";
+import { environment } from "environments/environment";
 
 
 @Injectable()
@@ -22,7 +23,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-		return this.http.get(`//localhost:3000/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -35,7 +36,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-		return this.http.get(`//localhost:3000/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
@@ -48,7 +49,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-		return this.http.get(`//localhost:3000/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"approved": 1}]}}&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"approved": 1}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 let feedbacks = response.json();
                 let totalScoreSum = 0;
@@ -67,7 +68,7 @@ export class HomeService {
     };
 
     // login(email:string, password:string): Observable<boolean> {
-    //     return this.http.post('//localhost:3000/appusers/login', {email: email, password: password})
+    //     return this.http.post('${environment.apiUrl}/appusers/login', {email: email, password: password})
     //         .map((response: Response) => {
     //             // login successful if there is a jwt token in response
     //             let token = response.json() && response.json().id;
