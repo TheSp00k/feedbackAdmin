@@ -11,13 +11,15 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<div class="input-group">
-									<input class="form-control" id="from" name="startdate" (onMinPicked)="onMinPicked($event)" [(ngModel)]="dateFrom" #send_date="ngModel" [saUiDatepicker]="{
+									<input class="form-control" id="from" name="startdate" (onMinPicked)="onMinPicked($event)" [(ngModel)]="dateFrom" #send_date="ngModel"
+									 [saUiDatepicker]="{
                                     dateFormat: 'yy-mm-dd',
                                     defaultDate: '+1w',
                                     changesMonth: true,
                                     numberOfMonth: 3,
                                     minRestrict: '#to',
-                                    ngModel: 'dateFrom'
+                                    ngModel: 'dateFrom',
+									 maxDate: 0
                                  }" type="text" placeholder="From">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
@@ -31,7 +33,7 @@
                                     defaultDate: '+3w',
                                     changesMonth: true,
                                     numberOfMonth: 3,
-                                    maxRestrict: '#from'
+									 maxDate: 0
                                  }" type="text" placeholder="To">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
@@ -97,7 +99,7 @@
 						<!-- widget content -->
 						<div class="widget-body text-center">
 							<h1><strong class="font-xl">{{verifiedReviewsCount}}</strong>
-								<span style="padding-left: 10px">({{verifiedReviewsPercent}}%)</span></h1>
+								<span *ngIf="verifiedReviewsPercent" style="padding-left: 10px">({{verifiedReviewsPercent}}%)</span></h1>
 						</div>
 						<!-- end widget content -->
 					</div>
@@ -106,8 +108,7 @@
 			</article>
 			<article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 				<!-- Widget ID (each widget will need unique ID)-->
-				<sa-widget color="green" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false"
-						   [deletebutton]="false">
+				<sa-widget color="green" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
 					<!-- widget options:
 						usage: <sa-widget id="wid-id-0" [editbutton]="false">
 						[colorbutton]="false"
@@ -127,18 +128,18 @@
 						<!-- widget content -->
 						<div class="widget-body text-center">
 							<!--<div style="height: 20px;" class="smart-form pull-left">-->
-								<!--<div class="rating">-->
-									<!--<input type="radio" name="stars-rating" id="stars-rating-5">-->
-									<!--<label for="stars-rating-5"><i class="fa fa-star"></i></label>-->
-									<!--<input type="radio" name="stars-rating" id="stars-rating-4">-->
-									<!--<label for="stars-rating-4"><i class="fa fa-star"></i></label>-->
-									<!--<input type="radio" name="stars-rating" id="stars-rating-3">-->
-									<!--<label for="stars-rating-3"><i class="fa fa-star text-primary"></i></label>-->
-									<!--<input type="radio" name="stars-rating" id="stars-rating-2">-->
-									<!--<label for="stars-rating-2"><i class="fa fa-star text-primary"></i></label>-->
-									<!--<input type="radio" name="stars-rating" id="stars-rating-1">-->
-									<!--<label for="stars-rating-1"><i class="fa fa-star text-primary"></i></label>-->
-								<!--</div>-->
+							<!--<div class="rating">-->
+							<!--<input type="radio" name="stars-rating" id="stars-rating-5">-->
+							<!--<label for="stars-rating-5"><i class="fa fa-star"></i></label>-->
+							<!--<input type="radio" name="stars-rating" id="stars-rating-4">-->
+							<!--<label for="stars-rating-4"><i class="fa fa-star"></i></label>-->
+							<!--<input type="radio" name="stars-rating" id="stars-rating-3">-->
+							<!--<label for="stars-rating-3"><i class="fa fa-star text-primary"></i></label>-->
+							<!--<input type="radio" name="stars-rating" id="stars-rating-2">-->
+							<!--<label for="stars-rating-2"><i class="fa fa-star text-primary"></i></label>-->
+							<!--<input type="radio" name="stars-rating" id="stars-rating-1">-->
+							<!--<label for="stars-rating-1"><i class="fa fa-star text-primary"></i></label>-->
+							<!--</div>-->
 							<!--</div>-->
 							<div class="clearfix"></div>
 							<h1><strong class="font-xl">{{totalRating | number: '1.1-1'}}</strong></h1>
@@ -151,23 +152,23 @@
 		</div>
 	</sa-widgets-grid>
 	<!--<div class="row">-->
-		<!--<sa-widgets-grid>-->
-			<!--<article class="col-xs-12">-->
-				<!--<sa-widget color="green" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">-->
-					<!--<header>-->
-						<!--<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>-->
+	<!--<sa-widgets-grid>-->
+	<!--<article class="col-xs-12">-->
+	<!--<sa-widget color="green" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">-->
+	<!--<header>-->
+	<!--<span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>-->
 
-						<!--<h2>Site Stats Chart</h2>-->
-					<!--</header>-->
+	<!--<h2>Site Stats Chart</h2>-->
+	<!--</header>-->
 
-					<!--<div>-->
-						<!--<div class="widget-body">-->
-							<!--<sa-flot-chart [data]="flotData.siteStatsData"-->
-										   <!--[options]="flotExamples.siteStatsDemoOptions"></sa-flot-chart>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</sa-widget>-->
-			<!--</article>-->
-		<!--</sa-widgets-grid>-->
+	<!--<div>-->
+	<!--<div class="widget-body">-->
+	<!--<sa-flot-chart [data]="flotData.siteStatsData"-->
+	<!--[options]="flotExamples.siteStatsDemoOptions"></sa-flot-chart>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--</sa-widget>-->
+	<!--</article>-->
+	<!--</sa-widgets-grid>-->
 	<!--</div>-->
 </div>

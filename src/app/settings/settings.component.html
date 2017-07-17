@@ -26,7 +26,7 @@
 									</div>
 									<div class="form-group">
 										<label>Request delay (days)</label>
-										<input class="form-control spinner-both" [(ngModel)]="client.requestdelay" (onSpin)="onSpin($event)" name="requestdelay" value="1" saUiSpinner>
+										<input class="form-control spinner-both" [(ngModel)]="client.requestdelay" (onSpin)="onSpin($event)" name="requestdelay" min="0" value="1" saUiSpinner>
 									</div>
 								</div>
 								<div class="col col-xs-12 col-md-6 col-lg-6">
