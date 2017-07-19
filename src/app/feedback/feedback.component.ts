@@ -58,19 +58,13 @@ export class FeedbackComponent implements OnInit {
         dateFilter.dateFrom = this.dateFrom;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
-		this.notificationService.bigBox({
-			title: "Feedback list has been filtered by date",
-			color: "#739e73",
-			icon: "fa fa-check bounce animated",
-			timeout: 3000
-		});
-        // this.notificationService.smallBox({
-        //     title: "Feedback list filtered by date",
-        //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-        //     color: "#659265",
-        //     iconSmall: "fa fa-check bounce animated",
-        //     timeout: 4000
-        // });
+        this.notificationService.smallBox({
+            title: "Feedback list filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "#659265",
+            iconSmall: "fa fa-check bounce animated",
+            timeout: 4000
+        });
     };
 
     onMaxPicked(date:Date) {
@@ -82,19 +76,13 @@ export class FeedbackComponent implements OnInit {
         dateFilter.dateTo = this.dateTo;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
-        // this.notificationService.smallBox({
-        //     title: "Feedback list filtered by date",
-        //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-        //     color: "#659265",
-        //     iconSmall: "fa fa-check bounce animated",
-        //     timeout: 4000
-        // });
-		this.notificationService.bigBox({
-			title: "Feedback list has been filtered by date",
-			color: "#739e73",
-			icon: "fa fa-check bounce animated",
-			timeout: 3000
-		});
+        this.notificationService.smallBox({
+            title: "Feedback list filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "#659265",
+            iconSmall: "fa fa-check bounce animated",
+            timeout: 4000
+        });
     };
 
     public calculatePage = () => {
@@ -158,19 +146,13 @@ export class FeedbackComponent implements OnInit {
                 this.getModerationFeedbacks();
                 this.getAcceptedFeedbacks();
                 this.getRejectedFeedbacks();
-				this.notificationService.bigBox({
-					title: "This feedback was sent to accepted tab",
-					color: "#739e73",
-					icon: "fa fa-check bounce animated",
-					timeout: 3000
-				});
-                // this.notificationService.smallBox({
-                //     title: "This feedback was sent to accepted tab",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#659265",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "This feedback was sent to accepted tab",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#659265",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
     public rejectFeedback = (feedback, from) => {
@@ -187,19 +169,13 @@ export class FeedbackComponent implements OnInit {
                 this.getModerationFeedbacks();
                 this.getAcceptedFeedbacks();
                 this.getRejectedFeedbacks();
-				this.notificationService.bigBox({
-					title: "This feedback was sent to rejected tab",
-					color: "#739e73",
-					icon: "fa fa-check bounce animated",
-					timeout: 3000
-				});
-                // this.notificationService.smallBox({
-                //     title: "This feedback was sent to rejected tab",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#c26565",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "This feedback was sent to rejected tab",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#c26565",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
     public moderateFeedback = (feedback, from) => {
@@ -216,19 +192,13 @@ export class FeedbackComponent implements OnInit {
                 this.getModerationFeedbacks();
                 this.getAcceptedFeedbacks();
                 this.getRejectedFeedbacks();
-				this.notificationService.bigBox({
-					title: "This feedback was sent to moderated tab",
-					color: "#739e73",
-					icon: "fa fa-check bounce animated",
-					timeout: 3000
-				});
-                // this.notificationService.smallBox({
-                //     title: "This feedback was sent to moderated tab",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#dfb56c",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "This feedback was sent to moderated tab",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#dfb56c",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
 

@@ -24,19 +24,13 @@ export class SettingsComponent implements OnInit {
     public saveClientSettings = () => {
 		this.settingsService.saveClient(this.currentUser, this.client)
             .subscribe(result => {
-				this.notificationService.bigBox({
-					title: "Settings have been updated",
-					color: "#739e73",
-					icon: "fa fa-check bounce animated",
-					timeout: 3000
-				});
-                // this.notificationService.smallBox({
-                //     title: "Settings have been updated",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#659265",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "Settings have been updated",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "#659265",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 4000
+                });
             });
     };
 
