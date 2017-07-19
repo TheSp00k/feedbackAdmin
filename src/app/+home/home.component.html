@@ -100,7 +100,7 @@
 						<div class="widget-body text-center">
 							<h1>
 								<strong class="font-xl">{{verifiedReviewsCount}}</strong>
-								<span style="padding-left: 10px">({{verifiedReviewsPercent}}%)</span>
+								<span *ngIf="verifiedReviewsPercent" style="padding-left: 10px">({{verifiedReviewsPercent}}%)</span>
 							</h1>
 						</div>
 						<!-- end widget content -->
@@ -129,7 +129,7 @@
 					<!-- widget div-->
 					<div>
 						<!-- widget content -->
-						<div class="widget-body text-center">
+						<div class="content">
 							<!--<div style="height: 20px;" class="smart-form pull-left">-->
 							<!--<div class="rating">-->
 							<!--<input type="radio" name="stars-rating" id="stars-rating-5">-->
