@@ -29,13 +29,19 @@ export class HomeComponent implements OnInit {
         dateFilter.dateFrom = this.dateFrom;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
-        this.notificationService.smallBox({
-            title: "Dashboard has been filtered by date",
-            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-            color: "#659265",
-            iconSmall: "fa fa-check bounce animated",
-            timeout: 4000
-        });
+		this.notificationService.bigBox({
+			title: "Dashboard has been filtered by date",
+			color: "#739e73",
+			icon: "fa fa-check bounce animated",
+			timeout: 3000
+		});
+        // this.notificationService.smallBox({
+        //     title: "Dashboard has been filtered by date",
+        //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+        //     color: "#659265",
+        //     iconSmall: "fa fa-check bounce animated",
+        //     timeout: 4000
+        // });
     }
     onMaxPicked(date: Date) {
         this.dateTo = date;
@@ -46,13 +52,19 @@ export class HomeComponent implements OnInit {
         dateFilter.dateTo = this.dateTo;
         localStorage.setItem('dateFilter', JSON.stringify(dateFilter));
         this.init();
-        this.notificationService.smallBox({
-            title: "Dashboard has been filtered by date",
-            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-            color: "#659265",
-            iconSmall: "fa fa-check bounce animated",
-            timeout: 4000
-        });
+		this.notificationService.bigBox({
+			title: "Dashboard has been filtered by date",
+			color: "#739e73",
+			icon: "fa fa-check bounce animated",
+			timeout: 3000
+		});
+        // this.notificationService.smallBox({
+        //     title: "Dashboard has been filtered by date",
+        //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+        //     color: "#659265",
+        //     iconSmall: "fa fa-check bounce animated",
+        //     timeout: 4000
+        // });
     }
 
     constructor(private homeService:HomeService, private notificationService: NotificationService) {

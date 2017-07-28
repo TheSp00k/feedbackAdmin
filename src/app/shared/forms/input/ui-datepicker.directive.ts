@@ -18,7 +18,6 @@ export class UiDatepickerDirective implements OnInit {
         let onSelectCallbacks = [];
         let saUiDatepicker = this.saUiDatepicker || {};
         let element = $(this.el.nativeElement);
-
         if (saUiDatepicker.minRestrict) {
             onSelectCallbacks.push((selectedDate)=> {
                 $(saUiDatepicker.minRestrict).datepicker('option', 'minDate', selectedDate);
@@ -50,7 +49,6 @@ export class UiDatepickerDirective implements OnInit {
                     console.log(e.message)
                 }
             }
-            console.log('asd');
         });
 
         let options = $.extend(saUiDatepicker, {
