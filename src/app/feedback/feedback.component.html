@@ -12,7 +12,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<input class="form-control" id="from" name="startdate" (onMinPicked)="onMinPicked($event)" [(ngModel)]="dateFrom" #send_date="ngModel"
-									 [saUiDatepicker]="{
+										   [saUiDatepicker]="{
                                     dateFormat: 'yy-mm-dd',
                                     defaultDate: '+1w',
                                     changesMonth: true,
@@ -46,224 +46,245 @@
 		</sa-widgets-grid>
 	</div>
 	<article class="col-sm-12 col-md-12 col-lg-12">
-		<sa-widget class="well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
-		 [custombutton]="false" [sortable]="false">
-			<div>
-				<div class="widget-body">
-					<ul id="myTab1" class="nav nav-tabs bordered">
-						<li [class.active]="state.tabs.current == 0">
-							<a (click)="changeTab(0)">Moderation</a>
-						</li>
-						<li [class.active]="state.tabs.current == 1">
-							<a (click)="changeTab(1)">Accepted</a>
-						</li>
-						<li [class.active]="state.tabs.current == 2">
-							<a (click)="changeTab(2)">Rejected</a>
-						</li>
-					</ul>
+		<div>
+			<div class="widget-body borderless">
+				<ul id="myTab1" class="nav nav-tabs borderless">
+					<li [class.active]="state.tabs.current == 0">
+						<a (click)="changeTab(0)">Moderation</a>
+					</li>
+					<li [class.active]="state.tabs.current == 1">
+						<a (click)="changeTab(1)">Accepted</a>
+					</li>
+					<li [class.active]="state.tabs.current == 2">
+						<a (click)="changeTab(2)">Rejected</a>
+					</li>
+				</ul>
 
-					<tabset>
-						<tab [active]="state.tabs.current == 0">
+				<tabset>
+					<tab class="tableTab" [active]="state.tabs.current == 0">
+						<div class="table-responsive">
+							<table class="greenTable smart-form table-striped">
+								<thead>
+								<tr>
+									<th data-hide="mobile-p">Posted</th>
+									<th data-hide="mobile-p">Product name</th>
+									<th data-hide="mobile-p">Photo</th>
+									<th>Comment</th>
+									<th>Rating</th>
+									<th data-class="expand">Reviewer</th>
+									<th>Menu</th>
+								</tr>
+								</thead>
+								<tbody>
+								<template ngFor let-feedback [ngForOf]="moderationFeedbacks">
+									<tr>
+										<td>{{feedback.created | date: 'y-MM-dd HH:mm'}}</td>
+										<td>{{feedback.product.name}}</td>
+										<td>
+											<div class="feedback-product-img">
+												<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
+											</div>
+										</td>
+										<td>
+											<div><strong>{{feedback.commentheader}}</strong></div>
+											<div>{{feedback.commentcontent}}</div>
+										</td>
+										<td style="width: 100px;">
+											<!--{{feedback.totalratingscore}}-->
+											<div class="rating">
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore == 5)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 4)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 3)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 2)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 1)}" class="fa fa-star"></i></label>
+											</div>
+										</td>
+										<td>{{feedback.customer.name}}</td>
+										<td style="width: 200px;">
+											<button (click)="acceptFeedback(feedback, 'moderationFeedbacks')" class="tableButton accept">
+												Accept
+											</button>
+											<button (click)="rejectFeedback(feedback, 'moderationFeedbacks')" class="tableButton reject">
+												Reject
+											</button>
+										</td>
+									</tr>
+								</template>
+								</tbody>
+								<tfoot>
+								<tr>
+									<td colspan="7">
+										<div style="border: none;" class="widget-toolbar">
+											<ul *ngIf="totalModeratedPages > 1" class="pagination pagination-xs">
+												<li [ngClass]="{'disabled':currentPage == 1}">
+													<a (click)="goToPage('moderated', (currentPage - 1))">Prev</a>
+												</li>
+												<template ngFor let-moderateNr [ngForOf]="totalModeratedPagesArray">
+													<li [ngClass]="{'active':(currentPage == moderateNr)}">
+														<a (click)="goToPage('moderated', moderateNr)">{{moderateNr}}</a>
+													</li>
+												</template>
+												<li [ngClass]="{'disabled':currentPage >= totalModeratedPages}">
+													<a (click)="goToPage('moderated', (currentPage + 1))">Next</a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								</tfoot>
+							</table>
+						</div>
+					</tab>
+					<tab class="tableTab" [active]="state.tabs.current == 1">
+						<div class="table-responsive">
+							<table class="greenTable smart-form table-striped">
+								<thead>
+								<tr>
+									<th data-hide="mobile-p">Posted</th>
+									<th data-hide="mobile-p">Product name</th>
+									<th data-hide="mobile-p">Photo</th>
+									<th>Comment</th>
+									<th>Rating</th>
+									<th data-class="expand">Reviewer</th>
+									<th>Menu</th>
+								</tr>
+								</thead>
+								<tbody>
+								<template ngFor let-feedback [ngForOf]="acceptedFeedbacks">
+									<tr>
+										<td>{{feedback.created | date: 'y-MM-dd HH:mm'}}</td>
+										<td>{{feedback.product.name}}</td>
+										<td>
+											<div class="feedback-product-img">
+												<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
+											</div>
+										</td>
+										<td>
+											<div><strong>{{feedback.commentheader}}</strong></div>
+											<div>{{feedback.commentcontent}}</div>
+										</td>
+										<td style="width: 100px;">
+											<div class="rating">
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore == 5)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 4)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 3)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 2)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 1)}" class="fa fa-star"></i></label>
+											</div>
+										</td>
+										<td>{{feedback.customer.name}}</td>
+										<td style="width: 200px;">
+											<button (click)="moderateFeedback(feedback, 'acceptedFeedbacks')" class="tableButton moderate">
+												Moderate
+											</button>
+											<button (click)="rejectFeedback(feedback, 'acceptedFeedbacks')" class="tableButton reject">
+												Reject
+											</button>
+										</td>
+									</tr>
+								</template>
 
-							<div class="table-responsive">
-								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
-									<thead>
-										<tr>
-											<th data-hide="mobile-p">Posted</th>
-											<th data-hide="mobile-p">Product name</th>
-											<th data-hide="mobile-p">Photo</th>
-											<th>Comment</th>
-											<th>Rating</th>
-											<th data-class="expand">Reviewer</th>
-											<th>Menu</th>
-										</tr>
-									</thead>
-									<tbody>
-										<template ngFor let-feedback [ngForOf]="moderationFeedbacks">
-											<tr>
-												<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
-												<td>{{feedback.product.name}}</td>
-												<td>
-													<div class="feedback-product-img">
-														<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
-													</div>
-												</td>
-												<td>
-													<div><strong>{{feedback.commentheader}}</strong></div>
-													<div>{{feedback.commentcontent}}</div>
-												</td>
-												<td>{{feedback.totalratingscore}}</td>
-												<td>{{feedback.customer.name}}</td>
-												<td>
-													<button (click)="acceptFeedback(feedback, 'moderationFeedbacks')" class="btn btn-success btn-sm">
-													Accept
-												</button>
-													<button (click)="rejectFeedback(feedback, 'moderationFeedbacks')" class="btn btn-danger btn-sm">
-													Reject
-												</button>
-												</td>
-											</tr>
-										</template>
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="7">
-												<div style="border: none;" class="widget-toolbar">
-													<ul *ngIf="totalModeratedPages > 1" class="pagination pagination-xs">
-														<li [ngClass]="{'disabled':currentPage == 1}">
-															<a (click)="goToPage('moderated', (currentPage - 1))">Prev</a>
-														</li>
-														<template ngFor let-moderateNr [ngForOf]="totalModeratedPagesArray">
-															<li [ngClass]="{'active':(currentPage == moderateNr)}">
-																<a (click)="goToPage('moderated', moderateNr)">{{moderateNr}}</a>
-															</li>
-														</template>
-														<li [ngClass]="{'disabled':currentPage >= totalModeratedPages}">
-															<a (click)="goToPage('moderated', (currentPage + 1))">Next</a>
-														</li>
-													</ul>
-												</div>
-											</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</tab>
-						<tab [active]="state.tabs.current == 1">
-							<div class="table-responsive">
-								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
-									<thead>
-										<tr>
-											<th data-hide="mobile-p">Posted</th>
-											<th data-hide="mobile-p">Product name</th>
-											<th data-hide="mobile-p">Photo</th>
-											<th>Comment</th>
-											<th>Rating</th>
-											<th data-class="expand">Reviewer</th>
-											<th>Menu</th>
-										</tr>
-									</thead>
-									<tbody>
-										<template ngFor let-feedback [ngForOf]="acceptedFeedbacks">
-											<tr>
-												<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
-												<td>{{feedback.product.name}}</td>
-												<td>
-													<div class="feedback-product-img">
-														<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
-													</div>
-												</td>
-												<td>
-													<div><strong>{{feedback.commentheader}}</strong></div>
-													<div>{{feedback.commentcontent}}</div>
-												</td>
-												<td>{{feedback.totalratingscore}}</td>
-												<td>{{feedback.customer.name}}</td>
-												<td>
-													<button (click)="moderateFeedback(feedback, 'acceptedFeedbacks')" class="btn btn-warning btn-sm">
-													Moderate
-												</button>
-													<button (click)="rejectFeedback(feedback, 'acceptedFeedbacks')" class="btn btn-danger btn-sm">
-													Reject
-												</button>
-												</td>
-											</tr>
-										</template>
+								</tbody>
+								<tfoot>
+								<tr>
+									<td colspan="7">
+										<div style="border: none;" class="widget-toolbar">
+											<ul *ngIf="totalAcceptedPages > 1" class="pagination pagination-xs">
+												<li [ngClass]="{'disabled':currentPage == 1}">
+													<a (click)="goToPage('accepted', (currentPage - 1))">Prev</a>
+												</li>
+												<template ngFor let-acceptNr [ngForOf]="totalAcceptedPagesArray">
+													<li [ngClass]="{'active':(currentPage == acceptNr)}">
+														<a (click)="goToPage('accepted', acceptNr)">{{acceptNr}}</a>
+													</li>
+												</template>
+												<li [ngClass]="{'disabled':currentPage >= totalAcceptedPages}">
+													<a (click)="goToPage('accepted', (currentPage + 1))">Next</a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								</tfoot>
+							</table>
+						</div>
+					</tab>
+					<tab class="tableTab" [active]="state.tabs.current == 2">
+						<div class="table-responsive">
+							<table class="greenTable smart-form table-striped">
+								<thead>
+								<tr>
+									<th data-hide="mobile-p">Posted</th>
+									<th data-hide="mobile-p">Product name</th>
+									<th data-hide="mobile-p">Photo</th>
+									<th>Comment</th>
+									<th>Rating</th>
+									<th data-class="expand">Reviewer</th>
+									<th>Menu</th>
+								</tr>
+								</thead>
+								<tbody>
+								<template ngFor let-feedback [ngForOf]="rejectedFeedbacks">
+									<tr>
+										<td>{{feedback.created | date: 'y-MM-dd HH:mm'}}</td>
+										<td>{{feedback.product.name}}</td>
+										<td>
+											<div class="feedback-product-img">
+												<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
+											</div>
+										</td>
+										<td>
+											<div><strong>{{feedback.commentheader}}</strong></div>
+											<div>{{feedback.commentcontent}}</div>
+										</td>
+										<td style="width: 100px;">
+											<div class="rating">
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore == 5)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 4)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 3)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 2)}" class="fa fa-star"></i></label>
+												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 1)}" class="fa fa-star"></i></label>
+											</div>
+										</td>
+										<td>{{feedback.customer.name}}</td>
+										<td style="width: 200px;">
+											<button (click)="acceptFeedback(feedback, 'rejectedFeedbacks')" class="tableButton accept">
+												Accept
+											</button>
+											<button (click)="moderateFeedback(feedback, 'rejectedFeedbacks')" class="tableButton moderate">
+												Moderate
+											</button>
+										</td>
+									</tr>
+								</template>
 
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="7">
-												<div style="border: none;" class="widget-toolbar">
-													<ul *ngIf="totalAcceptedPages > 1" class="pagination pagination-xs">
-														<li [ngClass]="{'disabled':currentPage == 1}">
-															<a (click)="goToPage('accepted', (currentPage - 1))">Prev</a>
-														</li>
-														<template ngFor let-acceptNr [ngForOf]="totalAcceptedPagesArray">
-															<li [ngClass]="{'active':(currentPage == acceptNr)}">
-																<a (click)="goToPage('accepted', acceptNr)">{{acceptNr}}</a>
-															</li>
-														</template>
-														<li [ngClass]="{'disabled':currentPage >= totalAcceptedPages}">
-															<a (click)="goToPage('accepted', (currentPage + 1))">Next</a>
-														</li>
-													</ul>
-												</div>
-											</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</tab>
-						<tab [active]="state.tabs.current == 2">
-							<div class="table-responsive">
-								<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
-									<thead>
-										<tr>
-											<th data-hide="mobile-p">Posted</th>
-											<th data-hide="mobile-p">Product name</th>
-											<th data-hide="mobile-p">Photo</th>
-											<th>Comment</th>
-											<th>Rating</th>
-											<th data-class="expand">Reviewer</th>
-											<th>Menu</th>
-										</tr>
-									</thead>
-									<tbody>
-										<template ngFor let-feedback [ngForOf]="rejectedFeedbacks">
-											<tr>
-												<td>{{feedback.created | date: 'y-MM-dd HH:mm:ss'}}</td>
-												<td>{{feedback.product.name}}</td>
-												<td>
-													<div class="feedback-product-img">
-														<img [src]="feedback.product.photourl" class="img-responsive" alt="assets/img">
-													</div>
-												</td>
-												<td>
-													<div><strong>{{feedback.commentheader}}</strong></div>
-													<div>{{feedback.commentcontent}}</div>
-												</td>
-												<td>{{feedback.totalratingscore}}</td>
-												<td>{{feedback.customer.name}}</td>
-												<td>
-													<button (click)="acceptFeedback(feedback, 'rejectedFeedbacks')" class="btn btn-success btn-sm">
-													Accept
-												</button>
-													<button (click)="moderateFeedback(feedback, 'rejectedFeedbacks')" class="btn btn-warning btn-sm">
-													Moderate
-												</button>
-												</td>
-											</tr>
-										</template>
-
-									</tbody>
-									<tfoot>
-										<tr>
-											<td colspan="7">
-												<div style="border: none;" class="widget-toolbar">
-													<ul *ngIf="totalRejectedPages > 1" class="pagination pagination-xs">
-														<li [ngClass]="{'disabled':currentPage == 1}">
-															<a (click)="goToPage('rejected', (currentPage - 1))">Prev</a>
-														</li>
-														<template ngFor let-rejectNr [ngForOf]="totalRejectedPagesArray">
-															<li [ngClass]="{'active':(currentPage == rejectNr)}">
-																<a (click)="goToPage('rejected', rejectNr)">{{rejectNr}}</a>
-															</li>
-														</template>
-														<li [ngClass]="{'disabled':currentPage >= totalRejectedPages}">
-															<a (click)="goToPage('rejected', (currentPage + 1))">Next</a>
-														</li>
-													</ul>
-												</div>
-											</td>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-						</tab>
-					</tabset>
-				</div>
+								</tbody>
+								<tfoot>
+								<tr>
+									<td colspan="7">
+										<div style="border: none;" class="widget-toolbar">
+											<ul *ngIf="totalRejectedPages > 1" class="pagination pagination-xs">
+												<li [ngClass]="{'disabled':currentPage == 1}">
+													<a (click)="goToPage('rejected', (currentPage - 1))">Prev</a>
+												</li>
+												<template ngFor let-rejectNr [ngForOf]="totalRejectedPagesArray">
+													<li [ngClass]="{'active':(currentPage == rejectNr)}">
+														<a (click)="goToPage('rejected', rejectNr)">{{rejectNr}}</a>
+													</li>
+												</template>
+												<li [ngClass]="{'disabled':currentPage >= totalRejectedPages}">
+													<a (click)="goToPage('rejected', (currentPage + 1))">Next</a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								</tfoot>
+							</table>
+						</div>
+					</tab>
+				</tabset>
 			</div>
-		</sa-widget>
+		</div>
 	</article>
 </div>

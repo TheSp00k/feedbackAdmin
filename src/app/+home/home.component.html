@@ -1,6 +1,6 @@
 <div id="content">
 	<div class="row">
-		<sa-big-breadcrumbs [items]="['Dashboard']" icon="home" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
+		<sa-big-breadcrumbs [items]="['Dashboard']" icon="dashboard" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
 		<sa-widgets-grid>
 			<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 				<sa-widget color="teal" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
@@ -19,7 +19,7 @@
                                     numberOfMonth: 3,
                                     minRestrict: '#to',
                                     ngModel: 'dateFrom',
-									 maxDate: 0
+									 maxDate: '-0d'
                                  }" type="text" placeholder="From">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
@@ -30,10 +30,11 @@
 								<div class="input-group">
 									<input class="form-control" id="to" name="enddate" (onMaxPicked)="onMaxPicked($event)" [(ngModel)]="dateTo" [saUiDatepicker]="{
                                     dateFormat: 'yy-mm-dd',
-                                    defaultDate: '+3w',
+                                    defaultDate: '-0d',
                                     changesMonth: true,
                                     numberOfMonth: 3,
-									 maxDate: 0
+                                    maxRestrict: '#from',
+									 maxDate: '-0d'
                                  }" type="text" placeholder="To">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
@@ -47,7 +48,7 @@
 	<sa-widgets-grid>
 		<div class="row">
 			<article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-				<sa-widget color="teal" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
+				<sa-widget color="teal" [togglebutton]="false" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
 					<header>
 						<h2>Invitations sent</h2>
 					</header>
