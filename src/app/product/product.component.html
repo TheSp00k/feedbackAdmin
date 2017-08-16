@@ -1,6 +1,4 @@
 <div id="content">
-
-
 	<div>
 		<sa-big-breadcrumbs [items]="['Product']" icon="cubes"
 							class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
@@ -33,13 +31,21 @@
 
 
 					<div class="table-responsive">
-						<table [style.width]="'100%'" class="table-bordered table-striped table-condensed table-hover smart-form">
+						<table [style.width]="'100%'" class="greenTable smart-form table-striped">
 							<thead>
-							<tr>
+							<tr style="background-color: #f5f5f5">
 								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.productnumber"></th>
 								<th></th>
 								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.name"></th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr>
+								<th data-hide="mobile-p">Product number</th>
+								<th data-hide="mobile-p">Photo</th>
+								<th data-hide="mobile-p">Product</th>
 								<th data-hide="mobile-p">
+									Send requests
 									<div class="btn-group">
 										<button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<i class="fa fa-filter"></i>
@@ -52,12 +58,9 @@
 											</template>
 										</ul>
 									</div>
-									<!--<label style="display: inline-block; vertical-align: top;" class="toggle">
-										<input type="checkbox" (change)="generateFilter()" [(ngModel)]="filters.sendrequests" name="sendrequestsFlter">
-										<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
-									</label>-->
 								</th>
 								<th data-hide="mobile-p">
+									Show feedbacks
 									<div class="btn-group">
 										<button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<i class="fa fa-filter"></i>
@@ -70,18 +73,7 @@
 											</template>
 										</ul>
 									</div>
-									<!--<label style="display: inline-block; vertical-align: top;" class="toggle">
-										<input type="checkbox" (change)="generateFilter()" [(ngModel)]="filters.showfeedbacks" name="showfeedbacksFlter">
-										<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
-									</label>-->
 								</th>
-							</tr>
-							<tr>
-								<th data-hide="mobile-p">Product number</th>
-								<th data-hide="mobile-p">Photo</th>
-								<th data-hide="mobile-p">Product</th>
-								<th data-hide="mobile-p">Send requests</th>
-								<th data-hide="mobile-p">Show feedbacks</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -98,12 +90,14 @@
 									<td>
 										<label style="display: inline-block; vertical-align: top;" class="toggle">
 											<input type="checkbox" (change)="toggleSetting(product)" [(ngModel)]="product.sendrequests" name="sendrequests">
-											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i></label>
+											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
+										</label>
 									</td>
 									<td>
 										<label style="display: inline-block; vertical-align: top;" class="toggle">
 											<input type="checkbox" (change)="toggleSetting(product)" [(ngModel)]="product.showfeedbacks" name="showfeedbacks">
-											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i></label>
+											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
+										</label>
 									</td>
 								</tr>
 							</template>

@@ -145,6 +145,8 @@ sa-collapse-menu {
 
 .greenTable td {
     text-align: center;
+    text-align: -moz-center;
+    text-align: -webkit-center;
     padding: 15px;
     max-width: 250px;
 }
@@ -155,6 +157,12 @@ sa-collapse-menu {
 
 .greenTable>tbody>tr:nth-of-type(odd) {
     background-color: #edf3f3;
+}
+
+.greenTable thead input {
+    line-height: 25px;
+    border: 1px solid #d9d7d8;
+    padding-left: 10px;
 }
 
 .tableButton {
@@ -176,4 +184,86 @@ sa-collapse-menu {
 }
 i.fa.fa-star.yellow {
     color: #e9c800;
+}
+
+input[type="checkbox"].ios-toggle {
+    display: none;
+}
+
+.toggle {
+    position: relative;
+    width: 51px;
+    height: 31px;
+}
+
+.toggle label,
+.toggle i {
+    box-sizing: border-box;
+    display: block;
+    background: #ffffff;
+}
+
+.toggle label {
+    width: 44px;
+    height: 24px;
+    border-radius: 32px;
+    border: 2px solid #e5e5e5;
+    transition: all 0.30s ease;
+}
+
+.toggle i {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 28px;
+    box-shadow: 0 0 1px 0 rgba(0,0,0, 0.25),
+    0 3px 3px 0 rgba(0,0,0, 0.15);
+    background: #ffffff;
+    transition: all 0.3s cubic-bezier(0.250, -0.425, 0.700, 1.425);
+}
+
+input[type="checkbox"]:active + .toggle i {
+    width: 35px;
+}
+
+input[type="checkbox"].ios-toggle:active + .toggle label,
+input[type="checkbox"].ios-toggle:checked + .toggle label {
+    border: 12px solid #568a89;
+    /*border: 12px solid #8dc061;*/
+}
+
+input[type="checkbox"].ios-toggle:checked + .toggle i {
+    left: 22px;
+}
+
+input[type="checkbox"].ios-toggle:checked:active + .toggle label {
+    border: 12px solid #e5e5e5;
+}
+
+input[type="checkbox"].ios-toggle:checked:active + .toggle i {
+    left: 14px;
+}
+
+.dropdown-container {
+    height: 35px;
+    border: 1px solid #ccc;
+    padding: 0;
+}
+
+.fancy-dropdown {
+    line-height: 32px;
+    width: 100%;
+    display: block;
+    color: #000000;
+}
+
+.fancy-dropdown:hover {
+    color: #000000;
+}
+
+.fancy-dropdown-box {
+    max-height: 200px;
+    overflow: auto;
 }

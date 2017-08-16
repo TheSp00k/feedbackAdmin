@@ -3,81 +3,103 @@
 		<sa-big-breadcrumbs [items]="['Settings']" icon="cog" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
 	</div>
 	<article class="col-sm-12 col-md-12 col-lg-12">
-		<sa-widget [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
+		<sa-widget class="well" [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false" [fullscreenbutton]="false"
 				   [custombutton]="false" [sortable]="false">
-			<!--<sa-widget [colorbutton]="false" [editbutton]="false" [custombutton]="false">-->
-
-				<header>
-					<span class="widget-icon"> <i class="fa fa-edit"></i> </span>
-					<h2>Client settings</h2>
-
-				</header>
-
-				<!-- widget div-->
-				<div>
-					<!-- widget content -->
-					<div class="widget-body">
-						<form *ngIf="client">
-							<fieldset>
-								<div class="col col-xs-12 col-md-6 col-lg-6">
-									<div class="form-group">
-										<label>Company name</label>
-										<input class="form-control" [(ngModel)]="client.name" name="name" placeholder="Company name" type="text">
-									</div>
-									<div class="form-group">
-										<label>Request delay (days)</label>
-										<input class="form-control spinner-both" [(ngModel)]="client.requestdelay" (onSpin)="onSpin($event)" name="requestdelay" min="0" value="1" saUiSpinner>
-									</div>
+			<div style="padding: 15px;">
+				<!-- widget content -->
+				<div style="padding-top: 15px" class="widget-body col col-xs-6 col-md-6 col-lg-6">
+					<form *ngIf="client">
+						<fieldset>
+							<div class="form-group">
+								<div class="col col-xs-4">
+									<label>Company name</label>
 								</div>
-								<div class="col col-xs-12 col-md-6 col-lg-6">
-									<div class="form-group">
-										<label>Feedback time to send</label>
-										<div class="input-group">
-											<input class="form-control" id="clockpicker" (onPicked)="onPicked($event)" [ngModel]="client.requesttime | date:'HH:mm'" name="requesttime" smartClockpicker type="text" placeholder="Select time" data-autoclose="true">
-											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-										</div>
-									</div>
-									<div class="form-group smart-form">
-										<label style="font-size: 13px; display: inline-block; float: right;" class="toggle">
-											<input type="checkbox" [(ngModel)]="client.sendrequests" name="sendrequests">
-											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Send feedback requests</label>
-									</div>
+								<div class="col col-xs-6">
+									<input class="form-control" [(ngModel)]="client.name" name="name" placeholder="Company name" type="text">
 								</div>
-								<div class="col col-xs-12 col-md-6 col-lg-6">
-									<div class="form-group smart-form">
-										<label style="font-size: 13px; display: inline-block; float: right;" class="toggle">
-											<input type="checkbox" [(ngModel)]="client.displaywidget" name="displaywidget">
-											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Display widget</label>
-									</div>
-								</div>
-								<div class="col col-xs-12 col-md-6 col-lg-6">
-									<div class="form-group smart-form">
-										<label style="font-size: 13px; display: inline-block; float: right;" class="toggle">
-											<input type="checkbox" [(ngModel)]="client.showheader" name="showheader">
-											<i data-swchon-text="ON" data-swchoff-text="OFF"></i>Show header</label>
-									</div>
-								</div>
-							</fieldset>
-							<div class="form-actions">
-								<div class="row">
-									<div class="col-md-12">
-										<button type="submit" (click)="saveClientSettings(this)" class="btn btn-primary">
-											Submit
-										</button>
-									</div>
-								</div>
+								<div class="clearfix"></div>
 							</div>
-						</form>
+							<div class="form-group">
+								<div class="col col-xs-4">
+									<label>Send feedback requests</label>
+								</div>
+								<div class="col col-xs-6 text-left">
+									<input type="checkbox" class="ios-toggle" id="sendrequests" [(ngModel)]="client.sendrequests" name="sendrequests">
+									<div class="toggle">
+										<label for="sendrequests"><i></i></label>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="form-group">
+								<div class="col col-xs-4">
+									<label>Show header</label>
+								</div>
+								<div class="col col-xs-6 text-left">
+									<input type="checkbox" class="ios-toggle" id="showheader" [(ngModel)]="client.showheader" name="showheader">
+									<div class="toggle">
+										<label for="showheader"><i></i></label>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="form-group">
+								<div class="col col-xs-4">
+									<label>Display widget</label>
+								</div>
+								<div class="col col-xs-6 text-left">
+									<input type="checkbox" class="ios-toggle" id="displaywidget" [(ngModel)]="client.displaywidget" name="displaywidget">
+									<div class="toggle">
+										<label for="displaywidget"><i></i></label>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="form-group">
+								<div class="col col-xs-4">
+									<label>Request delay (days)</label>
+								</div>
+								<div class="col col-xs-6">
+									<div class="dropdown dropdown-container col-xs-4" dropdown>
+										<a class="dropdown-toggle fancy-dropdown" dropdownToggle>
+											<div style="margin-right: 15px;" class="col-xs-8">{{client.requestdelay}} days</div><span style="color: #88ccf3;" class="glyphicon glyphicon-menu-down"></span>
+										</a>
+										<ul *dropdownMenu class="dropdown-menu fancy-dropdown-box col-xs-12">
+											<li *ngFor="let day of requestDelayDays"><a (click)="selectDropdown(day)">{{day}} days</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="form-group">
+								<div class="col col-xs-4">
+									<label>Feedback time to send</label>
+								</div>
+								<div class="col col-xs-6">
+									<label style="cursor: pointer" for="clockpicker" class="input-icon-right dropdown-container col-xs-4">
+										<i style="color: #88ccf3; font-size: 13px; right: 11px;" class="glyphicon glyphicon-menu-down"></i>
+										<input style="border: none; line-height: 30px;" class="col-xs-8" id="clockpicker" (onPicked)="onPicked($event)" [ngModel]="client.requesttime | date:'HH:mm'" name="requesttime" smartClockpicker type="text" placeholder="Select time" data-autoclose="true">
+									</label>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="col-xs-10">
+								<button style="width: 100%; height: 45px; background-color: #568a89" type="submit" (click)="saveClientSettings(this)" class="tableButton accept">Save</button>
+							</div>
+						</fieldset>
 
-
-					</div>
-					<!-- end widget content -->
-
+						<!--<div class="form-actions">-->
+						<!--<div class="row">-->
+						<!--<div class="col-md-12">-->
+						<!--<button type="submit" (click)="saveClientSettings(this)" class="btn btn-primary">-->
+						<!--Submit-->
+						<!--</button>-->
+						<!--</div>-->
+						<!--</div>-->
+						<!--</div>-->
+					</form>
 				</div>
-				<!-- end widget div -->
-
-			<!--</sa-widget>-->
-
+			</div>
 		</sa-widget>
 	</article>
 </div>
