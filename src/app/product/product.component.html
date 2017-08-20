@@ -1,6 +1,6 @@
 <div id="content">
 	<div>
-		<sa-big-breadcrumbs [items]="['Product']" icon="cubes"
+		<sa-big-breadcrumbs [items]="['Product']" icon="photo"
 							class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
 	</div>
 
@@ -31,7 +31,7 @@
 
 
 					<div class="table-responsive">
-						<table [style.width]="'100%'" class="greenTable smart-form table-striped">
+						<table [style.width]="'100%'" class="greenTable table-striped">
 							<thead>
 							<tr style="background-color: #f5f5f5">
 								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.productnumber"></th>
@@ -53,7 +53,7 @@
 										<ul class="dropdown-menu">
 											<template ngFor let-selection [ngForOf]="boolFilterSelect">
 												<li>
-													<a (click)="filterBool(selection.value, 'sendrequests')">{{selection.title}}</a>
+													<a (click)="filterBool(selection.value, 'sendrequests')" [ngClass]="{'active': currentFilters.sendrequests === selection.value}">{{selection.title}}</a>
 												</li>
 											</template>
 										</ul>
@@ -65,10 +65,10 @@
 										<button class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<i class="fa fa-filter"></i>
 										</button>
-										<ul class="dropdown-menu">
+										<ul class="dropdown-menu dropdown-menu-right">
 											<template ngFor let-selection [ngForOf]="boolFilterSelect">
 												<li>
-													<a (click)="filterBool(selection.value, 'showfeedbacks')">{{selection.title}}</a>
+													<a (click)="filterBool(selection.value, 'showfeedbacks')" [ngClass]="{'active': currentFilters.showfeedbacks === selection.value}">{{selection.title}}</a>
 												</li>
 											</template>
 										</ul>
@@ -77,6 +77,11 @@
 							</tr>
 							</thead>
 							<tbody>
+							<!--<template *ngIf="products && products.length == 0">-->
+								<tr *ngIf="products && products.length == 0">
+									<td style="height: 100px;" colspan="5">No data available</td>
+								</tr>
+							<!--</template>-->
 							<!--ngFor let-asset [ngForOf]="assets" [ngForTrackBy]="assetTrackBy"-->
 							<template ngFor let-product [ngForOf]="products">
 								<tr>
@@ -88,16 +93,17 @@
 									</td>
 									<td>{{product.name}}</td>
 									<td>
-										<label style="display: inline-block; vertical-align: top;" class="toggle">
-											<input type="checkbox" (change)="toggleSetting(product)" [(ngModel)]="product.sendrequests" name="sendrequests">
-											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
-										</label>
+										<input type="checkbox" class="product ios-toggle" (change)="toggleSetting(product)" id="sendrequests{{product.id}}" [(ngModel)]="product.sendrequests" name="sendrequests">
+										<div class="toggle product">
+											<label for="sendrequests{{product.id}}"><i></i></label>
+										</div>
+
 									</td>
 									<td>
-										<label style="display: inline-block; vertical-align: top;" class="toggle">
-											<input type="checkbox" (change)="toggleSetting(product)" [(ngModel)]="product.showfeedbacks" name="showfeedbacks">
-											<i style="top: 0;" data-swchon-text="ON" data-swchoff-text="OFF"></i>
-										</label>
+										<input type="checkbox" class="product ios-toggle" (change)="toggleSetting(product)" id="showfeedbacks{{product.id}}" [(ngModel)]="product.showfeedbacks" name="showfeedbacks">
+										<div class="toggle product">
+											<label for="showfeedbacks{{product.id}}"><i></i></label>
+										</div>
 									</td>
 								</tr>
 							</template>

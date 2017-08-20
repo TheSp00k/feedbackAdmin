@@ -16,6 +16,10 @@ export class CollapseMenuComponent {
   }
 
   onToggle() {
-    this.layoutService.onCollapseMenu()
+    if ($(window).width() < 979) {
+      this.layoutService.onCollapseMenu()
+    } else {
+      this.layoutService.onMinifyMenu()
+    }
   }
 }

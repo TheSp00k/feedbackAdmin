@@ -14,7 +14,7 @@ export class ProductComponent implements OnInit {
     public filters = {};
     public filterStr = '';
     public productsCount;
-    public pageLimit = 10;
+    public pageLimit = 1;
     public pageOffset = 0;
     public totalProductPages;
     public totalProductPagesArray;
@@ -25,6 +25,10 @@ export class ProductComponent implements OnInit {
 		{title: 'On', value: true},
 		{title: 'Off', value: false}
 	];
+    public currentFilters = {
+        showfeedbacks: undefined,
+        sendrequests: undefined,
+    };
 	
     constructor(private productService:ProductService, private notificationService: NotificationService) {
     }
@@ -41,12 +45,12 @@ export class ProductComponent implements OnInit {
     public toggleSetting = (product) => {
 		this.productService.saveProduct(this.currentUser, product)
             .subscribe(result => {
-				this.notificationService.bigBox({
-					title: "Product has been updated",
-					color: "#739e73",
-					icon: "fa fa-check bounce animated",
-					timeout: 3000
-				});
+				// this.notificationService.bigBox({
+				// 	title: "Product has been updated",
+				// 	color: "#739e73",
+				// 	icon: "fa fa-check bounce animated",
+				// 	timeout: 3000
+				// });
                 // this.notificationService.smallBox({
                 //     title: "Product has been updated",
                 //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
@@ -58,7 +62,8 @@ export class ProductComponent implements OnInit {
     };
 
 	public filterBool = (value, model) => {
-		if (value === undefined) {
+        this.currentFilters[model] = value;
+        if (value === undefined) {
 			delete this.filters[model];
 		} else {
 			this.filters[model] = value;
@@ -91,6 +96,7 @@ export class ProductComponent implements OnInit {
             }
         }
 
+        this.getproductsCount();
         this.getproducts();
     };
 
@@ -102,7 +108,7 @@ export class ProductComponent implements OnInit {
             });
     };
     private getproductsCount = () => {
-        this.productService.getProductsCount(this.currentUser)
+        this.productService.getProductsCount(this.currentUser, this.filterStr)
             .subscribe(result => {
                 console.log(result);
                 this.productsCount = result.count;

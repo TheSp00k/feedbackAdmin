@@ -31,8 +31,12 @@ export class ProductService {
                 return response.json();
             })
     }
-    getProductsCount(currentUser):Observable<any> {
-		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products/count?access_token=${currentUser.token}`)
+    getProductsCount(currentUser, filter:string):Observable<any> {
+        let filterStr = '';
+        if (filter.length > 0) {
+            filterStr = `"and":[${filter}]`;
+        }
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products/count?where={${filterStr}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });

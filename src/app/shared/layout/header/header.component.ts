@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {LayoutService} from '../layout.service';
+
 
 declare var $: any;
 
@@ -9,7 +11,7 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private layoutService: LayoutService) {
   }
 
   ngOnInit() {
@@ -28,4 +30,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/miscellaneous/search']);
 
   }
+  toggle() {
+    this.layoutService.onMinifyMenu()
+  }
+  
 }

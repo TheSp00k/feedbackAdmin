@@ -159,7 +159,7 @@ export class LayoutService {
   
 
   onMinifyMenu(){
-    this.store.menuMinified = !this.store.menuMinified;    
+    this.store.menuMinified = !this.store.menuMinified;
     this.trigger();
   }
 

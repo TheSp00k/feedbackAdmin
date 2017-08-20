@@ -26,13 +26,13 @@ export class LoginComponent implements OnInit {
             .subscribe(result => {
                     if (result) {
                         // login successful
-						this.notificationService.bigBox({
-							content: "You have successfully logged in",
-							title: "Success!",
-							color: "#739e73",
-							icon: "fa fa-check bounce animated",
-							timeout: 3000
-						});
+                        // this.notificationService.bigBox({
+							// content: "You have successfully logged in",
+							// title: "Success!",
+							// color: "#739e73",
+							// icon: "fa fa-check bounce animated",
+							// timeout: 3000
+                        // });
                         // this.notificationService.smallBox({
                         //     title: "You have successfully logged in",
                         //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",

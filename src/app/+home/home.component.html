@@ -3,7 +3,7 @@
 		<sa-big-breadcrumbs [items]="['Dashboard']" icon="dashboard" class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></sa-big-breadcrumbs>
 		<sa-widgets-grid>
 			<article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-				<sa-widget color="teal" [sortable]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
+				<sa-widget color="teal" [sortable]="false" [togglebutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [deletebutton]="false">
 					<header>
 						<h2>Date range</h2>
 					</header>
@@ -39,6 +39,9 @@
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
 							</div>
+						</div>
+						<div class="col-xs-12">
+							<button style="margin: 0;" (click)="init()" class="tableButton accept pull-right">Filter</button>
 						</div>
 					</div>
 				</sa-widget>

@@ -194,6 +194,7 @@ input[type="checkbox"].ios-toggle {
     position: relative;
     width: 51px;
     height: 31px;
+    cursor: pointer;
 }
 
 .toggle label,
@@ -201,6 +202,7 @@ input[type="checkbox"].ios-toggle {
     box-sizing: border-box;
     display: block;
     background: #ffffff;
+    cursor: pointer;
 }
 
 .toggle label {
@@ -224,6 +226,10 @@ input[type="checkbox"].ios-toggle {
     transition: all 0.3s cubic-bezier(0.250, -0.425, 0.700, 1.425);
 }
 
+.toggle.product i {
+    left: 6px;
+}
+
 input[type="checkbox"]:active + .toggle i {
     width: 35px;
 }
@@ -238,6 +244,10 @@ input[type="checkbox"].ios-toggle:checked + .toggle i {
     left: 22px;
 }
 
+input[type="checkbox"].ios-toggle.product:checked + .toggle i {
+    left: 26px;
+}
+
 input[type="checkbox"].ios-toggle:checked:active + .toggle label {
     border: 12px solid #e5e5e5;
 }
@@ -250,6 +260,7 @@ input[type="checkbox"].ios-toggle:checked:active + .toggle i {
     height: 35px;
     border: 1px solid #ccc;
     padding: 0;
+    max-width: 120px;
 }
 
 .fancy-dropdown {
@@ -266,4 +277,16 @@ input[type="checkbox"].ios-toggle:checked:active + .toggle i {
 .fancy-dropdown-box {
     max-height: 200px;
     overflow: auto;
+}
+body:not(.menu-on-top).desktop-detected {
+    min-height: 100% !important;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    color: #000;
+    background-color: #e1e7e7;
+}
+.dropdown-menu>li>a.active {
+    color: #fff;
+    background-color: #598b8a;
 }
