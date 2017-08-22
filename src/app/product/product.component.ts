@@ -14,7 +14,7 @@ export class ProductComponent implements OnInit {
     public filters = {};
     public filterStr = '';
     public productsCount;
-    public pageLimit = 1;
+    public pageLimit = 10;
     public pageOffset = 0;
     public totalProductPages;
     public totalProductPagesArray;

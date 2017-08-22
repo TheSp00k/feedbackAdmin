@@ -36,7 +36,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-		return this.http.get(`${environment.apiUrl}/feedbacks/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"purchased": true}]}&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"status": "replied"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
             });
