@@ -42,13 +42,13 @@ export class SettingsComponent implements OnInit {
 				// 	icon: "fa fa-check bounce animated",
 				// 	timeout: 3000
 				// });
-                // this.notificationService.smallBox({
-                //     title: "Settings have been updated",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#659265",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "Settings have been updated",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "rgba(0, 0, 0, 0.63)",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 1000
+                });
             });
     };
 

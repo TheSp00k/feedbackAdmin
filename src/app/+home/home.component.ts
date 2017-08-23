@@ -19,6 +19,16 @@ export class HomeComponent implements OnInit {
     public dateTo;
     public currentUser;
 
+    public showNotification = () => {
+        this.notificationService.smallBox({
+            title: "Dashboard filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "rgba(0, 0, 0, 0.63)",
+            iconSmall: "fa fa-check bounce animated",
+            className: "maxWidth",
+            timeout: 1000
+        });
+    };
 
     onMinPicked(date: Date) {
         this.dateFrom = date;

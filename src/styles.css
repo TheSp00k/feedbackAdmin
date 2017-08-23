@@ -4,6 +4,56 @@
     /*padding: 10px;*/
 }
 
+#divSmallBoxes {
+    position: fixed;
+    right: unset;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+
+}
+.SmallBox {
+    position: relative;
+    right: unset;
+    margin: auto;
+    top: 67px;
+    max-width: 235px;
+    border-radius: 15px;
+    -webkit-animation-name: fadeInDown!important;
+    -moz-animation-name: fadeInDown!important;
+    -o-animation-name: fadeInDown!important;
+    animation-name: fadeInDown!important;
+}
+
+.SmallBox span {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    display: block;
+    margin: 4px 0;
+}
+
+.SmallBox p {
+    margin: 0;
+}
+
+.SmallBox .textoFull {
+    display: inline-block;
+    float: right;
+}
+.SmallBox .miniIcono {
+    display: inline-block;
+    float: left;
+    font-size: 18px;
+}
+
+i.miniPic {
+    left: 10px;
+    right: unset;
+    bottom: 5px;
+    color: #589493;
+}
+
 .feedback-product-img {
     max-width:150px;
 }

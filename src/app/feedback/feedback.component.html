@@ -41,7 +41,7 @@
 							</div>
 						</div>
 						<div class="col-xs-12">
-							<button style="margin: 0;" (click)="init()" class="tableButton accept pull-right">Filter</button>
+							<button style="margin: 0;" (click)="init(); showNotification()" class="tableButton accept pull-right">Filter</button>
 						</div>
 					</div>
 				</sa-widget>
@@ -92,7 +92,7 @@
 											<div><strong>{{feedback.commentheader}}</strong></div>
 											<div>{{feedback.commentcontent}}</div>
 										</td>
-										<td style="width: 100px;">
+										<td style="min-width: 100px;">
 											<!--{{feedback.totalratingscore}}-->
 											<div class="rating">
 												<label><i [ngClass]="{' yellow':(feedback.totalratingscore == 5)}" class="fa fa-star"></i></label>
@@ -104,6 +104,7 @@
 										</td>
 										<td>{{feedback.customer.name}}</td>
 										<td style="width: 200px;">
+
 											<button (click)="acceptFeedback(feedback, 'moderationFeedbacks')" class="tableButton accept">
 												Accept
 											</button>
@@ -166,7 +167,7 @@
 											<div><strong>{{feedback.commentheader}}</strong></div>
 											<div>{{feedback.commentcontent}}</div>
 										</td>
-										<td style="width: 100px;">
+										<td style="min-width: 100px;">
 											<div class="rating">
 												<label><i [ngClass]="{' yellow':(feedback.totalratingscore == 5)}" class="fa fa-star"></i></label>
 												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 4)}" class="fa fa-star"></i></label>
@@ -240,7 +241,7 @@
 											<div><strong>{{feedback.commentheader}}</strong></div>
 											<div>{{feedback.commentcontent}}</div>
 										</td>
-										<td style="width: 100px;">
+										<td style="min-width: 100px;">
 											<div class="rating">
 												<label><i [ngClass]="{' yellow':(feedback.totalratingscore == 5)}" class="fa fa-star"></i></label>
 												<label><i [ngClass]="{' yellow':(feedback.totalratingscore >= 4)}" class="fa fa-star"></i></label>
