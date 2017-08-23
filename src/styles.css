@@ -251,14 +251,12 @@ sa-collapse-menu {
 
 .tableButton.accept {
     background-color: #90c366;
-    margin-right: 5px;
 }
 .tableButton.reject {
     background-color: #da7c7c;
 }
 .tableButton.moderate {
     background-color: #daaa46;
-    margin-right: 5px;
 }
 i.fa.fa-star.yellow {
     color: #e9c800;
