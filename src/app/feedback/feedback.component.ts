@@ -97,6 +97,16 @@ export class FeedbackComponent implements OnInit {
         // });
     };
 
+    public showNotification = () => {
+        this.notificationService.smallBox({
+            title: "Feedback list filtered by date",
+            // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+            color: "rgba(0, 0, 0, 0.63)",
+            iconSmall: "fa fa-check bounce animated",
+            timeout: 1000
+        });
+    };
+
     public calculatePage = () => {
         this.pageOffset = this.pageLimit * this.currentPage;
 
@@ -164,13 +174,14 @@ export class FeedbackComponent implements OnInit {
 				// 	icon: "fa fa-check bounce animated",
 				// 	timeout: 3000
 				// });
-                // this.notificationService.smallBox({
-                //     title: "This feedback was sent to accepted tab",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#659265",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "This feedback was accepted",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    // color: "#659265",
+                    color: "rgba(0, 0, 0, 0.63)",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 1000
+                });
             });
     };
     public rejectFeedback = (feedback, from) => {
@@ -193,13 +204,13 @@ export class FeedbackComponent implements OnInit {
 				// 	icon: "fa fa-check bounce animated",
 				// 	timeout: 3000
 				// });
-                // this.notificationService.smallBox({
-                //     title: "This feedback was sent to rejected tab",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#c26565",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "This feedback was rejected",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "rgba(0, 0, 0, 0.63)",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 1000
+                });
             });
     };
     public moderateFeedback = (feedback, from) => {
@@ -222,13 +233,13 @@ export class FeedbackComponent implements OnInit {
 				// 	icon: "fa fa-check bounce animated",
 				// 	timeout: 3000
 				// });
-                // this.notificationService.smallBox({
-                //     title: "This feedback was sent to moderated tab",
-                //     // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
-                //     color: "#dfb56c",
-                //     iconSmall: "fa fa-check bounce animated",
-                //     timeout: 4000
-                // });
+                this.notificationService.smallBox({
+                    title: "This feedback was moderated",
+                    // content: "<i class='fa fa-clock-o'></i> <i>2 seconds ago...</i>",
+                    color: "rgba(0, 0, 0, 0.63)",
+                    iconSmall: "fa fa-check bounce animated",
+                    timeout: 1000
+                });
             });
     };
 
