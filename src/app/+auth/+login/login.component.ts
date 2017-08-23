@@ -21,7 +21,16 @@ export class LoginComponent implements OnInit {
 
     login(event) {
         event.preventDefault();
-
+		if (!this.email || !this.password || this.email.length == 0 || this.password == 0) {
+			this.notificationService.smallBox({
+				title: "Credencials are required",
+				// content: errorJson.error.statusCode == 401 ? 'Email or password is incorrect' : errorJson.error.message,
+				color: "rgba(0, 0, 0, 0.63)",
+				iconSmall: "fa fa-warning shake animated red",
+				timeout: 4000
+			});
+			return;
+		}
         this.authService.login(this.email, this.password)
             .subscribe(result => {
                     if (result) {
@@ -44,20 +53,29 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     let errorJson = error.json();
-					this.notificationService.bigBox({
-						content: errorJson.error.statusCode == 401 ? 'Email or password is incorrect' : errorJson.error.message,
-						title: "Login failed",
-						color: "#c46a69",
-						icon: "fa fa-warning shake animated",
-						timeout: 3000
-					});
-                    // this.notificationService.smallBox({
-                    //     title: "Login failed",
-                    //     content: errorJson.error.statusCode == 401 ? 'Email or password is incorrect' : errorJson.error.message,
-                    //     color: "#c46a69",
-                    //     iconSmall: "fa fa-warning shake animated",
-                    //     timeout: 4000
-                    // });
+					// this.notificationService.bigBox({
+					// 	content: errorJson.error.statusCode == 401 ? 'Email or password is incorrect' : errorJson.error.message,
+					// 	title: "Login failed",
+					// 	color: "#c46a69",
+					// 	icon: "fa fa-warning shake animated",
+					// 	timeout: 3000
+					// });
+
+					let errorText = 'Connection lost';
+					console.log(errorJson);
+					if (!errorJson.error) {
+						errorText = 'Connection lost';
+					} else if (errorJson.error.statusCode == 401) {
+						errorText = 'Credencials are incorrect';
+					}
+
+                    this.notificationService.smallBox({
+                        // title: "Credencials are incorrect",
+						title: errorText,
+						color: "rgba(0, 0, 0, 0.63)",
+                        iconSmall: "fa fa-warning shake animated red",
+                        timeout: 4000
+                    });
                 });
     }
 

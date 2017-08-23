@@ -1,7 +1,11 @@
 .tab-content {
-    /*border: 1px solid #ddd;*/
-    /*border-top: none;*/
-    /*padding: 10px;*/
+    margin: 0 0 30px;
+}
+
+.tableTab {
+    padding: 13px;
+    /* padding-top: 30px; */
+    background-color: #ffffff;
 }
 
 #divSmallBoxes {
@@ -52,6 +56,10 @@ i.miniPic {
     right: unset;
     bottom: 5px;
     color: #589493;
+}
+
+i.miniPic.red {
+	color: rgb(196, 106, 105);
 }
 
 .feedback-product-img {
@@ -108,7 +116,8 @@ sa-collapse-menu {
 
 #logo {
     margin-top: 5px;
-    color: #ffffff;
+	color: #ffffff;
+	margin-left: 46px;
 }
 
 #logo .upper-container:after {
@@ -174,11 +183,6 @@ sa-collapse-menu {
     border: none;
 }
 
-.tableTab {
-    padding: 30px;
-    background-color: #ffffff;
-}
-
 .nav>li>a:focus, .nav>li>a:hover {
     text-decoration: none;
     background-color: #406564;
@@ -233,10 +237,16 @@ sa-collapse-menu {
     padding-left: 10px;
 }
 
-.tableButton {
+.tableButton, .dateFilterButton {
     padding: 7px 15px;
     border: none;
-    color: #ffffff;
+	color: #ffffff;
+	width: 60px;
+    margin-bottom: 5px;
+}
+
+.dateFilterButton {
+	 background-color: #568a89;
 }
 
 .tableButton.accept {
@@ -377,8 +387,42 @@ body:not(.menu-on-top).desktop-detected {
 .login-button:active:hover {
 	background-color: #4f7776;
 }
+.smart-form .input input.login-input:hover,
+.smart-form .input input.login-input:active,
+.smart-form .input input.login-input:focus {
+	border-color: rgba(89,139,138, 0.5);
+}
 .smart-form .input input.login-input {
 	line-height: 40px;
 	height: 40px;
 	font-size: 15px;
+	border-color: #e4e6e5;
+}
+
+.dropdown-filter {
+	background-color: #568a89;
+	border-color: rgba(89,139,138, 1);
+}
+
+.dropdown-filter:hover,
+.dropdown-filter:focus,
+.dropdown-filter:active,
+.dropdown-filter:active:focus,
+.dropdown-filter:active:hover,
+.open>.dropdown-toggle.btn-primary.dropdown-filter {
+	background-color: #4f7776;
+	border-color: rgba(89,139,138, 0.5);
+}
+
+.pagination>li>a,
+.pagination>li>span {
+	color: #4f7776;
+}
+
+.smart-style-1 .pagination>.active>a {
+	background-color: #568a89;
+}
+
+app-root, app-main-layout, app-auth-layout, app-locked, #extr-page {
+	min-height: unset;
 }

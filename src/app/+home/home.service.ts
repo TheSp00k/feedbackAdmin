@@ -6,12 +6,14 @@ import {Router} from "@angular/router";
 import {Http, Response} from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import { environment } from "environments/environment";
+import { AuthGuard } from "app/+auth/auth.guard.service";
+
 
 
 @Injectable()
 export class HomeService {
 
-    constructor(private router: Router, private http: Http) {
+	constructor(private router: Router, private http: Http, private authGuard: AuthGuard) {
 
     }
 
@@ -25,8 +27,15 @@ export class HomeService {
         }
 		return this.http.get(`${environment.apiUrl}/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
+				let responseJson = response.json();
+				console.log(responseJson);
                 return response.json();
-            });
+			})
+			.catch((err: Response) => {
+				console.log(err);
+				this.authGuard.checkResponse(err);
+				return Observable.throw(err);
+			});
     };
     getTotalVerifiedReviews(currentUser:any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
@@ -39,7 +48,12 @@ export class HomeService {
 		return this.http.get(`${environment.apiUrl}/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"status": "replied"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
-            });
+			})
+			.catch((err: Response) => {
+				console.log(err);
+				this.authGuard.checkResponse(err);
+				return Observable.throw(err);
+			});
     };
     getTotalRating(currentUser: any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
@@ -49,7 +63,7 @@ export class HomeService {
         if (dateTo) {
             dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
         }
-		return this.http.get(`${environment.apiUrl}/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"approved": 1}]}}&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"purchased": 1}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 let feedbacks = response.json();
                 let totalScoreSum = 0;
@@ -64,30 +78,11 @@ export class HomeService {
 					return 0;
 				}
                 return totalScoreSum / totalRatingScores;
-            });
+			})
+			.catch((err: Response) => {
+				console.log(err);
+				this.authGuard.checkResponse(err);
+				return Observable.throw(err);
+			});
     };
-
-    // login(email:string, password:string): Observable<boolean> {
-    //     return this.http.post('${environment.apiUrl}/appusers/login', {email: email, password: password})
-    //         .map((response: Response) => {
-    //             // login successful if there is a jwt token in response
-    //             let token = response.json() && response.json().id;
-    //             if (token) {
-    //                 // set token
-    //                 this.token = token;
-    //                 localStorage.setItem('currentUser', JSON.stringify({email: email, token: token}));
-    //                 this.isLoggedIn = true;
-    //                 this.router.navigate(this.redirectUrl ? [this.redirectUrl] : ['/home']);
-    //                 return true;
-    //             } else {
-    //                 return false;
-    //             }
-    //         });
-    // }
-
-    // logout():void {
-    //     this.token = null;
-    //     localStorage.removeItem('currentUser');
-    //     this.isLoggedIn = false;
-    // }
 }

@@ -9,6 +9,7 @@ import {NotificationService} from "../shared/utils/notification.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+	public notificationCheck;
     constructor(private authService:AuthService, private router:Router, private notificationService:NotificationService) {
     }
 
@@ -19,7 +20,7 @@ export class AuthGuard implements CanActivate {
     }
 
     checkLogin(url:string):boolean {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 		if (!currentUser) {
 			this.router.navigate(['/auth/login']);
 			return false;
@@ -35,7 +36,28 @@ export class AuthGuard implements CanActivate {
         this.authService.redirectUrl = url;
 
         // Navigate to the login page with extras
-        this.router.navigate(['/auth/login']);
+		this.router.navigate(['/auth/login']);
         return false;
-    }
+	}
+	checkResponse(response):void {
+		if (response.status == 200) {
+			this.notificationCheck = false;
+			return;
+		}
+		let notificationText = 'You are unauthorized';
+		if (response.status == 401) {
+			this.router.navigate(['/auth/login']);
+		} else {
+			notificationText = "Connection lost";
+		}
+		if (!this.notificationCheck) {
+			this.notificationCheck = true;
+			this.notificationService.smallBox({
+				title: notificationText,
+				color: "rgba(0, 0, 0, 0.63)",
+				iconSmall: "fa fa-warning shake animated red",
+				timeout: 4000
+			});
+		}
+	}
 }
