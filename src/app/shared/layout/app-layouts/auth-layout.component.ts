@@ -4,7 +4,7 @@ import {FadeZoomInTop} from "../../animations/fade-zoom-in-top.decorator";
 @Component({
   selector: 'app-auth-layout',
   templateUrl: './auth-layout.component.html',
-  styles: []
+  styleUrls: ['./auth-layout.component.css'],
 })
 export class AuthLayoutComponent implements OnInit {
 

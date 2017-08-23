@@ -54,10 +54,11 @@ sa-collapse-menu {
     padding-left: 7px;
 }
 
+/* logo start */
+
 #logo {
     margin-top: 5px;
     color: #ffffff;
-    margin-left: 46px;
 }
 
 #logo .upper-container:after {
@@ -65,11 +66,11 @@ sa-collapse-menu {
     position: absolute;
     width: 0;
     height: 0;
-    left: 87px;
+    left: 29px;
     right: auto;
-    top: auto;
-    bottom: 16px;
-    border: 10px solid;
+    top: 17px;
+    bottom: auto;
+    border: 11px solid;
     border-top: 0px solid;
     border-color: transparent transparent transparent #ffffff;
 }
@@ -78,13 +79,30 @@ sa-collapse-menu {
     background-color: #ffffff;
     color: #568a89;
     display: inline;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+	-webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
     padding: 1px 15px 1px 15px;
     margin-left: 15px;
-    font-size: 12px;
+	font-size: 12px;
+	position: relative;
 }
+
+.revert#logo {
+	color: #568a89;
+	margin-left: 0;
+	margin-top: unset;
+}
+
+.revert#logo .upper-container:after {
+	border-color: transparent transparent transparent #568a89;
+}
+
+.revert#logo .upper-container {
+	background-color: #568a89;
+	color: #ffffff;
+}
+/* logo end */
 
 .nav-tabs>li>a {
     background-color: #568a89;
@@ -289,4 +307,28 @@ body:not(.menu-on-top).desktop-detected {
 .dropdown-menu>li>a.active {
     color: #fff;
     background-color: #598b8a;
+}
+
+#extr-page #main {
+    position: absolute;
+    width: 100%;
+	height: 100%;
+	background-color: #dcf0f1;
+}
+
+.smart-form .login-button {
+	width: 80%;
+    padding: 10px 0;
+    background-color: #598b8a;
+    border: none;
+    border-radius: unset;
+}
+
+.login-button:active:hover {
+	background-color: #4f7776;
+}
+.smart-form .input input.login-input {
+	line-height: 40px;
+	height: 40px;
+	font-size: 15px;
 }
