@@ -417,7 +417,9 @@ body:not(.menu-on-top).desktop-detected {
 	color: #4f7776;
 }
 
-.smart-style-1 .pagination>.active>a {
+.smart-style-1 .pagination>.active>a:hover,
+.smart-style-1 .pagination>.active>a
+{
 	background-color: #568a89;
 }
 
