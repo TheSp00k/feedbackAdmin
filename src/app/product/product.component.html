@@ -34,7 +34,7 @@
 						<table [style.width]="'100%'" class="greenTable table-striped">
 							<thead>
 							<tr style="background-color: #f5f5f5">
-								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.productnumber"></th>
+								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.id"></th>
 								<th></th>
 								<th data-hide="mobile-p"><input type="text" (keyup.enter)="generateFilter()" [(ngModel)]="filters.name"></th>
 								<th></th>
@@ -85,7 +85,7 @@
 							<!--ngFor let-asset [ngForOf]="assets" [ngForTrackBy]="assetTrackBy"-->
 							<template ngFor let-product [ngForOf]="products">
 								<tr>
-									<td>{{product.productnumber}}</td>
+									<td>{{product.id}}</td>
 									<td>
 										<div class="feedback-product-img">
 											<img [src]="product.photourl" class="img-responsive" alt="assets/img">

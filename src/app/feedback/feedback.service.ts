@@ -31,10 +31,10 @@ export class FeedbackService {
     getModerationFeedbacks(currentUser:any, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"], "where": {"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
@@ -49,10 +49,10 @@ export class FeedbackService {
 	getModerationFeedbacksCount(currentUser:any, dateFrom:string, dateTo:string):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/feedbacks/count?where={"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": null}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
@@ -68,10 +68,10 @@ export class FeedbackService {
 	getAcceptedFeedbacks(currentUser:any, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
@@ -86,10 +86,10 @@ export class FeedbackService {
 	getAcceptedFeedbacksCount(currentUser:any, dateFrom:string, dateTo:string):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/feedbacks/count?where={"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": null}, {"approved": "1"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
@@ -105,10 +105,10 @@ export class FeedbackService {
 	getRejectedFeedbacks(currentUser:any, dateFrom:string, dateTo:string, pageOffset:number, pageLimit:number):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/feedbacks?filter={"order": "created DESC", "limit": ${pageLimit}, "skip": ${pageOffset}, "include": ["product", "customer"],"where": {"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
@@ -123,10 +123,10 @@ export class FeedbackService {
 	getRejectedFeedbacksCount(currentUser:any, dateFrom:string, dateTo:string):Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/feedbacks/count?where={"and":[{"clientid": "${currentUser.clientid}"}, ${dateFilterStr} {"rejected": "1"}, {"approved": null}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {

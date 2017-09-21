@@ -11,6 +11,7 @@ import {AuthGuard} from "./+auth/auth.guard.service";
 import {FeedbackComponent} from "./feedback/feedback.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {ProductComponent} from "./product/product.component";
+import {RequestComponent} from "./request/request.component";
 
 export const routes: Routes = [
   {
@@ -24,7 +25,7 @@ export const routes: Routes = [
 
 
       },
-      {path: 'dashboard', loadChildren: 'app/+home/home.module#HomeModule',data:{pageTitle: 'Dashboard'}},      
+      {path: 'dashboard', loadChildren: 'app/+home/home.module#HomeModule',data:{pageTitle: 'Dashboard'}},
       {path: 'feedback', component: FeedbackComponent, loadChildren: 'app/feedback/feedback.module#FeedbackModule',data:{pageTitle: 'Feedback'}},
     //   {path: 'settings', component: SettingsComponent, data:{pageTitle: 'Settings'}},
       {path: 'products', component: ProductComponent, loadChildren: 'app/product/product.module#ProductModule',data:{pageTitle: 'Products'}},
@@ -44,8 +45,8 @@ export const routes: Routes = [
     ]
   },
 
-  { path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
-
+  {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
+  {path: 'request/:id/:accessToken', component: RequestComponent, loadChildren: 'app/request/request.module#RequestModule'},
   {path: '**', redirectTo: 'dashboard'}
 //
 ];

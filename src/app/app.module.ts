@@ -19,8 +19,8 @@ import {CoreModule} from "./core/core.module";
 import {SmartadminLayoutModule} from "./shared/layout/layout.module";
 import {FeedbackModule} from "./feedback/feedback.module";
 import {SettingsModule} from "./settings/settings.module";
-import { ProductComponent } from './product/product.component';
 import {ProductModule} from "./product/product.module";
+import {RequestModule} from "./request/request.module";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -40,7 +40,7 @@ type StoreType = {
 @NgModule({
     bootstrap: [AppComponent],
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [ // import Angular's modules
         BrowserModule,
@@ -53,7 +53,7 @@ type StoreType = {
         FeedbackModule,
         SettingsModule,
         ProductModule,
-
+        RequestModule,
 
         routing
     ],

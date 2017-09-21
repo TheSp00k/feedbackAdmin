@@ -20,10 +20,10 @@ export class HomeService {
     getTotalInvitations(currentUser: any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
@@ -40,10 +40,10 @@ export class HomeService {
     getTotalVerifiedReviews(currentUser:any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/requests/count?where={"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"status": "replied"}]}&access_token=${currentUser.token}`)
             .map((response:Response) => {
@@ -58,10 +58,10 @@ export class HomeService {
     getTotalRating(currentUser: any, dateFrom: string, dateTo: string): Observable<any> {
         let dateFilterStr = '';
         if (dateFrom) {
-            dateFilterStr += `{"created": {"gte":"${dateFrom}"}},`;
+            dateFilterStr += `{"created": {"gte":"${dateFrom}T00:00:00.000Z"}},`;
         }
         if (dateTo) {
-            dateFilterStr += `{"created": {"lte":"${dateTo}"}},`;
+            dateFilterStr += `{"created": {"lte":"${dateTo}T23:59:59.999Z"}},`;
         }
 		return this.http.get(`${environment.apiUrl}/feedbacks?filter={"where":{"and":[${dateFilterStr} {"clientid": "${currentUser.clientid}"}, {"purchased": 1}]}}&access_token=${currentUser.token}`)
             .map((response:Response) => {

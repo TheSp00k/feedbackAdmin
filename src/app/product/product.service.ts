@@ -20,7 +20,7 @@ export class ProductService {
         if (filter.length > 0) {
             filterStr = `, "where": {"and":[${filter}]}`;
         }
-		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}&requestfrom=adminpanel&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
 			})
@@ -46,7 +46,7 @@ export class ProductService {
         if (filter.length > 0) {
             filterStr = `"and":[${filter}]`;
         }
-		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products/count?where={${filterStr}}&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products/count?where={${filterStr}}&&requestfrom=adminpanel&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
 			})

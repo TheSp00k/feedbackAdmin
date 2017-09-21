@@ -1,0 +1,79 @@
+<div id="main" role="main" class="animated fadeInDown request">
+	<div *ngIf="loadError" class="message-container error-container">{{loadError.message}}</div>
+	<div *ngIf="feedbackLeft" class="message-container success-container">{{feedbackLeft.message}}</div>
+	<div *ngIf="request && !feedbackLeft" id="content" class="container align-center">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-3 col-lg-offset-4 col-lg-4">
+				<div class="well no-padding">
+					<form class="smart-form client-form">
+						<fieldset style="padding: 30px 40px 40px 40px">
+							<div style="text-align:center;">
+								<span style="margin: 0; width: 50%;">
+									<img [src]="request.client.logourl" />
+								</span>
+							</div>
+							<template ngFor let-product [ngForOf]="request.products">
+								<div style="text-align: center; font-weight: 600">
+									<div style="padding-bottom: 15px;">Įvertinkite {{product.name}}</div>
+									<img style="width: 50%" [src]="product.photourl">
+								</div>
+								<div style="text-align: center;">
+									<span>
+										<input type="radio" id="{{product.id}}rating-1" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="1">
+										<label for="{{product.id}}rating-1" style="font-size: 1.3em; color: #eed034;">★</label>
+									</span>
+									<span>
+										<input type="radio" id="{{product.id}}rating-2" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="2">
+										<label for="{{product.id}}rating-2" style="font-size: 1.3em; color: #eed034;">★★</label>
+									</span>
+									<span>
+										<input type="radio" id="{{product.id}}rating-3" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="3">
+										<label for="{{product.id}}rating-3" style="font-size: 1.3em; color: #eed034;">★★★</label>
+									</span>
+									<span>
+										<input type="radio" id="{{product.id}}rating-4" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="4">
+										<label for="{{product.id}}rating-4" style="font-size: 1.3em; color: #eed034;">★★★★</label>
+									</span>
+									<span>
+										<input type="radio" id="{{product.id}}rating-5" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="5">
+										<label for="{{product.id}}rating-5" style="font-size: 1.3em; color: #eed034;">★★★★★</label>
+									</span>
+								</div>
+								<ng-container *ngIf="request.client.showheader">
+									<div>
+										<div class="col-xs-12">Antraštė</div>
+										<div class="col-xs-12">
+											<input class="form-control" name="product.commentheader" [(ngModel)]="product.commentheader" type="text">
+										</div>
+									</div>
+								</ng-container>
+								<div>
+									<div class="col-xs-12">Komentaras</div>
+									<div class="col-xs-12">
+										<textarea style="border: 1px solid #d7d7d7;line-height: 30px;width: 100%;" name="product.commentcontent" [(ngModel)]="product.commentcontent" rows="5"></textarea>
+									</div>
+								</div>
+							</template>
+							<div style="text-align: center; padding-top: 15px">
+								<button style="margin-top: 35px;border: none;padding: 15px 30px; background-color: #fa7e28; color: white; font-size: 16px; font-weight: 600; letter-spacing: 1.8px;" (click)="sendFeedback()">Pateikti komentarą</button>
+							</div>
+							<!--<section>-->
+								<!--<label class="input">-->
+									<!--<input class="login-input" [(ngModel)]="email" type="email" name="email" placeholder="Email" data-smart-validate-input="" data-required="" data-email="" data-message-required="Please enter your email address" data-message-email="Please enter a VALID email address">-->
+								<!--</label>-->
+							<!--</section>-->
+							<!--<section>-->
+								<!--<label class="input">-->
+									<!--<input class="login-input" [(ngModel)]="password" type="password" name="password" placeholder="Password" data-smart-validate-input="" data-required="" data-minlength="3" data-maxnlength="20" data-message="Please enter your email password">-->
+								<!--</label>-->
+							<!--</section>-->
+							<!--<section style="text-align: center;">-->
+								<!--<button (click)="login($event)" class="btn btn-primary login-button">LOGIN</button>-->
+							<!--</section>-->
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

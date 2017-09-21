@@ -15,7 +15,7 @@ export class SettingsService {
 	constructor(private router: Router, private http: Http, private authGuard: AuthGuard) {}
 
     getClient(currentUser):Observable<any> {
-		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}?access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}?requestfrom=adminpanel&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
 			})
@@ -27,7 +27,7 @@ export class SettingsService {
     }
 
     saveClient(currentUser, client):Observable<any> {
-		return this.http.put(`${environment.apiUrl}/clients/${client.id}?access_token=${currentUser.token}`, client)
+		return this.http.put(`${environment.apiUrl}/clients/${client.id}?requestfrom=adminpanel&access_token=${currentUser.token}`, client)
             .map((response:Response) => {
                 return response.json();
 			}).catch((err: Response) => {

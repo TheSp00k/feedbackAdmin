@@ -418,11 +418,33 @@ body:not(.menu-on-top).desktop-detected {
 }
 
 .smart-style-1 .pagination>.active>a:hover,
-.smart-style-1 .pagination>.active>a
-{
+.smart-style-1 .pagination>.active>a {
 	background-color: #568a89;
 }
 
 app-root, app-main-layout, app-auth-layout, app-locked, #extr-page {
 	min-height: unset;
+}
+
+#main.request {
+    margin-left: 0;
+}
+
+#main.request .message-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20% auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 600;
+}
+
+#main.request .error-container {
+    background-color: #f2dede;
+}
+
+#main.request .success-container {
+    background-color: #dff0d8;
 }
