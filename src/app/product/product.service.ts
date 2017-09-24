@@ -18,9 +18,9 @@ export class ProductService {
 
         let filterStr = '';
         if (filter.length > 0) {
-            filterStr = `, "where": {"and":[${filter}]}`;
+            filterStr = `, "where": {"and":[${filter}, {"requestfrom": "adminpanel"}]}`;
         }
-		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}&requestfrom=adminpanel&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products?filter={"limit": ${pageLimit}, "skip": ${pageOffset} ${filterStr}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
 			})
@@ -43,10 +43,11 @@ export class ProductService {
     }
     getProductsCount(currentUser, filter:string):Observable<any> {
         let filterStr = '';
+		filter += '{"requestfrom": "adminpanel"}';
         if (filter.length > 0) {
             filterStr = `"and":[${filter}]`;
         }
-		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products/count?where={${filterStr}}&&requestfrom=adminpanel&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}/products/count?where={${filterStr}}&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
 			})
