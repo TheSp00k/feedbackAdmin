@@ -1,0 +1,15 @@
+@media (max-width: 460px) {
+    /*.request-rating {*/
+        /*text-align: left;*/
+    /*}*/
+    .request-rating input {
+        width: 100%;
+    }
+    /*.request-rating label {*/
+        /*width: 100%;*/
+    /*}*/
+}
+
+.comment-label {
+    padding-bottom: 10px;
+}
