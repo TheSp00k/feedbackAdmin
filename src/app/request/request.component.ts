@@ -62,8 +62,11 @@ export class RequestComponent implements OnInit {
             this.token = params['accessToken'];
             this.requestService.getRequestInfo(params['id'], params['accessToken'])
                 .subscribe(result => {
-                    this.request = result;
-                    console.log(this.request);
+                    if (result.messageCode == 'FEEDBACK_LEFT') {
+                        this.loadError = result;
+                    } else {
+                        this.request = result;
+                    }
                 },
                 error => {
                     let err = error.json();

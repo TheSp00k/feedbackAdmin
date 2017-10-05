@@ -1,15 +1,61 @@
 @media (max-width: 460px) {
     /*.request-rating {*/
-        /*text-align: left;*/
+    /*text-align: left;*/
     /*}*/
     .request-rating input {
         width: 100%;
     }
+
     /*.request-rating label {*/
-        /*width: 100%;*/
+    /*width: 100%;*/
     /*}*/
 }
 
 .comment-label {
     padding-bottom: 10px;
+}
+
+.smart-form .rating input + label:hover, .smart-form .rating input + label:hover ~ label {
+    color: #ffd101;
+}
+
+.smart-form .rating input:checked ~ label {
+    color: #ffd101;
+}
+
+#main.request .error-container {
+    border: 1px solid #dedcdd;
+    border-radius: 5px;
+    padding: 20px 0;
+}
+
+.request-logo {
+    width: 150px;
+}
+
+.request-message {
+    padding: 40px 0;
+    font-size: 16px;
+    font-weight: 100;
+    letter-spacing: 0.3px;
+}
+
+.request-footer {
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.redirect-button {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: none;
+    padding: 15px 30px;
+    color: white;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: normal;
+    display: block;
+    width: 80%;
 }

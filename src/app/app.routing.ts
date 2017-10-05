@@ -29,6 +29,7 @@ export const routes: Routes = [
       {path: 'feedback', component: FeedbackComponent, loadChildren: 'app/feedback/feedback.module#FeedbackModule',data:{pageTitle: 'Feedback'}},
     //   {path: 'settings', component: SettingsComponent, data:{pageTitle: 'Settings'}},
       {path: 'products', component: ProductComponent, loadChildren: 'app/product/product.module#ProductModule',data:{pageTitle: 'Products'}},
+      // {path: 'products/:id', component: ProductItemComponent, data:{pageTitle: 'Product details'}},
       {path: 'settings', component: SettingsComponent, loadChildren: 'app/settings/settings.module#SettingsModule',data:{pageTitle: 'Settings'}},
       // {path: 'smartadmin', loadChildren: 'app/+smartadmin-intel/smartadmin-intel.module#SmartadminIntelModule',data:{pageTitle: 'Smartadmin'}},
       // {path: 'app-views', loadChildren: 'app/+app-views/app-views.module#AppViewsModule',data:{pageTitle: 'App Views'}},

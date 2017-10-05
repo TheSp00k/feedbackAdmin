@@ -1,6 +1,39 @@
-<div id="main" role="main" class="animated fadeInDown request">
-	<div *ngIf="loadError" class="message-container error-container">{{loadError.message}}</div>
-	<div *ngIf="feedbackLeft" class="message-container success-container">{{feedbackLeft.message}}</div>
+<div id="main" style="overflow-x: hidden;" role="main" class="animated fadeInDown request">
+	<div *ngIf="loadError" style="color: #fc324a;" class="message-container error-container">
+		<div *ngIf="loadError.clientInfo">
+			<img class="request-logo" [src]="loadError.clientInfo.logourl">
+		</div>
+		<div class="request-message">
+			<div>
+				<i style="font-size: 20px" class="fa fa-warning"></i>
+			</div>
+			<div *ngIf="loadError.messageCode == 'FEEDBACK_LEFT'; else elseBlock">
+				<div>Jūsų atsiliepimas jau buvo paliktas.</div>
+				<div>Antrą kartą to daryti negalima.</div>
+			</div>
+			<ng-template #elseBlock>{{loadError.message}}</ng-template>
+		</div>
+		<div class="request-footer">
+			<a class="text-uppercase redirect-button" href="//{{loadError.clientInfo.domain}}" [ngStyle]="{'background-color': loadError.clientInfo.themecolor ? loadError.clientInfo.themecolor : '#fa7e28'}">eiti į {{loadError.clientInfo.domain}}</a>
+		</div>
+	</div>
+	<div *ngIf="feedbackLeft" style="color: #8ec659;" class="message-container success-container">
+		<div>
+			<img class="request-logo" [src]="feedbackLeft.clientInfo.logourl">
+		</div>
+		<div class="request-message">
+			<div>
+				<i style="font-size: 35px" class="fa fa-check-circle"></i>
+			</div>
+			<div>
+				<div>Ačiū! Jūsų atsiliepimas gautas.</div>
+				<div>Jis bus patikrintas administratorės ir patalpintas</div>
+			</div>
+		</div>
+		<div class="request-footer">
+			<a class="text-uppercase redirect-button" href="//{{feedbackLeft.clientInfo.domain}}" [ngStyle]="{'background-color': feedbackLeft.clientInfo.themecolor ? feedbackLeft.clientInfo.themecolor : '#fa7e28'}">eiti į {{feedbackLeft.clientInfo.domain}}</a>
+		</div>
+	</div>
 	<div *ngIf="request && !feedbackLeft" id="content" class="container align-center">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-offset-3 col-lg-6">
@@ -20,28 +53,40 @@
 									<div style="padding-bottom: 15px; padding-top: 15px;">{{product.name}}</div>
 								</div>
 								<div class="col-xs-12 comment-label">Įvertinimas:</div>
-								<div style="text-align: center;">
-									<div style="text-align: left;" class="col-sm-2 col-xs-1 request-rating">
-										<input type="radio" id="{{product.id}}rating-1" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="1">
-										<label for="{{product.id}}rating-1" style="font-size: 1.3em; color: #eed034;">★</label>
-									</div>
-									<div class="col-sm-2 col-xs-2 request-rating">
-										<input type="radio" id="{{product.id}}rating-2" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="2">
-										<label for="{{product.id}}rating-2" style="font-size: 1.3em; color: #eed034;">★★</label>
-									</div>
-									<div class="col-sm-2 col-xs-3 request-rating">
-										<input type="radio" id="{{product.id}}rating-3" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="3">
-										<label for="{{product.id}}rating-3" style="font-size: 1.3em; color: #eed034;">★★★</label>
-									</div>
-									<div class="col-sm-3 col-xs-3 request-rating">
-										<input type="radio" id="{{product.id}}rating-4" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="4">
-										<label for="{{product.id}}rating-4" style="font-size: 1.3em; color: #eed034;">★★★★</label>
-									</div>
-									<div class="col-sm-3 col-xs-3 request-rating">
-										<input type="radio" id="{{product.id}}rating-5" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="5">
-										<label for="{{product.id}}rating-5" style="font-size: 1.3em; color: #eed034;">★★★★★</label>
-									</div>
+								<div class="rating pull-left">
+									<input id="{{product.id}}rating-5" [(ngModel)]="product.totalratingscore" value="5" name="product{{product.id}}totalratingscore" type="radio">
+									<label for="{{product.id}}rating-5"><i class="fa fa-star"></i></label>
+									<input id="{{product.id}}rating-4" [(ngModel)]="product.totalratingscore" value="4" name="product{{product.id}}totalratingscore" type="radio">
+									<label for="{{product.id}}rating-4"><i class="fa fa-star"></i></label>
+									<input id="{{product.id}}rating-3" [(ngModel)]="product.totalratingscore" value="3" name="product{{product.id}}totalratingscore" type="radio">
+									<label for="{{product.id}}rating-3"><i class="fa fa-star"></i></label>
+									<input id="{{product.id}}rating-2" [(ngModel)]="product.totalratingscore" value="2" name="product{{product.id}}totalratingscore" type="radio">
+									<label for="{{product.id}}rating-2"><i class="fa fa-star"></i></label>
+									<input id="{{product.id}}rating-1" [(ngModel)]="product.totalratingscore" value="1" name="product{{product.id}}totalratingscore" type="radio">
+									<label for="{{product.id}}rating-1"><i class="fa fa-star"></i></label>
 								</div>
+								<!--<div style="text-align: center;">-->
+									<!--<div style="text-align: left;" class="col-sm-2 col-xs-1 request-rating">-->
+										<!--<input type="radio" id="{{product.id}}rating-1" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="1">-->
+										<!--<label for="{{product.id}}rating-1" style="font-size: 1.3em; color: #eed034;">★</label>-->
+									<!--</div>-->
+									<!--<div class="col-sm-2 col-xs-2 request-rating">-->
+										<!--<input type="radio" id="{{product.id}}rating-2" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="2">-->
+										<!--<label for="{{product.id}}rating-2" style="font-size: 1.3em; color: #eed034;">★★</label>-->
+									<!--</div>-->
+									<!--<div class="col-sm-2 col-xs-3 request-rating">-->
+										<!--<input type="radio" id="{{product.id}}rating-3" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="3">-->
+										<!--<label for="{{product.id}}rating-3" style="font-size: 1.3em; color: #eed034;">★★★</label>-->
+									<!--</div>-->
+									<!--<div class="col-sm-3 col-xs-3 request-rating">-->
+										<!--<input type="radio" id="{{product.id}}rating-4" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="4">-->
+										<!--<label for="{{product.id}}rating-4" style="font-size: 1.3em; color: #eed034;">★★★★</label>-->
+									<!--</div>-->
+									<!--<div class="col-sm-3 col-xs-3 request-rating">-->
+										<!--<input type="radio" id="{{product.id}}rating-5" [(ngModel)]="product.totalratingscore" name="product{{product.id}}totalratingscore" value="5">-->
+										<!--<label for="{{product.id}}rating-5" style="font-size: 1.3em; color: #eed034;">★★★★★</label>-->
+									<!--</div>-->
+								<!--</div>-->
 								<!--<ng-container *ngIf="request.client.showheader">-->
 									<!--<div>-->
 										<!--<div class="col-xs-12">Antraštė</div>-->
