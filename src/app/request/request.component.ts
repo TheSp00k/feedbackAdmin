@@ -55,15 +55,13 @@ export class RequestComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            console.log(params); //log the entire params object
-            console.log(params['id']); //log the value of id
-            // this.request = {"type":"request","status":"sent","created":"2017-09-05T21:12:36.000Z","clientid":1,"customerid":2,"id":9,"products":[{"productnumber":"7B","name":"7B","description":"rodo gerai","created":"2017-09-05T21:12:36.000Z","clientid":1,"photourl":"https://origincdn.azureedge.net/cdn/gaming/desktops/Millennium/img/main.png","sendrequests":true,"showfeedbacks":true,"id":8},{"productnumber":"6A","name":"6A","description":"Rodo gerai","created":"2017-09-05T21:12:36.000Z","clientid":1,"photourl":"https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5768/5768401_sd.jpg;maxHeight=1000;maxWidth=1000","sendrequests":true,"showfeedbacks":true,"id":9}],"customer":{"name":"Kęstutis","surname":"Tautvydas","email":"k.tautvydas@gmail.com","clientid":1,"id":2}};
-            // console.log(this.request);
             this.token = params['accessToken'];
             this.requestService.getRequestInfo(params['id'], params['accessToken'])
                 .subscribe(result => {
-                    if (result.messageCode == 'FEEDBACK_LEFT') {
+                    if (result.messageCode == 'FEEDBACK_LEFT' && !params.feedbackLeft) {
                         this.loadError = result;
+                    } else if (params.feedbackLeft == '1') {
+                        this.feedbackLeft = result;
                     } else {
                         this.request = result;
                     }

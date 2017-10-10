@@ -29,6 +29,10 @@
     padding: 20px 0;
 }
 
+#main.request .message-container {
+    margin: 5% auto 0;
+}
+
 .request-logo {
     width: 150px;
 }

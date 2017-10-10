@@ -48,6 +48,7 @@ export const routes: Routes = [
 
   {path: 'auth', component: AuthLayoutComponent, loadChildren: 'app/+auth/auth.module#AuthModule'},
   {path: 'request/:id/:accessToken', component: RequestComponent, loadChildren: 'app/request/request.module#RequestModule'},
+  {path: 'request/:id/:accessToken/:feedbackLeft', component: RequestComponent, loadChildren: 'app/request/request.module#RequestModule'},
   {path: '**', redirectTo: 'dashboard'}
 //
 ];
