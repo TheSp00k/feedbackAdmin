@@ -14,7 +14,7 @@
 			<ng-template #elseBlock>{{loadError.message}}</ng-template>
 		</div>
 		<div class="request-footer">
-			<a class="text-uppercase redirect-button" href="//{{loadError.clientInfo.domain}}" [ngStyle]="{'background-color': loadError.clientInfo.themecolor ? loadError.clientInfo.themecolor : '#fa7e28'}">eiti į {{loadError.clientInfo.domain}}</a>
+			<a class="text-uppercase redirect-button" href="//{{loadError.clientInfo.redirecturl}}" [ngStyle]="{'background-color': loadError.clientInfo.themecolor ? loadError.clientInfo.themecolor : '#fa7e28'}">eiti į {{loadError.clientInfo.redirecturl}}</a>
 		</div>
 	</div>
 	<div *ngIf="feedbackLeft" style="color: #8ec659;" class="message-container success-container">
@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<div class="request-footer">
-			<a class="text-uppercase redirect-button" href="//{{feedbackLeft.clientInfo.domain}}" [ngStyle]="{'background-color': feedbackLeft.clientInfo.themecolor ? feedbackLeft.clientInfo.themecolor : '#fa7e28'}">eiti į {{feedbackLeft.clientInfo.domain}}</a>
+			<a class="text-uppercase redirect-button" href="//{{feedbackLeft.clientInfo.redirecturl}}" [ngStyle]="{'background-color': feedbackLeft.clientInfo.themecolor ? feedbackLeft.clientInfo.themecolor : '#fa7e28'}">eiti į {{feedbackLeft.clientInfo.redirecturl}}</a>
 		</div>
 	</div>
 	<div *ngIf="request && !feedbackLeft" id="content" class="container align-center">
