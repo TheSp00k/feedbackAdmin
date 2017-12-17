@@ -14,7 +14,6 @@
     top: 0;
     z-index: 9999;
     width: 100%;
-
 }
 .SmallBox {
     position: relative;
@@ -237,16 +236,12 @@ sa-collapse-menu {
     padding-left: 10px;
 }
 
-.tableButton, .dateFilterButton {
+.tableButton  {
     padding: 7px 15px;
     border: none;
 	color: #ffffff;
 	width: 60px;
     margin-bottom: 5px;
-}
-
-.dateFilterButton {
-	 background-color: #568a89;
 }
 
 .tableButton.accept {
@@ -257,6 +252,27 @@ sa-collapse-menu {
 }
 .tableButton.moderate {
     background-color: #daaa46;
+}
+.tableButton.accept:hover,
+.tableButton.accept:focus,
+.tableButton.accept:active,
+.tableButton.accept:active:focus,
+.tableButton.accept:active:hover {
+    background-color: #62a02d;
+}
+.tableButton.reject:hover,
+.tableButton.reject:focus,
+.tableButton.reject:active,
+.tableButton.reject:active:focus,
+.tableButton.reject:active:hover {
+    background-color: #d46464;
+}
+.tableButton.moderate:hover,
+.tableButton.moderate:focus,
+.tableButton.moderate:active,
+.tableButton.moderate:active:focus,
+.tableButton.moderate:active:hover {
+    background-color: #d29823;
 }
 i.fa.fa-star.yellow {
     color: #e9c800;
@@ -314,6 +330,11 @@ input[type="checkbox"].ios-toggle:active + .toggle label,
 input[type="checkbox"].ios-toggle:checked + .toggle label {
     border: 12px solid #568a89;
     /*border: 12px solid #8dc061;*/
+}
+
+input[type="checkbox"].ios-toggle:active + .toggle label:hover,
+input[type="checkbox"].ios-toggle:checked + .toggle label:hover {
+    border: 12px solid #4f7776;    
 }
 
 input[type="checkbox"].ios-toggle:checked + .toggle i {
@@ -397,19 +418,33 @@ body:not(.menu-on-top).desktop-detected {
 	border-color: #e4e6e5;
 }
 
-.dropdown-filter {
+.micro-button {
 	background-color: #568a89;
 	border-color: rgba(89,139,138, 1);
 }
 
-.dropdown-filter:hover,
-.dropdown-filter:focus,
-.dropdown-filter:active,
-.dropdown-filter:active:focus,
-.dropdown-filter:active:hover,
-.open>.dropdown-toggle.btn-primary.dropdown-filter {
+.micro-button:hover,
+.micro-button:focus,
+.micro-button:active,
+.micro-button:active:focus,
+.micro-button:active:hover,
+.open>.dropdown-toggle.btn-primary.micro-button {
 	background-color: #4f7776;
 	border-color: rgba(89,139,138, 0.5);
+}
+
+.micro-button.btn-disable {
+    background-color: #da7c7c;
+	border-color: #c76060;
+}
+
+.micro-button.btn-disable:hover,
+.micro-button.btn-disable:focus,
+.micro-button.btn-disable:active,
+.micro-button.btn-disable:active:focus,
+.micro-button.btn-disable:active:hover {
+    background-color: #ce5151;
+	border-color: #ce5151;
 }
 
 .pagination>li>a,

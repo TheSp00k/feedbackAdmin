@@ -16,8 +16,9 @@ const store = {
     return _skin.name == (localStorage.getItem('sm-skin') || config.smartSkin)
   }),
   skins: config.skins,
-  fixedHeader: localStorage.getItem('sm-fixed-header') == 'true',
-  fixedNavigation: localStorage.getItem('sm-fixed-navigation') == 'true',
+  // fixedHeader: localStorage.getItem('sm-fixed-header') == 'true',
+  fixedHeader: 'true',
+  fixedNavigation: 'true',
   fixedRibbon: localStorage.getItem('sm-fixed-ribbon') == 'true',
   fixedPageFooter: localStorage.getItem('sm-fixed-page-footer') == 'true',
   insideContainer: localStorage.getItem('sm-inside-container') == 'true',

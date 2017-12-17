@@ -15,7 +15,7 @@ export class SettingsService {
 	constructor(private router: Router, private http: Http, private authGuard: AuthGuard) {}
 
     getClient(currentUser):Observable<any> {
-		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}?requestfrom=adminpanel&access_token=${currentUser.token}`)
+		return this.http.get(`${environment.apiUrl}/clients/${currentUser.clientid}?filter={"include":"ratingcrits"}&requestfrom=adminpanel&access_token=${currentUser.token}`)
             .map((response:Response) => {
                 return response.json();
 			})
@@ -35,5 +35,28 @@ export class SettingsService {
 				this.authGuard.checkResponse(err);
 				return Observable.throw(err);
 			});
-    }
+	}
+	disableCrit(currentUser, id):Observable<any> {
+		return this.http.delete(`${environment.apiUrl}/ratingcrits/${id}?access_token=${currentUser.token}`)
+		.map((response:Response) => {
+			return response.json();
+		}).catch((err: Response) => {
+			console.log(err);
+			this.authGuard.checkResponse(err);
+			return Observable.throw(err);
+		});
+	}
+	enableCrit(currentUser, id) {
+
+	}
+	saveRatingCrits(currentUser, ratingCrits):Observable<any> {
+		return this.http.put(`${environment.apiUrl}/ratingcrits/import?access_token=${currentUser.token}`, ratingCrits)
+		.map((response:Response) => {
+			return response.json();
+		}).catch((err: Response) => {
+			console.log(err);
+			this.authGuard.checkResponse(err);
+			return Observable.throw(err);
+		});
+	}
 }
